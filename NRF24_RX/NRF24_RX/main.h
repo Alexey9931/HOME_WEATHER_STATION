@@ -22,8 +22,11 @@
 
 #include "NRF24.h"
 #include "TWI.h"
-#include "lcdtwi.h"
 #include "usart.h"
 #include "LCD_12864.h"
+#include "SD.h"
+#include "pff.h"
+#include "diskio.h"
+#include "integer.h"
 
 #endif /* MAIN_H_ */

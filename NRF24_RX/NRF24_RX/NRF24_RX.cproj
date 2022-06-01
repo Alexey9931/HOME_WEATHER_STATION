@@ -137,10 +137,10 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="lcdtwi.c">
+    <Compile Include="diskio.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="lcdtwi.h">
+    <Compile Include="integer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="LCD_12864.c">
@@ -155,10 +155,25 @@
     <Compile Include="main.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="mmc.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="NRF24.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="NRF24.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pff.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pff.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SD.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SD.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="TWI.c">

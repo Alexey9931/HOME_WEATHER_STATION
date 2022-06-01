@@ -19,7 +19,8 @@ LCD_12864.d LCD_12864.o: .././LCD_12864.c .././LCD_12864.h .././main.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
- .././NRF24.h .././TWI.h .././lcdtwi.h .././usart.h
+ .././NRF24.h .././TWI.h .././usart.h .././SD.h .././pff.h .././integer.h \
+ .././diskio.h
 
 .././LCD_12864.h:
 
@@ -69,6 +70,12 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 
 .././TWI.h:
 
-.././lcdtwi.h:
-
 .././usart.h:
+
+.././SD.h:
+
+.././pff.h:
+
+.././integer.h:
+
+.././diskio.h:

@@ -10,15 +10,15 @@
 #define TX_PLOAD_WIDTH 5// величина пакета(кол-во байт в пакете)
 uint8_t TX_ADDRESS[TX_ADR_WIDTH] = {0xb3,0xb4,0x01};//адрес
 uint8_t RX_BUF[TX_PLOAD_WIDTH] = {0};//буффер для пакетов
-extern char temp_street[100];
-extern char hum_street[100];
+extern char temp_street[10];
+extern char hum_street[10];
 extern float temp,hum;
-extern char HALL_counter[100];
+extern char HALL_counter[10];
 extern char wind_direction[10];
 extern char adc_value1[10];
 extern char adc_value2[10];
 uint8_t ErrCnt_Fl = 0;//для подсчета ошибок
-extern int flag_irq;
+extern uint8_t flag_irq;
 volatile uint8_t rx_flag = 0;
 //-------------------------------------------------------------
 void NRF24_ini(void)

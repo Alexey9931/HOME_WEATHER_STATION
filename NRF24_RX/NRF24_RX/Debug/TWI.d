@@ -19,7 +19,8 @@ TWI.d TWI.o: .././TWI.c .././TWI.h .././main.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
- .././NRF24.h .././lcdtwi.h .././usart.h .././LCD_12864.h
+ .././NRF24.h .././usart.h .././LCD_12864.h .././SD.h .././pff.h \
+ .././integer.h .././diskio.h
 
 .././TWI.h:
 
@@ -67,8 +68,14 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 
 .././NRF24.h:
 
-.././lcdtwi.h:
-
 .././usart.h:
 
 .././LCD_12864.h:
+
+.././SD.h:
+
+.././pff.h:
+
+.././integer.h:
+
+.././diskio.h:
