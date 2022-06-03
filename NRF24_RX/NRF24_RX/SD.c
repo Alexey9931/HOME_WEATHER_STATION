@@ -6,6 +6,7 @@
  */ 
 #include "SD.h"
 
+/*
 void SPI_SendByte (unsigned char byte)
 {
 	unsigned char i;
@@ -80,3 +81,17 @@ unsigned char SD_Init(void)
 	 return 0;
 }
 //—————————————-
+*/
+
+uint8_t read_symbol_from_SD (uint16_t symbol)
+{
+	WORD s1;
+	uint8_t result;
+	char buffer[10] = {};
+
+	pf_lseek(6*symbol); //Установим курсор чтения на 0 в 123.txt
+	pf_read(buffer,4,&s1);
+	sscanf(buffer, "%x", &result);
+
+	return result;
+} 

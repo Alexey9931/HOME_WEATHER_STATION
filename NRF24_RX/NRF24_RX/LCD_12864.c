@@ -11,6 +11,7 @@ extern uint8_t ST7920_width; //Ширина дисплея в пикселях
 extern uint8_t ST7920_height; //Высота дисплея в пикселях
 
 /*-----------------------------------Шрифт 5*7----------------------------------*/
+/*
 const uint8_t Font[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //0/ --> space     20
 	0x00, 0x00, 0x4F, 0x00, 0x00, 0x00, //1/ --> !         21
@@ -104,7 +105,7 @@ const uint8_t Font[] = {
 	0x00, 0x06, 0x48, 0x48, 0x48, 0x3E, //89/ --> y
 	0x00, 0x44, 0x64, 0x54, 0x4C, 0x44, //90/ --> z
 	0x00, 0x08, 0x36, 0x41, 0x00, 0x00, //91/ --> {
-		0x00, 0x00, 0x00, 0x7F, 0x00, 0x00, //92/ --> |
+	0x00, 0x00, 0x00, 0x7F, 0x00, 0x00, //92/ --> |
 	0x00, 0x41, 0x36, 0x08, 0x00, 0x00, //93/ --> }
 	0x00, 0x08, 0x08, 0x2A, 0x1C, 0x08, //94/ --> ~
 	0x00, 0x7E, 0x11, 0x11, 0x11, 0x7E, //95/ --> А
@@ -174,7 +175,7 @@ const uint8_t Font[] = {
 	0x00, 0x7E, 0x4B, 0x4A, 0x4B, 0x42, //159/ --> Ё
 	0x00, 0x38, 0x55, 0x54, 0x55, 0x18, //160/ --> ё
 	0x00, 0x00, 0x06, 0x09, 0x09, 0x06, //161/ --> °
-};
+};*/
 /*----------Инициализация--------------------*/
 void LCD_12864_ini(void)
 {
@@ -392,9 +393,11 @@ void LCD_12864_print_symbol(uint16_t x, uint16_t symbol, uint8_t inversion) {
 	/// \param inversion - инверсия. 1 - вкл, 0 - выкл.
 	for (int i = 0; i <= 6; i++) {
 		if (inversion) {
-			Frame_buffer[i + x - 1] = ~Font[(symbol * 6) + i];
+			Frame_buffer[i + x - 1] = ~read_symbol_from_SD ((symbol * 6) + i);
+			//Frame_buffer[i + x - 1] = ~Font[(symbol * 6) + i];
 			} else {
-			Frame_buffer[i + x - 1] = Font[(symbol * 6) + i];
+			Frame_buffer[i + x - 1] = read_symbol_from_SD ((symbol * 6) + i);
+			//Frame_buffer[i + x - 1] = Font[(symbol * 6) + i];
 		}
 	}
 }
@@ -412,65 +415,85 @@ void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 	/// 6 строка: x = 640;
 	/// 7 строка: x = 786;
 	/// 8 строка: x = 896;
+	
+	//Начинаем работу с файловой системой для считывания массива шрифтов
+	FATFS fs;
+	asm("nop");
+	pf_mount(&fs); //Монтируем FAT
+	pf_open("/Font.txt");
+	
 	x = x + y * 128;
 	uint16_t symbol = 0;
-	uint8_t flag_block = 0;
-	for (int i = 0; i < strlen(tx_buffer); i++) {
-		if (tx_buffer[i] < 0xC0) { //Английский текст и символы. Если до русского текста, то [i] <0xD0. Но в font добавлен знак "°"
-			if (flag_block) {
-				flag_block = 0;
-				} else {
-				symbol = tx_buffer[i];
-				if (inversion) {
-					LCD_12864_print_symbol(x, symbol - 32, 1); //Таблица UTF-8. Basic Latin. С "пробел" до "z". Инверсия вкл.
-					} else {
-					LCD_12864_print_symbol(x, symbol - 32, 0); //Таблица UTF-8. Basic Latin. С "пробел" до "z". Инверсия выкл.
-				}
-				x = x + 6;
+	for (int i = 0; i < strlen(tx_buffer); i++) 
+	{
+		if ((tx_buffer[i] < 192)&&(tx_buffer[i]!=168)&&(tx_buffer[i]!=184)&&(tx_buffer[i]!=183)) 
+		{   //Английский текст и символы. Если до русского текста, то [i] <0xD0. Но в font добавлен знак "°" 
+			symbol = tx_buffer[i];
+			if (inversion) 
+			{
+				LCD_12864_print_symbol(x, symbol - 32, 1); //Таблица UTF-8. Basic Latin. С "пробел" до "z". Инверсия вкл.
+			} 
+			else 
+			{
+				LCD_12864_print_symbol(x, symbol - 32, 0); //Таблица UTF-8. Basic Latin. С "пробел" до "z". Инверсия выкл.
 			}
+			x = x + 6;			
 		}
-		else { //Русский текст
-			symbol = tx_buffer[i] << 8 | tx_buffer[i + 1];
-			if (symbol < 0xD180 && symbol > 0xD081) {
-				if (inversion) {
-					LCD_12864_print_symbol(x, symbol - 53297, 1); //Таблица UTF-8. Кириллица. С буквы "А" до "п". Инверсия вкл.
-					} else {
-					LCD_12864_print_symbol(x, symbol - 53297, 0); //Таблица UTF-8. Кириллица. С буквы "А" до "п". Инверсия выкл.
+		else 
+		{ //Русский текст
+			symbol = tx_buffer[i];
+			if ((symbol <= 255) && (symbol >= 192)) 
+			{
+				if (inversion) 
+				{
+					LCD_12864_print_symbol(x, symbol - 97, 1); //Таблица UTF-8. Кириллица. С буквы "А" до "п". Инверсия вкл.
+				} 
+				else 
+				{
+					LCD_12864_print_symbol(x, symbol - 97, 0); //Таблица UTF-8. Кириллица. С буквы "А" до "п". Инверсия выкл.
 				}
 				x = x + 6;
-				} else if (symbol == 0xD081) {
-				if (inversion) {
+			} 			
+			if (symbol == 168) 
+			{
+				if (inversion) 
+				{
 					LCD_12864_print_symbol(x, 159, 1); ////Таблица UTF-8. Кириллица. Буква "Ё". Инверсия вкл.
-					} else {
+				} 
+				else 
+				{
 					LCD_12864_print_symbol(x, 159, 0); ////Таблица UTF-8. Кириллица. Буква "Ё". Инверсия выкл.
 				}
 				x = x + 6;
-				} else if (symbol == 0xD191) {
-				if (inversion) {
+			} 
+		    if (symbol == 184) 
+			{
+				if (inversion) 
+				{
 					LCD_12864_print_symbol(x, 160, 1); ////Таблица UTF-8. Кириллица. Буква "ё". Инверсия вкл.
-					} else {
+				} else 
+				{
 					LCD_12864_print_symbol(x, 160, 0); ////Таблица UTF-8. Кириллица. Буква "ё". Инверсия выкл.
 				}
 				x = x + 6;
-				} else if (symbol == 0xC2B0) {
-				if (inversion) {
+			} 
+			if (symbol == 183) 
+			{
+				if (inversion)
+			    {
 					LCD_12864_print_symbol(x, 161, 1); ////Таблица UTF-8. Basic Latin. Символ "°". Инверсия вкл.
-					} else {
+				} 
+				else 
+				{
 					LCD_12864_print_symbol(x, 161, 0); ////Таблица UTF-8. Basic Latin. Символ "°". Инверсия выкл.
 				}
 				x = x + 6;
 			}
-			else {
-				if (inversion) {
-					LCD_12864_print_symbol(x, symbol - 53489, 1); //Таблица UTF-8. Кириллица. С буквы "р", начинается сдвиг. Инверсия вкл.
-					} else {
-					LCD_12864_print_symbol(x, symbol - 53489, 0); //Таблица UTF-8. Кириллица. С буквы "р", начинается сдвиг. Инверсия выкл.
-				}
-				x = x + 6;
-			}
-			flag_block = 1;
+
 		}
 	}
+	// Завершаем работу с файлом
+	pf_mount(0x00);
 }
 /*---------------------Функция инверсии любого места в буфере------------------*/
 void LCD_12864_Inversion(uint16_t x_start, uint16_t x_end) {

@@ -11,6 +11,7 @@
 
 #include "main.h"
 
+/*
 #define MOSI_SD 2 //PORTC
 #define MISO_SD 1 //PORTC
 #define SCK_SD 3  //PORTC
@@ -20,6 +21,7 @@ void SPI_SendByte (unsigned char byte);
 unsigned char SPI_ReceiveByte(void);
 unsigned char SD_cmd (char dt0,char dt1,char dt2,char dt3,char dt4,char dt5);
 unsigned char SD_Init(void);
-
+*/
+uint8_t read_symbol_from_SD (uint16_t symbol);
 
 #endif /* SD_H_ */
