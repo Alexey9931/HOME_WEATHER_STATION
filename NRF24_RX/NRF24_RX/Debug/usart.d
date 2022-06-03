@@ -20,7 +20,7 @@ usart.d usart.o: .././usart.c .././usart.h .././main.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
  .././NRF24.h .././TWI.h .././LCD_12864.h .././SD.h .././pff.h \
- .././integer.h .././diskio.h
+ .././integer.h .././diskio.h .././WeatherStation.h
 
 .././usart.h:
 
@@ -79,3 +79,5 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 .././integer.h:
 
 .././diskio.h:
+
+.././WeatherStation.h:

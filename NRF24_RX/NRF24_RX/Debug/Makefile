@@ -44,7 +44,8 @@ C_SRCS +=  \
 ../pff.c \
 ../SD.c \
 ../TWI.c \
-../usart.c
+../usart.c \
+../WeatherStation.c
 
 
 PREPROCESSING_SRCS += 
@@ -61,7 +62,8 @@ NRF24.o \
 pff.o \
 SD.o \
 TWI.o \
-usart.o
+usart.o \
+WeatherStation.o
 
 OBJS_AS_ARGS +=  \
 LCD_12864.o \
@@ -71,7 +73,8 @@ NRF24.o \
 pff.o \
 SD.o \
 TWI.o \
-usart.o
+usart.o \
+WeatherStation.o
 
 C_DEPS +=  \
 LCD_12864.d \
@@ -81,7 +84,8 @@ NRF24.d \
 pff.d \
 SD.d \
 TWI.d \
-usart.d
+usart.d \
+WeatherStation.d
 
 C_DEPS_AS_ARGS +=  \
 LCD_12864.d \
@@ -91,7 +95,8 @@ NRF24.d \
 pff.d \
 SD.d \
 TWI.d \
-usart.d
+usart.d \
+WeatherStation.d
 
 OUTPUT_FILE_PATH +=NRF24_RX.elf
 
@@ -157,6 +162,13 @@ LINKER_SCRIPT_DEP+=
 	
 
 ./usart.o: .././usart.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)D:\AtmelStudio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"D:\AtmelStudio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "D:\AtmelStudio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./WeatherStation.o: .././WeatherStation.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)D:\AtmelStudio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"D:\AtmelStudio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "D:\AtmelStudio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

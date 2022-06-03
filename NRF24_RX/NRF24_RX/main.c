@@ -29,56 +29,7 @@ uint8_t retr_cnt, dt;
 uint16_t i=1,retr_cnt_full;
 uint8_t flag_irq = 1;
 
-float RADIUS = 0.09;
 
-float wind_speed (char *counter)
-{
-	float speed = 0;
-	int n;
-	if (strlen(counter) != 0)
-	{
-		sscanf(counter, "%d", &n);
-	}
-	else
-	{
-        n = 0;
-	}
-	speed = 2*3.14*RADIUS*n/4; //период 2 сек+2 магнита
-	
-	return speed;
-}
-float V_BAT (char *adc_value)
-{
-	float VBAT;
-	int V;
-	if (strlen(adc_value) != 0)
-	{
-		sscanf(adc_value, "%d", &V);
-	}
-	else
-	{
-		V = 0;
-	}
-	VBAT = V*2.45*3/1024;
-	
-	return VBAT;
-}
-float RAIN_AMOUNT(char *adc_value)
-{
-	float RAIN;
-	int R;
-	if (strlen(adc_value) != 0)
-	{
-		sscanf(adc_value, "%d", &R);
-	}
-	else
-	{
-		R = 0;
-	}
-    RAIN = 3*R*2.45/5120;
-	
-	return RAIN;	
-}
 void timer_ini(void)//период 4сек
 {
 	TCCR1B |= (1<<WGM12); // устанавливаем режим СТС (сброс по совпадению)
@@ -150,7 +101,8 @@ void main(void)
     SPI_init();
 	timer_ini();
 	I2C_Init();
-	LCD_12864_ini();	
+	LCD_12864_ini();
+	Print_Hello_World(Frame_buffer);
 	USART_Init(16);    //Инициализация модуля USART скорость 115200
     NRF24_ini();
 	// настраиваем параметры прерывания

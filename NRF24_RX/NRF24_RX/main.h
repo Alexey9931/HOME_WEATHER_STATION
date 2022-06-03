@@ -28,5 +28,6 @@
 #include "pff.h"
 #include "diskio.h"
 #include "integer.h"
+#include "WeatherStation.h"
 
 #endif /* MAIN_H_ */

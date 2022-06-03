@@ -504,6 +504,30 @@ void LCD_12864_Inversion(uint16_t x_start, uint16_t x_end) {
 		Frame_buffer[x_start] = ~(Frame_buffer[x_start]);
 	}
 }
+/*---------------Функция очистки дисплея в графическом режиме--------------------*/
+void LCD_12864_Clean() {
+	/// Функция очистки дисплея в графическом режиме
+	uint8_t x, y;
+	for (y = 0; y < 64; y++) {
+		if (y < 32) {
+			LCD_12864_send_command(0x80 | y);
+			LCD_12864_send_command(0x80);
+			} else {
+			LCD_12864_send_command(0x80 | (y - 32));
+			LCD_12864_send_command(0x88);
+		}
+		for (x = 0; x < 8; x++) {
+			LCD_12864_send_data(0x00);
+			LCD_12864_send_data(0x00);
+		}
+	}
+	LCD_12864_Clean_Frame_buffer();
+}
+/*------------------------Функция очистки буфера кадра-------------------------*/
+void LCD_12864_Clean_Frame_buffer(void) {
+	/// Функция очистки буфера кадра
+	memset(Frame_buffer, 0x00, sizeof(Frame_buffer));
+}
 /*----------Различная графика--------------------*/
 /*-----------------------------------------------*/
 /*----------Линия--------------------*/
