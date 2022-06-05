@@ -1,4 +1,5 @@
-TWI.d TWI.o: .././TWI.c .././TWI.h .././main.h \
+RTC_DS3231.d RTC_DS3231.o: .././RTC_DS3231.c .././RTC_DS3231.h \
+ .././main.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -19,10 +20,10 @@ TWI.d TWI.o: .././TWI.c .././TWI.h .././main.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
- .././NRF24.h .././usart.h .././LCD_12864.h .././SD.h .././pff.h \
- .././integer.h .././diskio.h .././WeatherStation.h .././RTC_DS3231.h
+ .././NRF24.h .././TWI.h .././usart.h .././LCD_12864.h .././SD.h \
+ .././pff.h .././integer.h .././diskio.h .././WeatherStation.h
 
-.././TWI.h:
+.././RTC_DS3231.h:
 
 .././main.h:
 
@@ -68,6 +69,8 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 
 .././NRF24.h:
 
+.././TWI.h:
+
 .././usart.h:
 
 .././LCD_12864.h:
@@ -81,5 +84,3 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 .././diskio.h:
 
 .././WeatherStation.h:
-
-.././RTC_DS3231.h:

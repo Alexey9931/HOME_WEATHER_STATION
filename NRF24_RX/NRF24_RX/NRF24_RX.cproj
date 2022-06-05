@@ -170,6 +170,12 @@
     <Compile Include="pff.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="RTC_DS3231.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="RTC_DS3231.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SD.c">
       <SubType>compile</SubType>
     </Compile>

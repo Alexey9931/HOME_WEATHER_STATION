@@ -575,3 +575,24 @@ void LCD_12864_Draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t h
 	LCD_12864_Draw_line(x, y, x, y + height); /*Левая сторона прямоугольника*/
 	LCD_12864_Draw_line(x + width, y, x + width, y + height); /*Правая сторона прямоугольника*/
 }
+/*-------------------------------Вывести закрашенный прямоугольник---------------------------------*/
+void LCD_12864_Draw_rectangle_filled(uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
+	/// Вывести закрашенный прямоугольник
+	/// \param x - начальная точка по оси "x"
+	/// \param y - начальная точка по оси "y"
+	/// \param width - ширина прямоугольника
+	/// \param height - высота прямоугольника
+
+	/*Проверка ширины и высоты*/
+	if ((x + width) >= ST7920_width) {
+		width = ST7920_width - x;
+	}
+	if ((y + height) >= ST7920_height) {
+		height = ST7920_height - y;
+	}
+
+	/*Рисуем линии*/
+	for (uint8_t i = 0; i <= height; i++) {
+		LCD_12864_Draw_line(x, y + i, x + width, y + i);
+	}
+}

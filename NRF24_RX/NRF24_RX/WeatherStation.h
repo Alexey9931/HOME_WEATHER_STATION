@@ -12,6 +12,7 @@
 #include "main.h"
 
 void Print_Hello_World(uint8_t *Frame_buffer);
+void Print_Download(uint8_t *Frame_buffer);
 float RAIN_AMOUNT(char *adc_value);
 float V_BAT (char *adc_value);
 float wind_speed (char *counter);

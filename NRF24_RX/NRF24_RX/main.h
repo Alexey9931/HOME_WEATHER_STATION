@@ -29,5 +29,6 @@
 #include "diskio.h"
 #include "integer.h"
 #include "WeatherStation.h"
+#include "RTC_DS3231.h"
 
 #endif /* MAIN_H_ */

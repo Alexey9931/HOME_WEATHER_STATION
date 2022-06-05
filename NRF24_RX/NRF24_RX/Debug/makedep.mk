@@ -12,6 +12,8 @@ NRF24.c
 
 pff.c
 
+RTC_DS3231.c
+
 SD.c
 
 TWI.c

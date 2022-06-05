@@ -29,6 +29,22 @@ void Print_Hello_World(uint8_t *Frame_buffer)
 	LCD_12864_GrapnicMode(0);
 	
 }
+//Окно загрузки
+void Print_Download(uint8_t *Frame_buffer)
+{
+	LCD_12864_GrapnicMode(1);
+	LCD_12864_Draw_rectangle(6, 35, 112, 15);
+	LCD_12864_Decode_UTF8(3, 1, 0, "Пожалуйста подождите.");
+	LCD_12864_Decode_UTF8(16, 3, 0, "Идёт загрузка...");
+	LCD_12864_Draw_bitmap(Frame_buffer);
+	for(uint8_t i = 8; i <= 116 ; i = i + 11)
+	{
+		LCD_12864_Draw_rectangle_filled(i, 37, 9, 11);
+		LCD_12864_Draw_bitmap(Frame_buffer);
+		_delay_ms(500);
+	}	
+	LCD_12864_GrapnicMode(0);
+}
 //Вычисление кол-ва осадков
 float RAIN_AMOUNT(char *adc_value)
 {
