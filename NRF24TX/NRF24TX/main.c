@@ -97,35 +97,35 @@ char* WIND_DIRECT()
 {
 	if((PINB&(1<<GERKON1)) == 0)
 	{
-		sprintf (wind_direction_str,"N-E");
+		sprintf (wind_direction_str,"S");
 	}
-	else if ((PIND&(1<<GERKON2)) == 0)
-	{
-		sprintf (wind_direction_str,"N");
-	}
-	else if ((PIND&(1<<GERKON3)) == 0)
-	{
-		sprintf (wind_direction_str,"N-W");
-	}
-	else if ((PIND&(1<<GERKON4)) == 0)
-	{
-		sprintf (wind_direction_str,"W");
-	}
-	else if ((PINC&(1<<GERKON5)) == 0)
+    if ((PIND&(1<<GERKON2)) == 0)
 	{
 		sprintf (wind_direction_str,"S-W");
 	}
-	else if ((PINC&(1<<GERKON6)) == 0)
+    if ((PIND&(1<<GERKON3)) == 0)
 	{
-		sprintf (wind_direction_str,"S");
+		sprintf (wind_direction_str,"W");
 	}
-	else if ((PINC&(1<<GERKON7)) == 0)
+    if ((PIND&(1<<GERKON4)) == 0)
 	{
-		sprintf (wind_direction_str,"S-E");
+		sprintf (wind_direction_str,"N-W");
 	}
-	else if ((PINC&(1<<GERKON8)) == 0)
+    if ((PINC&(1<<GERKON5)) == 0)
+	{
+		sprintf (wind_direction_str,"N");
+	}
+    if ((PINC&(1<<GERKON6)) == 0)
+	{
+		sprintf (wind_direction_str,"N-E");
+	}
+    if ((PINC&(1<<GERKON7)) == 0)
 	{
 		sprintf (wind_direction_str,"E");
+	}
+    if ((PINC&(1<<GERKON8)) == 0)
+	{
+		sprintf (wind_direction_str,"S-E");
 	}
 	return wind_direction_str;
 }
