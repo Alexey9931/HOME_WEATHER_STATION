@@ -6,10 +6,18 @@
  */ 
 #include "WeatherStation.h"
 
+unsigned char sec,min,hour,day,date,month,year,alarmhour,alarmmin;
+char TIME[10];
+char hours[4];
+char minutes[4];
+char seconds[4];
+char weakday[4];
+char mounthday[4];
+char Mounth[6];
+
 //Окно приветсвия на экране дисплея
 void Print_Hello_World(uint8_t *Frame_buffer)
-{
-		
+{	
 	LCD_12864_GrapnicMode(1);
 	LCD_12864_Draw_rectangle(0, 0, 127, 63);
 	LCD_12864_Draw_rectangle(1, 1, 125, 61);
@@ -43,7 +51,144 @@ void Print_Download(uint8_t *Frame_buffer)
 		LCD_12864_Draw_bitmap(Frame_buffer);
 		_delay_ms(500);
 	}	
+	LCD_12864_Clean();
 	LCD_12864_GrapnicMode(0);
+}
+//Главное окно
+void Print_Home_Page(uint8_t *Frame_buffer)
+{
+	LCD_12864_GrapnicMode(1);
+	//-----------Вывод времени/даты-------------------------------//
+	Clock();
+	sprintf(TIME,"%s:%s",hours, minutes);
+	LCD_12864_Print_Clock(1, 0, 0, TIME);
+	LCD_12864_Decode_UTF8(59, 1, 0, seconds);
+	LCD_12864_Decode_UTF8(73, 0, 0, "День");
+	LCD_12864_Decode_UTF8(99, 0, 0, "Месяц");
+	LCD_12864_Decode_UTF8(73, 1, 0, mounthday);
+	LCD_12864_Decode_UTF8(85, 1, 0, weakday);
+	LCD_12864_Decode_UTF8(99, 1, 0, Mounth);
+	//-----------Вывод разделительных линий-----------------------//
+	LCD_12864_Draw_line(0, 17, 128, 17);
+	LCD_12864_Draw_line(71, 0, 71, 15);
+	LCD_12864_Draw_line(97, 0, 97, 15);
+	
+
+	
+	LCD_12864_Draw_bitmap(Frame_buffer);
+	LCD_12864_GrapnicMode(0);
+}
+void Clock (void)
+{		
+	//Читаем время (для DS3231) - по сути функция RTC_read_time
+	I2C_StartCondition();               // запуск i2c
+	I2C_SendByte(0b11010000);			// передача адреса устройства, режим записи
+	I2C_SendByte(0x00);				    // передача адреса памяти
+	I2C_StopCondition();                // остановка i2c
+	
+	I2C_StartCondition();               // запуск i2c
+	I2C_SendByte(0b11010001);			// передача адреса устройства, режим чтения
+	sec = RTC_ConvertFromDec(I2C_ReadByte());     // чтение секунд, ACK
+	min = RTC_ConvertFromDec(I2C_ReadByte());     // чтение минут, ACK
+	hour = RTC_ConvertFromDec(I2C_ReadByte());    // чтение часов, ACK
+	day = RTC_ConvertFromDec(I2C_ReadByte());     // чтение день недели, ACK
+	date = RTC_ConvertFromDec(I2C_ReadByte());    // чтение число, ACK
+	month = RTC_ConvertFromDec(I2C_ReadByte());   // чтение месяц, ACK
+	year = RTC_ConvertFromDec(I2C_ReadLastByte());// чтение год, NACK
+	I2C_StopCondition();                // остановка i2c
+	
+	if ((sec >= 0) && (sec <= 9)) {
+		sprintf(seconds,"0%d",sec);
+	}
+	else {
+		sprintf(seconds,"%d",sec);
+	}
+	if ((min >= 0) && (min <= 9)) {
+		sprintf(minutes,"0%d",min);
+	}
+	else {
+		sprintf(minutes,"%d",min);
+	}
+	if ((hour >= 0) && (hour <= 9)) {
+		sprintf(hours,"0%d",hour);
+	}
+	else {
+		sprintf(hours,"%d",hour);
+	}
+	if ((date >= 0) && (date <= 9)) {
+		sprintf(mounthday,"0%d",date);
+	}
+	else {
+		sprintf(mounthday,"%d",date);
+	}
+	switch (day)
+	{
+		case 1:
+			sprintf(weakday,"Пн");
+			break;
+		case 2:
+			sprintf(weakday,"Вт");
+			break;
+		case 3:
+			sprintf(weakday,"Ср");
+			break;
+		case 4:
+			sprintf(weakday,"Чт");
+			break;
+		case 5:
+			sprintf(weakday,"Пт");
+			break;
+		case 6:
+			sprintf(weakday,"Сб");
+			break;
+		case 7:
+			sprintf(weakday,"Вс");
+			break;
+		default:
+			break;
+	}
+	switch (month)
+	{
+		case 1:
+		sprintf(Mounth,"Янв.");
+		break;
+		case 2:
+		sprintf(Mounth,"Февр.");
+		break;
+		case 3:
+		sprintf(Mounth,"Март");
+		break;
+		case 4:
+		sprintf(Mounth,"Апр.");
+		break;
+		case 5:
+		sprintf(Mounth,"Май");
+		break;
+		case 6:
+		sprintf(Mounth,"Июнь");
+		break;
+		case 7:
+		sprintf(Mounth,"Июль");
+		break;
+		case 8:
+		sprintf(Mounth,"Авг.");
+		break;
+		case 9:
+		sprintf(Mounth,"Сент.");
+		break;
+		case 10:
+		sprintf(Mounth,"Окт.");
+		break;
+		case 11:
+		sprintf(Mounth,"Нояб.");
+		break;
+		case 12:
+		sprintf(Mounth,"Дек.");
+		break;
+		default:
+		break;
+	}
+	
 }
 //Вычисление кол-ва осадков
 float RAIN_AMOUNT(char *adc_value)

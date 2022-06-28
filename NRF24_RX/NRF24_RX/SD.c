@@ -89,7 +89,7 @@ uint8_t read_symbol_from_SD (uint16_t symbol)
 	uint8_t result;
 	char buffer[10] = {};
 
-	pf_lseek(6*symbol); //Установим курсор чтения на 0 в 123.txt
+	pf_lseek(6*symbol); //Установим курсор чтения на 0 
 	pf_read(buffer,4,&s1);
 	sscanf(buffer, "%x", &result);
 
