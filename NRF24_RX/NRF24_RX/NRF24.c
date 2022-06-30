@@ -100,7 +100,7 @@ void NRF24L01_Receive(void)
 			byte1 = RX_BUF[1];//младший бит температуры
 			byte2 = RX_BUF[2];//старший бит температуры
 			hum = (float)(((byte2<<8)|byte1) / 10.0);
-			sprintf(hum_street,"%.1f ",hum);
+			sprintf(hum_street,"%d",(int)hum);
 		}
 		//--------------------------------------
 		//получение скорости ветра

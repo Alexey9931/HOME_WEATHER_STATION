@@ -401,6 +401,31 @@ void LCD_12864_print_symbol(uint16_t x, uint16_t symbol, uint8_t inversion) {
 		}
 	}
 }
+/*---------------------Функция вывода символа 4*6 на дисплей-----------------------------*/
+void LCD_12864_print_symbol_4_6(uint16_t x, uint16_t symbol, uint8_t inversion) {
+	/// Функция вывода символа на дисплей
+	/// \param x положение по х (от 0 до 1023)
+	/// Дисплей поделен по страницам(строка из 8 пикселей)
+	/// 1 строка: x = 0;
+	///	2 строка: x = 128;
+	/// 3 строка: x = 256;
+	/// 4 строка: x = 384;
+	/// 5 строка: x = 512;
+	/// 6 строка: x = 640;
+	/// 7 строка: x = 786;
+	/// 8 строка: x = 896;
+	/// \param symbol - код символа
+	/// \param inversion - инверсия. 1 - вкл, 0 - выкл.
+	for (int i = 0; i <= 3; i++) {
+		if (inversion) {
+			Frame_buffer[i + x - 1] = ~read_symbol_from_SD ((symbol * 4) + i);
+			//Frame_buffer[i + x - 1] = ~Font[(symbol * 6) + i];
+			} else {
+			Frame_buffer[i + x - 1] = read_symbol_from_SD ((symbol * 4) + i);
+			//Frame_buffer[i + x - 1] = Font[(symbol * 6) + i];
+		}
+	}
+}
 /*---------------------Функция вывода символа 11*16 для отображения времени-----------------------------*/
 void LCD_12864_print_symbol_11_16(uint16_t x, uint16_t symbol, uint8_t inversion) {
 	/// Функция вывода символа на дисплей
@@ -436,8 +461,125 @@ void LCD_12864_print_symbol_11_16(uint16_t x, uint16_t symbol, uint8_t inversion
 		}
 	}
 }
-/*---------------------Функция вывода времени в виде строки 11*16-----------------------------*/
-void LCD_12864_Print_Clock(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer) {
+/*---------------------Функция вывода символа 7*11 -----------------------------*/
+void LCD_12864_print_symbol_7_11(uint16_t x, uint16_t symbol, uint8_t inversion) {
+	/// Функция вывода символа на дисплей
+	/// \param x положение по х (от 0 до 1023)
+	/// Дисплей поделен по страницам(строка из 8 пикселей)
+	/// 1 строка: x = 0;
+	///	2 строка: x = 128;
+	/// 3 строка: x = 256;
+	/// 4 строка: x = 384;
+	/// 5 строка: x = 512;
+	/// 6 строка: x = 640;
+	/// 7 строка: x = 786;
+	/// 8 строка: x = 896;
+	/// \param symbol - код символа
+	/// \param inversion - инверсия. 1 - вкл, 0 - выкл.
+	for (int i = 0; i <= 6; i++) {
+		if (inversion) {
+			Frame_buffer[i + x - 1] = ~read_symbol_from_SD ((symbol * 14) + i);
+			//Frame_buffer[i + x - 1] = ~Font[(symbol * 6) + i];
+			} else {
+			Frame_buffer[i + x - 1] = read_symbol_from_SD ((symbol * 14) + i);
+			//Frame_buffer[i + x - 1] = Font[(symbol * 6) + i];
+		}
+	}
+	x += 121;
+	for (int i = 7; i <= 13; i++) {
+		if (inversion) {
+			Frame_buffer[i + x - 1] = ~read_symbol_from_SD ((symbol * 14) + i);
+			//Frame_buffer[i + x - 1] = ~Font[(symbol * 6) + i];
+			} else {
+			Frame_buffer[i + x - 1] = read_symbol_from_SD ((symbol * 14) + i);
+			//Frame_buffer[i + x - 1] = Font[(symbol * 6) + i];
+		}
+	}
+}
+/*---------------------Функция вывода строки 7*11-----------------------------*/
+void LCD_12864_Print_7_11(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer) {
+	/// Функция декодирования UTF-8 в набор символов и последующее занесение в буфер кадра
+	/// \param x - координата по х. От 0 до 127
+	/// \param y - координата по y. от 0 до 7
+	/// Дисплей поделен по страницам(строка из 8 пикселей)
+	/// 1 строка: x = 0;
+	///	2 строка: x = 128;
+	/// 3 строка: x = 256;
+	/// 4 строка: x = 384;
+	/// 5 строка: x = 512;
+	/// 6 строка: x = 640;
+	/// 7 строка: x = 786;
+	/// 8 строка: x = 896;
+	
+	//Начинаем работу с файловой системой для считывания массива шрифтов
+	FATFS fs;
+	asm("nop");
+	pf_mount(&fs); //Монтируем FAT
+	pf_open("/7_11.txt");
+	
+	x = x + y * 128;
+	uint16_t symbol = 0;
+	for (int i = 0; i < strlen(tx_buffer); i++)
+	{
+		symbol = tx_buffer[i];
+		if (inversion)
+		{
+			if(symbol != 46) LCD_12864_print_symbol_7_11(x, symbol - 48, 1);
+			else LCD_12864_print_symbol_7_11(x, 10, 1);
+		}
+		else
+		{
+			if(symbol != 46) LCD_12864_print_symbol_7_11(x, symbol - 48, 0);
+			else LCD_12864_print_symbol_7_11(x, 10, 0);
+		}
+		x = x + 8;
+	}
+	// Завершаем работу с файлом
+	pf_mount(0x00);
+}
+/*---------------------Функция вывода строки 4*6-----------------------------*/
+void LCD_12864_Print_4_6(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer) {
+	/// Функция декодирования UTF-8 в набор символов и последующее занесение в буфер кадра
+	/// \param x - координата по х. От 0 до 127
+	/// \param y - координата по y. от 0 до 7
+	/// Дисплей поделен по страницам(строка из 8 пикселей)
+	/// 1 строка: x = 0;
+	///	2 строка: x = 128;
+	/// 3 строка: x = 256;
+	/// 4 строка: x = 384;
+	/// 5 строка: x = 512;
+	/// 6 строка: x = 640;
+	/// 7 строка: x = 786;
+	/// 8 строка: x = 896;
+	
+	//Начинаем работу с файловой системой для считывания массива шрифтов
+	FATFS fs;
+	asm("nop");
+	pf_mount(&fs); //Монтируем FAT
+	pf_open("/4_6.txt");
+	
+	x = x + y * 128;
+	uint16_t symbol = 0;
+	for (int i = 0; i < strlen(tx_buffer); i++)
+	{
+		symbol = tx_buffer[i];
+		if (inversion)
+		{
+			if(symbol != 46) LCD_12864_print_symbol_4_6(x, symbol - 48, 1);
+			else LCD_12864_print_symbol_4_6(x, 10, 1);
+		}
+		else
+		{
+			if(symbol != 46) LCD_12864_print_symbol_4_6(x, symbol - 48, 0);
+			else LCD_12864_print_symbol_4_6(x, 10, 0);
+		}
+		x = x + 5;
+	}
+	// Завершаем работу с файлом
+	pf_mount(0x00);
+}
+/*---------------------Функция вывода строки 11*16-----------------------------*/
+void LCD_12864_Print_11_16(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer) {
 	/// Функция декодирования UTF-8 в набор символов и последующее занесение в буфер кадра
 	/// \param x - координата по х. От 0 до 127
 	/// \param y - координата по y. от 0 до 7
@@ -500,7 +642,7 @@ void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 	uint16_t symbol = 0;
 	for (int i = 0; i < strlen(tx_buffer); i++) 
 	{
-		if ((tx_buffer[i] < 192)&&(tx_buffer[i]!=168)&&(tx_buffer[i]!=184)&&(tx_buffer[i]!=183)) 
+		if ((tx_buffer[i] < 192)&&(tx_buffer[i]!=168)&&(tx_buffer[i]!=184)&&(tx_buffer[i]!=176)) 
 		{   //Английский текст и символы. Если до русского текста, то [i] <0xD0. Но в font добавлен знак "°" 
 			symbol = tx_buffer[i];
 			if (inversion) 
@@ -551,7 +693,7 @@ void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 				}
 				x = x + 6;
 			} 
-			if (symbol == 183) 
+			if (symbol == 176) 
 			{
 				if (inversion)
 			    {

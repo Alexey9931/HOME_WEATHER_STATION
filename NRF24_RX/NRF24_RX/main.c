@@ -10,7 +10,6 @@
 uint8_t Frame_buffer[1024] = { 0 }; //Буфер кадра
 uint8_t ST7920_width = 128; //Ширина дисплея в пикселях
 uint8_t ST7920_height = 64; //Высота дисплея в пикселях
-
 char temp_street[10] = {0};
 char hum_street[10] = {0};
 char HALL_counter[10] = {0};
@@ -104,23 +103,7 @@ void main(void)
 	//RTC_write_time(13, 30, 0);
 	//RTC_write_date(2, 28, 6, 22);
 	LCD_12864_ini();
-	
-	/*char t[10];
-	FATFS fs;
-	asm("nop");
-	pf_mount(&fs); //Монтируем FAT
-	pf_open("/Cloc.txt");
-	sprintf(t,"%x %x %x", read_symbol_from_SD (0),read_symbol_from_SD (1),read_symbol_from_SD (2) );
-	str_LCD_12864 (t);
-	pf_mount(0x00);
-	_delay_ms(5000);*/	
-	/*
-	LCD_12864_GrapnicMode(1);
-	LCD_12864_Print_Clock(3, 0, 0, "0:1");
-	LCD_12864_Draw_bitmap(Frame_buffer);
-	_delay_ms(5000);	
-	LCD_12864_GrapnicMode(0);
-	*/
+	//Вывод приветствия
 	//Print_Hello_World(Frame_buffer);
 	USART_Init(16);    //Инициализация модуля USART скорость 115200
     NRF24_ini();
@@ -129,7 +112,7 @@ void main(void)
 	EIMSK = (1<<INT0);
 	// и разрешаем его глобально
 	sei();
-	//Вывод приветствия
+	//Вывод окна загрузки
 	//Print_Download(Frame_buffer);
 	PORTD &= ~(1<<LED);
 	clear_LCD_12864();
@@ -137,10 +120,10 @@ void main(void)
     while (1) 
     {
 		Print_Home_Page(Frame_buffer);
-		/*
-		setpos_LCD_12864(0,0);
-		NRF24L01_Receive();
-		str_LCD_12864 (temp_street);
+		
+		//setpos_LCD_12864(0,0);
+		//NRF24L01_Receive();
+		/*str_LCD_12864 (temp_street);
 		setpos_LCD_12864(3,0);
 	    sprintf(WIND_speed,"%.2f ", wind_speed (HALL_counter));
 		str_LCD_12864 (WIND_speed);

@@ -7,6 +7,12 @@
 #include "WeatherStation.h"
 
 unsigned char sec,min,hour,day,date,month,year,alarmhour,alarmmin;
+extern char temp_street[10];
+extern char hum_street[10];
+extern char Vbat[10];
+extern char adc_value1[10];
+extern char WIND_speed[10];
+extern char HALL_counter[10];
 char TIME[10];
 char hours[4];
 char minutes[4];
@@ -57,24 +63,50 @@ void Print_Download(uint8_t *Frame_buffer)
 //Главное окно
 void Print_Home_Page(uint8_t *Frame_buffer)
 {
+	NRF24L01_Receive();
 	LCD_12864_GrapnicMode(1);
 	//-----------Вывод времени/даты-------------------------------//
 	Clock();
 	sprintf(TIME,"%s:%s",hours, minutes);
-	LCD_12864_Print_Clock(1, 0, 0, TIME);
+	LCD_12864_Print_11_16(1, 0, 0, TIME);
 	LCD_12864_Decode_UTF8(59, 1, 0, seconds);
 	LCD_12864_Decode_UTF8(73, 0, 0, "День");
 	LCD_12864_Decode_UTF8(99, 0, 0, "Месяц");
 	LCD_12864_Decode_UTF8(73, 1, 0, mounthday);
 	LCD_12864_Decode_UTF8(85, 1, 0, weakday);
 	LCD_12864_Decode_UTF8(99, 1, 0, Mounth);
+	
+	//-----------Вывод уличных показателей-----------------------//
+	LCD_12864_Decode_UTF8(30, 4, 0, "°C");
+	LCD_12864_Decode_UTF8(58, 4, 0, "%");
+	LCD_12864_Print_7_11(1, 3, 0, "31.0");
+	LCD_12864_Print_7_11(43, 3, 0, "49");
+	//sprintf(Vbat,"%.2fВ",V_BAT(adc_value1));
+	//LCD_12864_Decode_UTF8(38, 7, 0, Vbat);
+	LCD_12864_Print_4_6(44, 2, 0, "3.83");
+	//sprintf(WIND_speed,"%.2fм|с", wind_speed (HALL_counter));
+	//LCD_12864_Decode_UTF8(32, 5, 0, WIND_speed);
+
+	//-----------Вывод показателей в доме-----------------------//
+	LCD_12864_Decode_UTF8(95, 4, 0, "°C");
+	LCD_12864_Print_7_11(66, 3, 0, "30.0");
+	LCD_12864_Decode_UTF8(123, 4, 0, "%");
+	LCD_12864_Print_7_11(108, 3, 0, "40");
+	LCD_12864_Decode_UTF8(67, 5, 0, "750мм.Hg");
 	//-----------Вывод разделительных линий-----------------------//
-	LCD_12864_Draw_line(0, 17, 128, 17);
+	LCD_12864_Decode_UTF8(0, 2, 0, "улица");
+	LCD_12864_Decode_UTF8(65, 2, 0, "дом");
+	LCD_12864_Draw_line(0, 16, 128, 16);
 	LCD_12864_Draw_line(71, 0, 71, 15);
 	LCD_12864_Draw_line(97, 0, 97, 15);
+	LCD_12864_Draw_line(0, 24, 30, 24);
+	LCD_12864_Draw_line(30, 17, 30, 24);
+	LCD_12864_Draw_line(64, 24, 83, 24);
+	LCD_12864_Draw_line(83, 17, 83, 24);
+	LCD_12864_Draw_line(63, 17, 63, 64);
+	LCD_12864_Draw_line(64, 47, 128, 47);
 	
 
-	
 	LCD_12864_Draw_bitmap(Frame_buffer);
 	LCD_12864_GrapnicMode(0);
 }
