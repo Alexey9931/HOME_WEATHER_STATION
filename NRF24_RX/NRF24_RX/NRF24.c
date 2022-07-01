@@ -20,6 +20,7 @@ extern char adc_value2[10];
 uint8_t ErrCnt_Fl = 0;//для подсчета ошибок
 extern uint8_t flag_irq;
 volatile uint8_t rx_flag = 0;
+extern uint8_t Frame_buffer[1024];
 //-------------------------------------------------------------
 void NRF24_ini(void)
 {
@@ -163,6 +164,7 @@ ISR(INT0_vect)
 		nRF_write_register(STATUS, 0x40);
 	}
 	 rx_flag = 1;
+	 NRF24L01_Receive();
 }
 //-------------------------------------------------------------
 void NRF24_Transmit(uint8_t addr,uint8_t *pBuf,uint8_t bytes)

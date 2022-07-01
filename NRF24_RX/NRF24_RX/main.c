@@ -7,6 +7,10 @@
 
 #include "main.h"
 
+char TIME[10];
+char hours[4];
+char minutes[4];
+char seconds[4];
 uint8_t Frame_buffer[1024] = { 0 }; //Буфер кадра
 uint8_t ST7920_width = 128; //Ширина дисплея в пикселях
 uint8_t ST7920_height = 64; //Высота дисплея в пикселях
@@ -33,7 +37,7 @@ void timer_ini(void)//период 4сек
 	TIMSK1 |= (1<<OCIE1A); //устанавливаем бит разрешения прерывания 1ого счетчика по совпадению с OCR1A(H и L)
 	OCR1AH = 0b11110100; //записываем в регистр число для сравнения
 	OCR1AL = 0b00100100;
-	TCCR1B |= (1<<CS12)|(1<<CS10);//установим делитель 256.
+	TCCR1B |= (1<<CS12)|(1<<CS10);//установим делитель 1024.
 }
 //——————————————–
 ISR (TIMER1_COMPA_vect)
@@ -49,7 +53,6 @@ ISR (TIMER1_COMPA_vect)
 		strcat(DATA_TO_UART,wind_direction);
 		USART_Transmit(DATA_TO_UART);
 	}
-
 }
 
 void SPI_init(void) //инициализация SPI
@@ -116,11 +119,9 @@ void main(void)
 	//Print_Download(Frame_buffer);
 	PORTD &= ~(1<<LED);
 	clear_LCD_12864();
-	
     while (1) 
     {
 		Print_Home_Page(Frame_buffer);
-		
 		//setpos_LCD_12864(0,0);
 		//NRF24L01_Receive();
 		/*str_LCD_12864 (temp_street);
@@ -138,7 +139,7 @@ void main(void)
 	    sprintf(Vbat,"%.2f ",V_BAT(adc_value1));
 		str_LCD_12864 (Vbat);*/
 		
-		_delay_ms(100);	
+		//_delay_ms(100);	
     }
 }
 

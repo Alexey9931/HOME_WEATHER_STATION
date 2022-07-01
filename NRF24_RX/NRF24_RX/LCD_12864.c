@@ -246,6 +246,15 @@ void LCD_1286_Draw_pixel(uint8_t x, uint8_t y) {
 		Frame_buffer[(x) + ((y / 8) * 128)] |= 0x01 << y % 8;
 	}
 }
+/*---------------------Удаление пикселя на экране----------------------------*/
+void LCD_1286_Clean_pixel(uint8_t x, uint8_t y) {
+	/// Функция удаления точки.
+	/// param\ x - координата по X(от 0 до 127)
+	/// paran\ y - координата по Y(от 0 до 63)
+	if (y < ST7920_height && x < ST7920_width) {
+		Frame_buffer[(x) + ((y / 8) * 128)] &= 0xFE << y % 8;
+	}
+}
 /*----------Очистка--------------------*/
 void clear_LCD_12864(void)
 {
@@ -791,7 +800,7 @@ void LCD_12864_Draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t h
 	LCD_12864_Draw_line(x, y, x, y + height); /*Левая сторона прямоугольника*/
 	LCD_12864_Draw_line(x + width, y, x + width, y + height); /*Правая сторона прямоугольника*/
 }
-/*-------------------------------Вывести закрашенный прямоугольник---------------------------------*/
+/*-------------------------------Закрашенный прямоугольник---------------------------------*/
 void LCD_12864_Draw_rectangle_filled(uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
 	/// Вывести закрашенный прямоугольник
 	/// \param x - начальная точка по оси "x"
@@ -810,5 +819,118 @@ void LCD_12864_Draw_rectangle_filled(uint16_t x, uint16_t y, uint16_t width, uin
 	/*Рисуем линии*/
 	for (uint8_t i = 0; i <= height; i++) {
 		LCD_12864_Draw_line(x, y + i, x + width, y + i);
+	}
+}
+/*---------------------------------Пустотелая окружность-----------------------------------*/
+void LCD_12864_Draw_circle(uint8_t x, uint8_t y, uint8_t radius) {
+	/// Вывести пустотелую окружность
+	/// \param x - точка центра окружности по оси "x"
+	/// \param y - точка центра окружности по оси "y"
+	/// \param radius - радиус окружности
+
+	int f = 1 - (int) radius;
+	int ddF_x = 1;
+
+	int ddF_y = -2 * (int) radius;
+	int x_0 = 0;
+
+	LCD_1286_Draw_pixel(x, y + radius);
+	LCD_1286_Draw_pixel(x, y - radius);
+	LCD_1286_Draw_pixel(x + radius, y);
+	LCD_1286_Draw_pixel(x - radius, y);
+
+	int y_0 = radius;
+	while (x_0 < y_0) {
+		if (f >= 0) {
+			y_0--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x_0++;
+		ddF_x += 2;
+		f += ddF_x;
+		LCD_1286_Draw_pixel(x + x_0, y + y_0);
+		LCD_1286_Draw_pixel(x - x_0, y + y_0);
+		LCD_1286_Draw_pixel(x + x_0, y - y_0);
+		LCD_1286_Draw_pixel(x - x_0, y - y_0);
+		LCD_1286_Draw_pixel(x + y_0, y + x_0);
+		LCD_1286_Draw_pixel(x - y_0, y + x_0);
+		LCD_1286_Draw_pixel(x + y_0, y - x_0);
+		LCD_1286_Draw_pixel(x - y_0, y - x_0);
+	}
+}
+/*----------------------------------Закрашенный треугольник--------------------------------*/
+void LCD_12864_Draw_triangle_filled(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3) {
+	/// Вывести закрашенный треугольник
+	/// \param x_1 - первая точка треугольника. Координата по оси "x"
+	/// \param y_1 - первая точка треугольника. Координата по оси "y"
+	/// \param x_2 - вторая точка треугольника. Координата по оси "x"
+	/// \param y_2 - вторая точка треугольника. Координата по оси "y"
+	/// \param x_3 - третья точка треугольника. Координата по оси "x"
+	/// \param y_3 - третья точка треугольника. Координата по оси "y"
+
+	#define ABS(x)   ((x) > 0 ? (x) : -(x))
+	int16_t deltax = 0;
+	int16_t deltay = 0;
+	int16_t x = 0;
+	int16_t y = 0;
+	int16_t xinc1 = 0;
+	int16_t xinc2 = 0;
+	int16_t yinc1 = 0;
+	int16_t yinc2 = 0;
+	int16_t den = 0;
+	int16_t num = 0;
+	int16_t numadd = 0;
+	int16_t numpixels = 0;
+	int16_t curpixel = 0;
+
+	deltax = ABS(x2 - x1);
+	deltay = ABS(y2 - y1);
+	x = x1;
+	y = y1;
+
+	if (x2 >= x1) {
+		xinc1 = 1;
+		xinc2 = 1;
+		} else {
+		xinc1 = -1;
+		xinc2 = -1;
+	}
+
+	if (y2 >= y1) {
+		yinc1 = 1;
+		yinc2 = 1;
+		} else {
+		yinc1 = -1;
+		yinc2 = -1;
+	}
+
+	if (deltax >= deltay) {
+		xinc1 = 0;
+		yinc2 = 0;
+		den = deltax;
+		num = deltax / 2;
+		numadd = deltay;
+		numpixels = deltax;
+		} else {
+		xinc2 = 0;
+		yinc1 = 0;
+		den = deltay;
+		num = deltay / 2;
+		numadd = deltax;
+		numpixels = deltay;
+	}
+
+	for (curpixel = 0; curpixel <= numpixels; curpixel++) {
+		LCD_12864_Draw_line(x, y, x3, y3);
+
+		num += numadd;
+		if (num >= den) {
+			num -= den;
+			x += xinc1;
+			y += yinc1;
+		}
+		x += xinc2;
+		y += yinc2;
 	}
 }
