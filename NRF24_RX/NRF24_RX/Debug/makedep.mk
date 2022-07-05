@@ -2,6 +2,10 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+BMP180.c
+
+DHT22.c
+
 LCD_12864.c
 
 main.c

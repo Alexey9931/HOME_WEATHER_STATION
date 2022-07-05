@@ -20,7 +20,8 @@ SD.d SD.o: .././SD.c .././SD.h .././main.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
  .././NRF24.h .././TWI.h .././usart.h .././LCD_12864.h .././pff.h \
- .././integer.h .././diskio.h .././WeatherStation.h .././RTC_DS3231.h
+ .././integer.h .././diskio.h .././WeatherStation.h .././RTC_DS3231.h \
+ .././DHT22.h .././BMP180.h
 
 .././SD.h:
 
@@ -83,3 +84,7 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 .././WeatherStation.h:
 
 .././RTC_DS3231.h:
+
+.././DHT22.h:
+
+.././BMP180.h:

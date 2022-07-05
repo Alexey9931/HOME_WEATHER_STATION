@@ -238,7 +238,7 @@ void LCD_12864_Draw_bitmap(const unsigned char *bitmap) {
 	}
 }
 /*----------Рисование пикселя--------------------*/
-void LCD_1286_Draw_pixel(uint8_t x, uint8_t y) {
+void LCD_12864_Draw_pixel(uint8_t x, uint8_t y) {
 	/// Функция рисования точки.
 	/// param\ x - координата по X(от 0 до 127)
 	/// paran\ y - координата по Y(от 0 до 63)
@@ -247,7 +247,7 @@ void LCD_1286_Draw_pixel(uint8_t x, uint8_t y) {
 	}
 }
 /*---------------------Удаление пикселя на экране----------------------------*/
-void LCD_1286_Clean_pixel(uint8_t x, uint8_t y) {
+void LCD_12864_Clean_pixel(uint8_t x, uint8_t y) {
 	/// Функция удаления точки.
 	/// param\ x - координата по X(от 0 до 127)
 	/// paran\ y - координата по Y(от 0 до 63)
@@ -764,7 +764,7 @@ void LCD_12864_Draw_line(uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_
 	int err = dx - dy;
 
 	for (;;) {
-		LCD_1286_Draw_pixel(x_start, y_start);
+		LCD_12864_Draw_pixel(x_start, y_start);
 		if (x_start == x_end && y_start == y_end)
 		break;
 		int e2 = err + err;
@@ -834,10 +834,10 @@ void LCD_12864_Draw_circle(uint8_t x, uint8_t y, uint8_t radius) {
 	int ddF_y = -2 * (int) radius;
 	int x_0 = 0;
 
-	LCD_1286_Draw_pixel(x, y + radius);
-	LCD_1286_Draw_pixel(x, y - radius);
-	LCD_1286_Draw_pixel(x + radius, y);
-	LCD_1286_Draw_pixel(x - radius, y);
+	LCD_12864_Draw_pixel(x, y + radius);
+	LCD_12864_Draw_pixel(x, y - radius);
+	LCD_12864_Draw_pixel(x + radius, y);
+	LCD_12864_Draw_pixel(x - radius, y);
 
 	int y_0 = radius;
 	while (x_0 < y_0) {
@@ -849,14 +849,49 @@ void LCD_12864_Draw_circle(uint8_t x, uint8_t y, uint8_t radius) {
 		x_0++;
 		ddF_x += 2;
 		f += ddF_x;
-		LCD_1286_Draw_pixel(x + x_0, y + y_0);
-		LCD_1286_Draw_pixel(x - x_0, y + y_0);
-		LCD_1286_Draw_pixel(x + x_0, y - y_0);
-		LCD_1286_Draw_pixel(x - x_0, y - y_0);
-		LCD_1286_Draw_pixel(x + y_0, y + x_0);
-		LCD_1286_Draw_pixel(x - y_0, y + x_0);
-		LCD_1286_Draw_pixel(x + y_0, y - x_0);
-		LCD_1286_Draw_pixel(x - y_0, y - x_0);
+		LCD_12864_Draw_pixel(x + x_0, y + y_0);
+		LCD_12864_Draw_pixel(x - x_0, y + y_0);
+		LCD_12864_Draw_pixel(x + x_0, y - y_0);
+		LCD_12864_Draw_pixel(x - x_0, y - y_0);
+		LCD_12864_Draw_pixel(x + y_0, y + x_0);
+		LCD_12864_Draw_pixel(x - y_0, y + x_0);
+		LCD_12864_Draw_pixel(x + y_0, y - x_0);
+		LCD_12864_Draw_pixel(x - y_0, y - x_0);
+	}
+}
+/*--------------------------------Закрашенная окружность-----------------------------------*/
+void LCD_12864_Draw_circle_filled(int16_t x, int16_t y, int16_t radius) {
+	/// Вывести закрашенную окружность
+	/// \param x - точка центра окружности по оси "x"
+	/// \param y - точка центра окружности по оси "y"
+	/// \param radius - радиус окружности
+
+	int16_t f = 1 - radius;
+	int16_t ddF_x = 1;
+	int16_t ddF_y = -2 * radius;
+	int16_t x_0 = 0;
+	int16_t y_0 = radius;
+
+	LCD_12864_Draw_pixel(x, y + radius);
+	LCD_12864_Draw_pixel(x, y - radius);
+	LCD_12864_Draw_pixel(x + radius, y);
+	LCD_12864_Draw_pixel(x - radius, y);
+	LCD_12864_Draw_line(x - radius, y, x + radius, y);
+
+	while (x_0 < y_0) {
+		if (f >= 0) {
+			y_0--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x_0++;
+		ddF_x += 2;
+		f += ddF_x;
+
+		LCD_12864_Draw_line(x - x_0, y + y_0, x + x_0, y + y_0);
+		LCD_12864_Draw_line(x + x_0, y - y_0, x - x_0, y - y_0);
+		LCD_12864_Draw_line(x + y_0, y + x_0, x - y_0, y + x_0);
+		LCD_12864_Draw_line(x + y_0, y - x_0, x - y_0, y - x_0);
 	}
 }
 /*----------------------------------Закрашенный треугольник--------------------------------*/

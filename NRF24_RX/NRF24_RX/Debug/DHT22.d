@@ -1,4 +1,4 @@
-LCD_12864.d LCD_12864.o: .././LCD_12864.c .././LCD_12864.h .././main.h \
+DHT22.d DHT22.o: .././DHT22.c .././DHT22.h .././main.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -19,11 +19,11 @@ LCD_12864.d LCD_12864.o: .././LCD_12864.c .././LCD_12864.h .././main.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
- .././NRF24.h .././TWI.h .././usart.h .././SD.h .././pff.h .././integer.h \
- .././diskio.h .././WeatherStation.h .././RTC_DS3231.h .././DHT22.h \
- .././BMP180.h
+ .././NRF24.h .././TWI.h .././usart.h .././LCD_12864.h .././SD.h \
+ .././pff.h .././integer.h .././diskio.h .././WeatherStation.h \
+ .././RTC_DS3231.h .././BMP180.h
 
-.././LCD_12864.h:
+.././DHT22.h:
 
 .././main.h:
 
@@ -73,6 +73,8 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 
 .././usart.h:
 
+.././LCD_12864.h:
+
 .././SD.h:
 
 .././pff.h:
@@ -84,7 +86,5 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 .././WeatherStation.h:
 
 .././RTC_DS3231.h:
-
-.././DHT22.h:
 
 .././BMP180.h:

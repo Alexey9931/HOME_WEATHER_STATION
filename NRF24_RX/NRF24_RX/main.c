@@ -16,6 +16,8 @@ uint8_t ST7920_width = 128; //Ширина дисплея в пикселях
 uint8_t ST7920_height = 64; //Высота дисплея в пикселях
 char temp_street[10] = {0};
 char hum_street[10] = {0};
+char temp_home[10] = {0};	
+char hum_home[10] = {0};
 char HALL_counter[10] = {0};
 char WIND_speed[10] = {0};
 char wind_direction[10] = {0};
@@ -24,7 +26,10 @@ char adc_value2[10] = {0};
 char Vbat[10] = {0};
 char Rain[10] = {0};
 char DATA_TO_UART[50] = {0};
+char Press_home[10] = {0};
 float temp = 0, hum = 0;
+int pressure_home = 0;
+uint8_t data[5] = {0};
 uint8_t buf1[20] = {0};
 uint8_t retr_cnt, dt;
 uint16_t i=1,retr_cnt_full;
@@ -102,7 +107,9 @@ void main(void)
 	timer_ini();
 	I2C_Init();
 	RTC_init();
-	// Установка времени для DS3231(делается 1 раз)
+	dht22_init();
+	BMP180_Calibration();
+	// Установка времени для DS3231(делается 1 разv)
 	//RTC_write_time(13, 30, 0);
 	//RTC_write_date(2, 28, 6, 22);
 	LCD_12864_ini();
@@ -122,24 +129,8 @@ void main(void)
     while (1) 
     {
 		Print_Home_Page(Frame_buffer);
-		//setpos_LCD_12864(0,0);
-		//NRF24L01_Receive();
-		/*str_LCD_12864 (temp_street);
-		setpos_LCD_12864(3,0);
-	    sprintf(WIND_speed,"%.2f ", wind_speed (HALL_counter));
-		str_LCD_12864 (WIND_speed);
-		setpos_LCD_12864(6,0);
-	    sprintf(Rain,"%.2f ",RAIN_AMOUNT(adc_value2));
-		str_LCD_12864 (Rain);
-		setpos_LCD_12864(0,1);
-		str_LCD_12864 (hum_street);
-		setpos_LCD_12864(3,1);
-		str_LCD_12864 (wind_direction);
-		setpos_LCD_12864(6,1);
-	    sprintf(Vbat,"%.2f ",V_BAT(adc_value1));
-		str_LCD_12864 (Vbat);*/
 		
-		//_delay_ms(100);	
+		_delay_ms(2000);	
     }
 }
 

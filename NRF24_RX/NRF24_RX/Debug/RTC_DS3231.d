@@ -21,7 +21,8 @@ RTC_DS3231.d RTC_DS3231.o: .././RTC_DS3231.c .././RTC_DS3231.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
  .././NRF24.h .././TWI.h .././usart.h .././LCD_12864.h .././SD.h \
- .././pff.h .././integer.h .././diskio.h .././WeatherStation.h
+ .././pff.h .././integer.h .././diskio.h .././WeatherStation.h \
+ .././DHT22.h .././BMP180.h
 
 .././RTC_DS3231.h:
 
@@ -84,3 +85,7 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 .././diskio.h:
 
 .././WeatherStation.h:
+
+.././DHT22.h:
+
+.././BMP180.h:

@@ -137,6 +137,18 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BMP180.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="BMP180.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DHT22.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DHT22.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="diskio.h">
       <SubType>compile</SubType>
     </Compile>

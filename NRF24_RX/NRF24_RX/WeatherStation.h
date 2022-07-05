@@ -18,6 +18,12 @@ void Clock (void);
 float RAIN_AMOUNT(char *adc_value);
 float V_BAT (char *adc_value);
 float wind_speed (char *counter);
+void DrawSun(void);
+void DrawSunWithClouds(void);
+void DrawClouds(void);
+void DrawCloudsWithRain(void);
+void DrawWeatherVane(void);
+void DrawBattery(void);
 
 
 #endif /* WEATHERSTATION_H_ */

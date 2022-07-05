@@ -30,5 +30,7 @@
 #include "integer.h"
 #include "WeatherStation.h"
 #include "RTC_DS3231.h"
+#include "DHT22.h"
+#include "BMP180.h"
 
 #endif /* MAIN_H_ */
