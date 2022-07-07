@@ -34,28 +34,18 @@ float temp,hum;
 void Print_Hello_World(uint8_t *Frame_buffer)
 {	
 	LCD_12864_GrapnicMode(1);
-	LCD_12864_Draw_rectangle(0, 0, 127, 63);
-	LCD_12864_Draw_rectangle(1, 1, 125, 61);
-	LCD_12864_Draw_rectangle(2, 2, 123, 59);
-	LCD_12864_Draw_rectangle(3, 3, 121, 57);
+	LCD_12864_Print_jpeg();
+	LCD_12864_Decode_UTF8(40, 0, 0, "ДОМАШНЯЯ");
+	LCD_12864_Decode_UTF8(30, 7, 0, "МЕТЕОСТАНЦИЯ");
 	LCD_12864_Draw_bitmap(Frame_buffer);
 	LCD_12864_GrapnicMode(0);
-	setpos_LCD_12864(3, 1);
-	str_LCD_12864 ("HOME");
-	setpos_LCD_12864(1, 2);
-	str_LCD_12864 ("METEOSTATION");
 	_delay_ms(3000);
-	clear_LCD_12864();
-	LCD_12864_GrapnicMode(1);
-	LCD_12864_Draw_bitmap(Frame_buffer);
-	LCD_12864_Clean();
-	LCD_12864_GrapnicMode(0);
-	
 }
 //Окно загрузки
 void Print_Download(uint8_t *Frame_buffer)
 {
 	LCD_12864_GrapnicMode(1);
+	LCD_12864_Clean_Frame_buffer();
 	LCD_12864_Draw_rectangle(6, 35, 112, 15);
 	LCD_12864_Decode_UTF8(3, 1, 0, "Пожалуйста подождите.");
 	LCD_12864_Decode_UTF8(16, 3, 0, "Идёт загрузка...");
@@ -66,7 +56,6 @@ void Print_Download(uint8_t *Frame_buffer)
 		LCD_12864_Draw_bitmap(Frame_buffer);
 		_delay_ms(500);
 	}	
-	LCD_12864_Clean();
 	LCD_12864_GrapnicMode(0);
 }
 //Главное окно
@@ -77,13 +66,19 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 	//-----------Вывод времени/даты-------------------------------//
 	Clock();
 	sprintf(TIME,"%s:%s",hours, minutes);
-	LCD_12864_Print_11_16(1, 0, 0, TIME);
-	LCD_12864_Decode_UTF8(59, 1, 0, seconds);
-	LCD_12864_Decode_UTF8(73, 0, 0, "День");
-	LCD_12864_Decode_UTF8(99, 0, 0, "Месяц");
-	LCD_12864_Decode_UTF8(73, 1, 0, mounthday);
-	LCD_12864_Decode_UTF8(85, 1, 0, weakday);
-	LCD_12864_Decode_UTF8(99, 1, 0, Mounth);
+	LCD_12864_Print_11_16(2, 0, 0, TIME);
+	//LCD_12864_Decode_UTF8(73, 0, 0, "День");
+	//LCD_12864_Decode_UTF8(99, 0, 0, "Месяц");
+	//LCD_12864_Decode_UTF8(73, 1, 0, mounthday);
+	//LCD_12864_Decode_UTF8(85, 1, 0, weakday);
+	//LCD_12864_Decode_UTF8(99, 1, 0, Mounth);
+	LCD_12864_Decode_UTF8(61, 1, 0, weakday);
+	LCD_12864_Decode_UTF8(73, 1, 0, ",");
+	LCD_12864_Decode_UTF8(76, 1, 0, mounthday);
+	LCD_12864_Decode_UTF8(88, 1, 0, "/");
+	LCD_12864_Decode_UTF8(93, 1, 0, Mounth);
+	LCD_12864_Decode_UTF8(111, 1, 0, "/");
+	LCD_12864_Decode_UTF8(116, 1, 0, "22");
 	
 	//-----------Вывод уличных показателей-----------------------//
 	LCD_12864_Decode_UTF8(30, 4, 0, "°C");
@@ -95,15 +90,15 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 	sprintf(WIND_speed,"%.2f", wind_speed (HALL_counter));
 	LCD_12864_Print_4_6(26, 5, 0, WIND_speed);
 	LCD_12864_Decode_UTF8(45, 5, 0, "м/с");
-	LCD_12864_Decode_UTF8(27, 6, 0, "осадки");
-	LCD_12864_Draw_line(25, 52, 24, 52);
+	LCD_12864_Decode_UTF8(30, 6, 0, "осадки");
+	LCD_12864_Draw_line(27, 52, 24, 52);
 	LCD_12864_Draw_line(24, 52, 24, 59);
 	LCD_12864_Draw_line(24, 59, 28, 59);
 	LCD_12864_Draw_pixel(27, 58);
 	LCD_12864_Draw_pixel(27, 60);
 	LCD_12864_Draw_pixel(26, 57);
 	LCD_12864_Draw_pixel(26, 61);
-	if (RAIN_AMOUNT(adc_value2) >= 0.9f)  LCD_12864_Decode_UTF8(30, 7, 0, "нет");
+	if (RAIN_AMOUNT(adc_value2) >= 0.9f)  LCD_12864_Decode_UTF8(30, 7, 0, "отсутств.");
 	
 
 	//-----------Вывод показателей в доме-----------------------//
@@ -133,8 +128,8 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 	LCD_12864_Decode_UTF8(2, 2, 0, "улица");
 	LCD_12864_Decode_UTF8(65, 2, 0, "дом");
 	LCD_12864_Draw_line(0, 16, 128, 16);
-	LCD_12864_Draw_line(71, 0, 71, 15);
-	LCD_12864_Draw_line(97, 0, 97, 15);
+	//LCD_12864_Draw_line(71, 0, 71, 15);
+	//LCD_12864_Draw_line(97, 0, 97, 15);
 	LCD_12864_Draw_line(0, 24, 32, 24);
 	LCD_12864_Draw_line(32, 17, 32, 24);
 	LCD_12864_Draw_line(0, 17, 0, 24);
@@ -781,40 +776,40 @@ void Clock (void)
 	switch (month)
 	{
 		case 1:
-		sprintf(Mounth,"Янв.");
+		sprintf(Mounth,"Янв");
 		break;
 		case 2:
-		sprintf(Mounth,"Февр.");
+		sprintf(Mounth,"Фев");
 		break;
 		case 3:
-		sprintf(Mounth,"Март");
+		sprintf(Mounth,"Мар");
 		break;
 		case 4:
-		sprintf(Mounth,"Апр.");
+		sprintf(Mounth,"Апр");
 		break;
 		case 5:
 		sprintf(Mounth,"Май");
 		break;
 		case 6:
-		sprintf(Mounth,"Июнь");
+		sprintf(Mounth,"Июн");
 		break;
 		case 7:
-		sprintf(Mounth,"Июль");
+		sprintf(Mounth,"Июл");
 		break;
 		case 8:
-		sprintf(Mounth,"Авг.");
+		sprintf(Mounth,"Авг");
 		break;
 		case 9:
-		sprintf(Mounth,"Сент.");
+		sprintf(Mounth,"Сен");
 		break;
 		case 10:
-		sprintf(Mounth,"Окт.");
+		sprintf(Mounth,"Окт");
 		break;
 		case 11:
-		sprintf(Mounth,"Нояб.");
+		sprintf(Mounth,"Ноя");
 		break;
 		case 12:
-		sprintf(Mounth,"Дек.");
+		sprintf(Mounth,"Дек");
 		break;
 		default:
 		break;

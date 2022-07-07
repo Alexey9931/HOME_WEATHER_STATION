@@ -720,6 +720,25 @@ void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 	// Завершаем работу с файлом
 	pf_mount(0x00);
 }
+/*---------------------Функция вывода Jpg картинки------------------*/
+void LCD_12864_Print_jpeg()
+{
+	FATFS fs;
+	asm("nop");
+	pf_mount(&fs); //Монтируем FAT
+	pf_open("/jpg2.txt");
+	int count = 0;
+	for(int k = 0; k <= 7; k++)
+	{
+	 for (int i = 31 + 128*k; i < 95 + 128*k; i++) 
+	 {
+		Frame_buffer[i] = read_symbol_from_SD (count);
+		count++;
+	 }
+	}
+	// Завершаем работу с файлом
+	pf_mount(0x00);
+}
 /*---------------------Функция инверсии любого места в буфере------------------*/
 void LCD_12864_Inversion(uint16_t x_start, uint16_t x_end) {
 	/// Функция инверсии любого места в буфере

@@ -103,29 +103,34 @@ void main(void)
 {	
 	port_init();
 	PORTD |= (1<<LED);
-    SPI_init();
+	LCD_12864_ini();
+	//очистка дисплея
+	LCD_12864_GrapnicMode(1);
+	LCD_12864_Clean_Frame_buffer();
+	LCD_12864_Draw_bitmap(Frame_buffer);
+	LCD_12864_GrapnicMode(0);
+	//Вывод приветствия
+	Print_Hello_World(Frame_buffer);
+	//Инициализация 
+	SPI_init();
 	timer_ini();
 	I2C_Init();
+    USART_Init(16);    //Инициализация модуля USART скорость 115200
+	NRF24_ini();
 	RTC_init();
 	dht22_init();
 	BMP180_Calibration();
 	// Установка времени для DS3231(делается 1 разv)
 	//RTC_write_time(13, 30, 0);
 	//RTC_write_date(2, 28, 6, 22);
-	LCD_12864_ini();
-	//Вывод приветствия
-	//Print_Hello_World(Frame_buffer);
-	USART_Init(16);    //Инициализация модуля USART скорость 115200
-    NRF24_ini();
 	// настраиваем параметры прерывания
 	EICRA = (1<<ISC01) | (0<<ISC00);
 	EIMSK = (1<<INT0);
 	// и разрешаем его глобально
 	sei();
 	//Вывод окна загрузки
-	//Print_Download(Frame_buffer);
+	Print_Download(Frame_buffer);
 	PORTD &= ~(1<<LED);
-	clear_LCD_12864();
     while (1) 
     {
 		Print_Home_Page(Frame_buffer);
