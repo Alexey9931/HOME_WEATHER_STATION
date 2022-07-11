@@ -30,6 +30,9 @@ char mounthday[4];
 char Mounth[6];
 float temp,hum;
 
+extern int8_t cnt;
+char CNT[3];
+
 //Окно приветсвия на экране дисплея
 void Print_Hello_World(uint8_t *Frame_buffer)
 {	
@@ -67,11 +70,6 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 	Clock();
 	sprintf(TIME,"%s:%s",hours, minutes);
 	LCD_12864_Print_11_16(2, 0, 0, TIME);
-	//LCD_12864_Decode_UTF8(73, 0, 0, "День");
-	//LCD_12864_Decode_UTF8(99, 0, 0, "Месяц");
-	//LCD_12864_Decode_UTF8(73, 1, 0, mounthday);
-	//LCD_12864_Decode_UTF8(85, 1, 0, weakday);
-	//LCD_12864_Decode_UTF8(99, 1, 0, Mounth);
 	LCD_12864_Decode_UTF8(61, 1, 0, weakday);
 	LCD_12864_Decode_UTF8(73, 1, 0, ",");
 	LCD_12864_Decode_UTF8(76, 1, 0, mounthday);
@@ -79,6 +77,9 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 	LCD_12864_Decode_UTF8(93, 1, 0, Mounth);
 	LCD_12864_Decode_UTF8(111, 1, 0, "/");
 	LCD_12864_Decode_UTF8(116, 1, 0, "22");
+	
+	sprintf(CNT,"%d",cnt);
+	LCD_12864_Decode_UTF8(116, 0, 0, CNT);
 	
 	//-----------Вывод уличных показателей-----------------------//
 	LCD_12864_Decode_UTF8(30, 4, 0, "°C");
@@ -128,8 +129,6 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 	LCD_12864_Decode_UTF8(2, 2, 0, "улица");
 	LCD_12864_Decode_UTF8(65, 2, 0, "дом");
 	LCD_12864_Draw_line(0, 16, 128, 16);
-	//LCD_12864_Draw_line(71, 0, 71, 15);
-	//LCD_12864_Draw_line(97, 0, 97, 15);
 	LCD_12864_Draw_line(0, 24, 32, 24);
 	LCD_12864_Draw_line(32, 17, 32, 24);
 	LCD_12864_Draw_line(0, 17, 0, 24);
@@ -143,6 +142,65 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 	DrawWeatherVane();
 	//-----------Вывод прогноза погоды-----------------------//
 	DrawCloudsWithRain();
+	
+	LCD_12864_Draw_bitmap(Frame_buffer);
+	LCD_12864_GrapnicMode(0);
+}
+void Print_Static_Home_Page(uint8_t *Frame_buffer)
+{
+	LCD_12864_GrapnicMode(1);
+	LCD_12864_Clean_Frame_buffer();
+	
+	LCD_12864_Decode_UTF8(30, 4, 0, "°C");
+	LCD_12864_Decode_UTF8(58, 4, 0, "%");
+	LCD_12864_Decode_UTF8(45, 5, 0, "м/с");
+	LCD_12864_Decode_UTF8(30, 6, 0, "осадки");
+	LCD_12864_Draw_line(27, 52, 24, 52);
+	LCD_12864_Draw_line(24, 52, 24, 59);
+	LCD_12864_Draw_line(24, 59, 28, 59);
+	LCD_12864_Draw_pixel(27, 58);
+	LCD_12864_Draw_pixel(27, 60);
+	LCD_12864_Draw_pixel(26, 57);
+	LCD_12864_Draw_pixel(26, 61);
+	LCD_12864_Decode_UTF8(95, 4, 0, "°C");
+	LCD_12864_Decode_UTF8(123, 4, 0, "%");
+	LCD_12864_Decode_UTF8(101, 2, 0, "мм");
+	LCD_12864_Decode_UTF8(114, 2, 0, "Hg");
+	LCD_12864_Decode_UTF8(2, 2, 0, "улица");
+	LCD_12864_Decode_UTF8(65, 2, 0, "дом");
+	LCD_12864_Draw_line(0, 16, 128, 16);
+	LCD_12864_Draw_line(0, 24, 32, 24);
+	LCD_12864_Draw_line(32, 17, 32, 24);
+	LCD_12864_Draw_line(0, 17, 0, 24);
+	LCD_12864_Draw_line(64, 24, 83, 24);
+	LCD_12864_Draw_line(83, 17, 83, 24);
+	LCD_12864_Draw_line(63, 17, 63, 41);
+	LCD_12864_Draw_line(63, 41, 128, 41);
+	
+	LCD_12864_Draw_bitmap(Frame_buffer);
+	LCD_12864_GrapnicMode(0);
+}
+//Окно меню
+void Print_Menu_Page(uint8_t *Frame_buffer)
+{
+	LCD_12864_GrapnicMode(1);
+	LCD_12864_Clean_Frame_buffer();
+	
+	switch (cnt)
+	{
+		case 0: LCD_12864_Decode_UTF8(15, 0, 1, "Справка");
+				LCD_12864_Decode_UTF8(15, 1, 0, "Настройка времени");
+				LCD_12864_Decode_UTF8(15, 2, 0, "Главное инфо-окно");
+				break;
+		case 2: LCD_12864_Decode_UTF8(15, 0, 0, "Справка");
+				LCD_12864_Decode_UTF8(15, 1, 1, "Настройка времени");
+				LCD_12864_Decode_UTF8(15, 2, 0, "Главное инфо-окно");
+				break;
+		case 4: LCD_12864_Decode_UTF8(15, 0, 0, "Справка");
+				LCD_12864_Decode_UTF8(15, 1, 0, "Настройка времени");
+				LCD_12864_Decode_UTF8(15, 2, 1, "Главное инфо-окно");
+				break;
+	}
 	
 	LCD_12864_Draw_bitmap(Frame_buffer);
 	LCD_12864_GrapnicMode(0);

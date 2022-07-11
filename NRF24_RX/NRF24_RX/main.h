@@ -19,6 +19,9 @@
 #include <math.h>
 
 #define LED PORTD4
+#define	SW_ENC PORTD3
+#define DT_ENC PORTB7
+#define CLK_ENC PORTB6
 
 #include "NRF24.h"
 #include "TWI.h"
