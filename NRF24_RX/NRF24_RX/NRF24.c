@@ -21,6 +21,15 @@ uint8_t ErrCnt_Fl = 0;//для подсчета ошибок
 extern uint8_t flag_irq;
 volatile uint8_t rx_flag = 0;
 extern uint8_t Frame_buffer[1024];
+extern char receive_time[20];
+uint8_t receive_counter = 0;
+char hours[4];
+char minutes[4];
+char seconds[4];
+char mounthday[4];
+char Mounth[6];
+char Year[4];
+
 //-------------------------------------------------------------
 void NRF24_ini(void)
 {
@@ -165,6 +174,12 @@ ISR(INT0_vect)
 	}
 	 rx_flag = 1;
 	 NRF24L01_Receive();
+	 if(receive_counter == 6)
+	 {
+		 receive_counter = 0;
+	 }
+	 receive_counter++;
+	 sprintf(receive_time,"%s:%s:%s,%s/%s/%s", hours, minutes, seconds, mounthday, Mounth, Year);
 }
 //-------------------------------------------------------------
 void NRF24_Transmit(uint8_t addr,uint8_t *pBuf,uint8_t bytes)

@@ -14,9 +14,11 @@
 void Print_Hello_World(uint8_t *Frame_buffer);
 void Print_Download(uint8_t *Frame_buffer);
 void Print_Home_Page(uint8_t *Frame_buffer);
-void Print_Static_Home_Page(uint8_t *Frame_buffer);
 void Print_Menu_Page(uint8_t *Frame_buffer);
+void Print_Page_Clock_Settings(uint8_t *Frame_buffer);
+void Print_Page_About(uint8_t *Frame_buffer);
 void Clock (void);
+void Convert_to_string_Clock(void);
 float RAIN_AMOUNT(char *adc_value);
 float V_BAT (char *adc_value);
 float wind_speed (char *counter);

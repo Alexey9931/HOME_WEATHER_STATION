@@ -107,14 +107,14 @@ void ModifyRTC(void)
 		case MODE_CHANGE_HOURS: //часы
 		{
 			I2C_SendByte(2);//ѕереходим на 0x02 Ч байт часов
-			if (hour < 23) I2C_SendByte(RTC_ConvertFromBinDec( hour+1 ));
+			if (hour < 23) I2C_SendByte(RTC_ConvertFromBinDec( hour ));
 			else I2C_SendByte(RTC_ConvertFromBinDec(0));
 			break;
 		}
 		case MODE_CHANGE_MINUTES: // минуты
 		{
 			I2C_SendByte(1);//ѕереходим на 0x01 Ч байт минут
-			if(min<59) I2C_SendByte(RTC_ConvertFromBinDec(min+1));
+			if(min<59) I2C_SendByte(RTC_ConvertFromBinDec(min));
 			else I2C_SendByte(RTC_ConvertFromBinDec(0));
 			break;
 		}
@@ -125,23 +125,23 @@ void ModifyRTC(void)
 			{
 				if(year%4==0) //високосный год
 				{
-					if(date<29) I2C_SendByte(RTC_ConvertFromBinDec(date+1));
+					if(date<29) I2C_SendByte(RTC_ConvertFromBinDec(date));
 					else I2C_SendByte(RTC_ConvertFromBinDec(1));
 				}
 				else
 				{
-					if(date<28) I2C_SendByte(RTC_ConvertFromBinDec(date+1));
+					if(date<28) I2C_SendByte(RTC_ConvertFromBinDec(date));
 					else I2C_SendByte(RTC_ConvertFromBinDec(1));
 				}
 			}
 			else if ((month==4)|(month==6)|(month==9)|(month==11))
 			{
-				if(date<30) I2C_SendByte(RTC_ConvertFromBinDec(date+1));
+				if(date<30) I2C_SendByte(RTC_ConvertFromBinDec(date));
 				else I2C_SendByte(RTC_ConvertFromBinDec(1));
 			}
 			else
 			{
-				if(date<31) I2C_SendByte(RTC_ConvertFromBinDec(date+1));
+				if(date<31) I2C_SendByte(RTC_ConvertFromBinDec(date));
 				else I2C_SendByte(RTC_ConvertFromBinDec(1));
 			}
 			break;
@@ -149,25 +149,25 @@ void ModifyRTC(void)
 		case MODE_CHANGE_MONTH: // мес€ц
 		{
 			I2C_SendByte(5);//ѕереходим на 0x05 Ч байт мес€ца
-			if(month<12) I2C_SendByte(RTC_ConvertFromBinDec(month+1));
+			if(month<12) I2C_SendByte(RTC_ConvertFromBinDec(month));
 			else I2C_SendByte(RTC_ConvertFromBinDec(1));
 			break;
 		}
 		case MODE_CHANGE_YEAR: // год
 		{
 			I2C_SendByte(6);//ѕереходим на 0x06 Ч байт года
-			if(year<99) I2C_SendByte(RTC_ConvertFromBinDec(year+1));
+			if(year<99) I2C_SendByte(RTC_ConvertFromBinDec(year));
 			else I2C_SendByte(RTC_ConvertFromBinDec(1));
 			break;
 		}
 		case MODE_CHANGE_WEAKDAY: // день недели
 		{
 			I2C_SendByte(3);//ѕереходим на 0x03 Ч байт дн€ недели
-			if(day<7) I2C_SendByte(RTC_ConvertFromBinDec(day+1));
+			if(day<7) I2C_SendByte(RTC_ConvertFromBinDec(day));
 			else I2C_SendByte(RTC_ConvertFromBinDec(1));
 			break;
 		}
-		case MODE_CHANGE_ALARM_HOURS: // часы будильника
+		/*case MODE_CHANGE_ALARM_HOURS: // часы будильника
 		{
 			if(alarmhour<23) EEPROM_write(2,alarmhour+1);
 			else EEPROM_write(2,0);
@@ -178,7 +178,7 @@ void ModifyRTC(void)
 			if(alarmmin<59) EEPROM_write(3,alarmmin+1);
 			else EEPROM_write(3,0);
 			break;
-		}
+		}*/
 	}
 	I2C_StopCondition();
 }
