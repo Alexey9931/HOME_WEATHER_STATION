@@ -21,20 +21,19 @@ char Year[4];
 uint8_t Frame_buffer[1024] = { 0 }; //Буфер кадра
 uint8_t ST7920_width = 128; //Ширина дисплея в пикселях
 uint8_t ST7920_height = 64; //Высота дисплея в пикселях
-char temp_street[10] = {0};
-char hum_street[10] = {0};
-char temp_home[10] = {0};	
-char hum_home[10] = {0};
-char HALL_counter[10] = {0};
-char WIND_speed[10] = {0};
-char wind_direction[10] = {0};
-char adc_value1[10] = {0};
-char adc_value2[10] = {0};
-char Vbat[10] = {0};
-char Rain[10] = {0};
-char DATA_TO_UART[50] = {0};
-char Press_home[10] = {0};
-float temp = 0, hum = 0;
+char temp_street[5] = {0};
+char hum_street[5] = {0};
+char temp_home[5] = {0};	
+char hum_home[5] = {0};
+char HALL_counter[5] = {0};
+char WIND_speed[5] = {0};
+char wind_direction[5] = {0};
+char adc_value1[5] = {0};
+char adc_value2[5] = {0};
+char Vbat[5] = {0};
+char Rain[5] = {0};
+char DATA_TO_UART[60] = {0};
+char Press_home[6] = {0};
 int pressure_home = 0;
 uint8_t data[5] = {0};
 uint8_t retr_cnt, dt;
@@ -45,7 +44,8 @@ uint8_t counter = 0;
 
 uint8_t change_flag = 0;
 int8_t add_cnt = 0;
-int8_t cnt=0;
+int8_t cnt = 0;
+uint8_t enc_int_flag = 0;
 extern volatile uint8_t rx_flag;
 
 //-------------------------------------------------------------
@@ -68,17 +68,13 @@ void timer0_ini(void) // период 100мкс
 //-------------------------------------------------------------
 ISR (TIMER1_COMPA_vect)
 {
-	if((strlen(temp_street)!=0)&&(strlen(hum_street)!=0)&&(strlen(WIND_speed)!=0)&&(strlen(Rain)!=0)&&(strlen(Vbat)!=0)&&(strlen(wind_direction)!=0))
-	{
-		//отправка строки по UART в формате: ул.темп./скор.ветра/осадки/ул.влажность/заряд АКБ/направл.ветра
-	    sprintf(DATA_TO_UART,"%s ",temp_street);
-		strcat(DATA_TO_UART,WIND_speed);
-		strcat(DATA_TO_UART,Rain);
-		strcat(DATA_TO_UART,hum_street);
-		strcat(DATA_TO_UART,Vbat);
-		strcat(DATA_TO_UART,wind_direction);
+	//if((strlen(temp_street)!=0)&&(strlen(hum_street)!=0)&&(strlen(WIND_speed)!=0)&&(strlen(Rain)!=0)&&(strlen(Vbat)!=0)&&(strlen(wind_direction)!=0))
+	//{
+		//отправка строки по UART в формате: ул.темп./дом.темп./ул.влажность/дом.влажн./давление/осадки/заряд АКБ/скор.ветра/направл.ветра
+		sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s ",temp_street, temp_home, hum_street, hum_home, Press_home, Rain, Vbat, WIND_speed, wind_direction);
 		USART_Transmit(DATA_TO_UART);
-	}
+		memset(DATA_TO_UART, 0, sizeof(int) * strlen(DATA_TO_UART));//очистка массива
+	//}
 }
 //-------------------------------------------------------------
 ISR (TIMER0_COMPA_vect)
@@ -87,122 +83,7 @@ ISR (TIMER0_COMPA_vect)
 	  static unsigned char old_state=0;
 	  
 	  new_state = (PINB&0b11000000)>>6;
-	  if(!(PIND&0b00001000)) 
-	  {   
-		   switch (menu_flag)
-		   {
-				case 0: menu_flag = 1;
-						//cnt = 0;
-						break;
-				case 1:	switch(cnt%4)
-						{
-							case 0:	menu_flag = 0;
-									break;
-							case 1:	menu_flag = 2;
-									break;
-							case 2: menu_flag = 3;
-									break;
-							case 3: menu_flag = 4;
-									break;
-							default:
-									break;
-						}
-						//cnt = 0;
-						break;
-				case 2:	switch(cnt%7)
-						{
-							case 0:	if(!change_flag) 
-							        {
-										add_cnt = hour;
-										change_flag = 1;
-									}
-									else
-									{
-										hour = add_cnt;
-										clock_change_mode = 1;
-										ModifyRTC();
-										change_flag = 0;
-									}
-									break;
-							case 1:	if(!change_flag)
-									{
-										add_cnt = min;
-										change_flag = 1;
-									}
-									else
-									{
-										min = add_cnt;
-										clock_change_mode = 2;
-										ModifyRTC();
-										change_flag = 0;
-									}
-									break;
-							case 2:	if(!change_flag)
-									{
-										add_cnt = day;
-										change_flag = 1;
-									}
-									else
-									{
-										day = add_cnt;
-										clock_change_mode = 6;
-										ModifyRTC();
-										change_flag = 0;
-									}
-									break;
-							case 3:	if(!change_flag)
-									{
-										add_cnt = date;
-										change_flag = 1;
-									}
-									else
-									{
-										date = add_cnt;
-										clock_change_mode = 3;
-										ModifyRTC();
-										change_flag = 0;
-									}
-									break;
-							case 4:	if(!change_flag)
-									{
-										add_cnt = month;
-										change_flag = 1;
-									}
-									else
-									{
-										month = add_cnt;
-										clock_change_mode = 4;
-										ModifyRTC();
-										change_flag = 0;
-									}
-									break;
-							case 5:	if(!change_flag)
-									{
-										add_cnt = year;
-										change_flag = 1;
-									}
-									else
-									{
-										year = add_cnt;
-										clock_change_mode = 5;
-										ModifyRTC();
-										change_flag = 0;
-									}
-									break;
-							case 6:	clock_change_mode = 0;
-									menu_flag = 1;
-									cnt = 1;
-									break;
-						}
-						break;  
-		        case 3: menu_flag = 1;
-				        //cnt = 0;
-				        break;
-				case 4: menu_flag = 1;
-						//cnt = 0;
-						break;
-		   } 
-	  }
+	  
 	  switch(old_state | new_state)
 	  {
 		  case 0x01: case 0x0e:
@@ -246,8 +127,7 @@ ISR (TIMER0_COMPA_vect)
 					else if (add_cnt <= -1){add_cnt = 99;}
 					else {}
 					break;
-		  }
-	    
+		  }    
 }
 //-------------------------------------------------------------
 //прерывания от кнопки энкодера для переключения в окно меню
@@ -260,29 +140,121 @@ void enc_interrupt_ini(void)
 }
 //-------------------------------------------------------------
 //обработчик внешн.прерываний от кнопки энкодера
-/*ISR(INT1_vect)
+ISR(INT1_vect)
 {
-	if ((menu_flag == 1) && ((cnt%3) == 0))
+	enc_int_flag = 1;
+	/*switch (menu_flag)
 	{
-		menu_flag = 0;
-		cnt = 0;
-	}
-    if ((menu_flag == 1) && ((cnt%3) == 1))
-	{
-		menu_flag = 2;
-		cnt = 0;
-	}
-    if ((menu_flag == 2) && ((cnt%8) == 7))
-	{
-		menu_flag = 1;
-		cnt = 0;
-	}
-	else if (menu_flag == 0)
-	{
-		menu_flag = 1;
-		cnt = 0;
-	}
-}*/
+		case 0: menu_flag = 1;
+		//cnt = 0;
+		break;
+		case 1:	switch(cnt_mode1)
+		{
+			case 0:	menu_flag = 0;
+			break;
+			case 1:	menu_flag = 2;
+			break;
+			case 2: menu_flag = 3;
+			break;
+			case 3: menu_flag = 4;
+			break;
+		}
+		//cnt = 0;
+		break;
+		case 2:	switch(cnt_mode2)
+		{
+			case 0:	if(!change_flag)
+			{
+				add_cnt = hour;
+				change_flag = 1;
+			}
+			else
+			{
+				hour = add_cnt;
+				clock_change_mode = 1;
+				ModifyRTC();
+				change_flag = 0;
+			}
+			break;
+			case 1:	if(!change_flag)
+			{
+				add_cnt = min;
+				change_flag = 1;
+			}
+			else
+			{
+				min = add_cnt;
+				clock_change_mode = 2;
+				ModifyRTC();
+				change_flag = 0;
+			}
+			break;
+			case 2:	if(!change_flag)
+			{
+				add_cnt = day;
+				change_flag = 1;
+			}
+			else
+			{
+				day = add_cnt;
+				clock_change_mode = 6;
+				ModifyRTC();
+				change_flag = 0;
+			}
+			break;
+			case 3:	if(!change_flag)
+			{
+				add_cnt = date;
+				change_flag = 1;
+			}
+			else
+			{
+				date = add_cnt;
+				clock_change_mode = 3;
+				ModifyRTC();
+				change_flag = 0;
+			}
+			break;
+			case 4:	if(!change_flag)
+			{
+				add_cnt = month;
+				change_flag = 1;
+			}
+			else
+			{
+				month = add_cnt;
+				clock_change_mode = 4;
+				ModifyRTC();
+				change_flag = 0;
+			}
+			break;
+			case 5:	if(!change_flag)
+			{
+				add_cnt = year;
+				change_flag = 1;
+			}
+			else
+			{
+				year = add_cnt;
+				clock_change_mode = 5;
+				ModifyRTC();
+				change_flag = 0;
+			}
+			break;
+			case 6:	clock_change_mode = 0;
+			menu_flag = 1;
+			//cnt = 1;
+			break;
+		}
+		break;
+		case 3: menu_flag = 1;
+		//cnt = 0;
+		break;
+		case 4: menu_flag = 1;
+		//cnt = 0;
+		break;
+	}*/
+}
 //-------------------------------------------------------------
 void SPI_init(void) //инициализация SPI
 {
@@ -331,6 +303,7 @@ uint8_t spi_send_recv(uint8_t data) // Передаёт и принимает 1 байт по SPI, возвр
 //-------------------------------------------------------------
 void main(void)
 {	
+	cli();
 	port_init();
 	PORTD |= (1<<LED);
 	//Инициализация интерфейсов
@@ -357,17 +330,138 @@ void main(void)
 	//Print_Download(Frame_buffer);
 	PORTD &= ~(1<<LED);
 	//Инициализация таймеров и прерываний
-	cli();
 	timer1_ini();
 	timer0_ini();
 	// настраиваем параметры прерывания
-	EICRA = (1<<ISC01) | (0<<ISC00);
-	EIMSK = (1<<INT0);
-	//enc_interrupt_ini();
+	EICRA |= (1<<ISC01) | (0<<ISC00);
+	EIMSK |= (1<<INT0);
+	enc_interrupt_ini();
 	// и разрешаем его глобально
 	sei();
+	temp_street[0] = '0';
+	temp_street[1] = '0';
+	temp_street[2] = '.';
+	temp_street[3] = '0';
+	hum_street[0] = '0';
+	hum_street[1] = '0';
+    wind_direction[0] = '-';
     while (1) 
     {
+		if (enc_int_flag)
+		{
+			switch (menu_flag)
+			{
+				case 0: menu_flag = 1;
+						//cnt = 0;
+						break;
+				case 1:	switch(cnt%4)
+				{
+					case 0:	menu_flag = 0;
+							break;
+					case 1:	menu_flag = 2;
+							break;
+					case 2: menu_flag = 3;
+							break;
+					case 3: menu_flag = 4;
+							break;
+				}
+						//cnt = 0;
+						break;
+				case 2:	switch(cnt%7)
+				{
+					case 0:	if(!change_flag)
+							{
+								add_cnt = hour;
+								change_flag = 1;
+							}
+							else
+							{
+								hour = add_cnt;
+								clock_change_mode = 1;
+								ModifyRTC();
+								change_flag = 0;
+							}
+							break;
+					case 1:	if(!change_flag)
+							{
+								add_cnt = min;
+								change_flag = 1;
+							}
+							else
+							{
+								min = add_cnt;
+								clock_change_mode = 2;
+								ModifyRTC();
+								change_flag = 0;
+							}
+							break;
+					case 2:	if(!change_flag)
+							{
+								add_cnt = day;
+								change_flag = 1;
+							}
+							else
+							{
+								day = add_cnt;
+								clock_change_mode = 6;
+								ModifyRTC();
+								change_flag = 0;
+							}
+							break;
+					case 3:	if(!change_flag)
+							{
+								add_cnt = date;
+								change_flag = 1;
+							}
+							else
+							{
+								date = add_cnt;
+								clock_change_mode = 3;
+								ModifyRTC();
+								change_flag = 0;
+							}
+							break;
+					case 4:	if(!change_flag)
+							{
+								add_cnt = month;
+								change_flag = 1;
+							}
+							else
+							{
+								month = add_cnt;
+								clock_change_mode = 4;
+								ModifyRTC();
+								change_flag = 0;
+							}
+							break;
+					case 5:	if(!change_flag)
+							{
+								add_cnt = year;
+								change_flag = 1;
+							}
+							else
+							{
+								year = add_cnt;
+								clock_change_mode = 5;
+								ModifyRTC();
+								change_flag = 0;
+							}
+							break;
+					case 6:	clock_change_mode = 0;
+							menu_flag = 1;
+							//cnt = 1;
+							break;
+				}
+						break;
+				case 3: menu_flag = 1;
+						//cnt = 0;
+						break;
+				case 4: menu_flag = 1;
+						//cnt = 0;
+						break;
+			}
+			enc_int_flag = 0;
+		}
 		switch (menu_flag)
 		{
 			case 0:	Print_Home_Page(Frame_buffer);
@@ -383,6 +477,7 @@ void main(void)
 			default:
 					break;
 		}
+		//_delay_ms(500);
     }
 }
 

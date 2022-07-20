@@ -10,13 +10,13 @@
 #define TX_PLOAD_WIDTH 5// величина пакета(кол-во байт в пакете)
 uint8_t TX_ADDRESS[TX_ADR_WIDTH] = {0xb3,0xb4,0x01};//адрес
 uint8_t RX_BUF[TX_PLOAD_WIDTH] = {0};//буффер для пакетов
-extern char temp_street[10];
-extern char hum_street[10];
-extern float temp,hum;
-extern char HALL_counter[10];
-extern char wind_direction[10];
-extern char adc_value1[10];
-extern char adc_value2[10];
+extern char temp_street[5];
+extern char hum_street[5];
+float temp = 0.0f, hum = 0.0f;
+extern char HALL_counter[5];
+extern char wind_direction[5];
+extern char adc_value1[5];
+extern char adc_value2[5];
 uint8_t ErrCnt_Fl = 0;//для подсчета ошибок
 extern uint8_t flag_irq;
 volatile uint8_t rx_flag = 0;
@@ -173,12 +173,13 @@ ISR(INT0_vect)
 		nRF_write_register(STATUS, 0x40);
 	}
 	 rx_flag = 1;
-	 NRF24L01_Receive();
 	 if(receive_counter == 6)
 	 {
 		 receive_counter = 0;
 	 }
+	 NRF24L01_Receive();
 	 receive_counter++;
+	 Clock ();
 	 sprintf(receive_time,"%s:%s:%s,%s/%s/%s", hours, minutes, seconds, mounthday, Mounth, Year);
 }
 //-------------------------------------------------------------

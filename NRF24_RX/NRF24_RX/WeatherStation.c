@@ -8,20 +8,20 @@
 
 extern unsigned char sec,min,hour,day,date,month,year,alarmhour,alarmmin;
 extern char receive_time[20];
-extern char temp_street[10];
-extern char hum_street[10];
-extern char temp_home[10];
-extern char hum_home[10];
-extern char Vbat[10];
-extern char adc_value1[10];
-extern char WIND_speed[10];
-extern char HALL_counter[10];
-extern char Rain[10];
-extern char adc_value2[10];
-extern char wind_direction[10];
+extern char temp_street[5];
+extern char hum_street[5];
+extern char temp_home[5];
+extern char hum_home[5];
+extern char Vbat[5];
+extern char adc_value1[5];
+extern char WIND_speed[5];
+extern char HALL_counter[5];
+extern char Rain[5];
+extern char adc_value2[5];
+extern char wind_direction[5];
 extern uint8_t data[5];
 extern int pressure_home;
-extern char Press_home[10];
+extern char Press_home[6];
 extern char TIME[10];
 extern char hours[4];
 extern char minutes[4];
@@ -30,7 +30,7 @@ extern char weakday[4];
 extern char mounthday[4];
 extern char Mounth[6];
 extern char Year[4];
-float temp,hum;
+float home_temp = 0.0f, home_hum = 0.0f;
 extern uint8_t change_flag;
 extern int8_t cnt;
 extern int8_t add_cnt;
@@ -80,7 +80,7 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 	LCD_12864_Decode_UTF8(88, 1, 0, "/");
 	LCD_12864_Decode_UTF8(93, 1, 0, Mounth);
 	LCD_12864_Decode_UTF8(111, 1, 0, "/");
-	LCD_12864_Decode_UTF8(116, 1, 0, "22");
+	LCD_12864_Decode_UTF8(116, 1, 0, Year);
 	//-----------Вывод уровня приема сигнала----------------------//
 	LCD_12864_Draw_pixel(82, 6);
 	LCD_12864_Draw_pixel(82, 5);
@@ -131,6 +131,7 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 				break;
 	}
 	//-----------Вывод уличных показателей-----------------------//
+	sprintf(Rain,"%.2f",RAIN_AMOUNT(adc_value2));
 	LCD_12864_Decode_UTF8(30, 4, 0, "°C");
 	LCD_12864_Decode_UTF8(58, 4, 0, "%");
 	LCD_12864_Print_7_11(1, 3, 0, temp_street);
@@ -149,8 +150,9 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 	LCD_12864_Draw_pixel(26, 57);
 	LCD_12864_Draw_pixel(26, 61);
 	if (RAIN_AMOUNT(adc_value2) >= 0.9f)  LCD_12864_Decode_UTF8(30, 7, 0, "отсутств.");
-	
-
+	else if ((RAIN_AMOUNT(adc_value2) < 0.9f) && (RAIN_AMOUNT(adc_value2) >= 0.5f))  LCD_12864_Decode_UTF8(30, 7, 0, "слабые");
+    else if ((RAIN_AMOUNT(adc_value2) < 0.5f) && (RAIN_AMOUNT(adc_value2) >= 0.25f))  LCD_12864_Decode_UTF8(30, 7, 0, "умеренные");
+	else if ((RAIN_AMOUNT(adc_value2) < 0.25f) && (RAIN_AMOUNT(adc_value2) > 0.0f))  LCD_12864_Decode_UTF8(30, 7, 0, "сильные");
 	//-----------Вывод показателей в доме-----------------------//
 	if (dht22_GetData(data))
 	{
@@ -158,12 +160,12 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 		 //data[2]-старший бит температуры
 		 //data[3]-младший бит влажности
 		 //data[4]-старший бит влажности
-		 temp = (float)(((data[2]<<8)|data[1]) / 10.0);
-		 if (((data[2]<<8)|data[1]) & 0x8000) temp *= -1.0;
-		 sprintf(temp_home,"%.1f",temp);
-		 hum = (float)(((data[4]<<8)|data[3]) / 10.0);
-		 sprintf(hum_home,"%d",(int)hum);
+		 home_temp = (float)(((data[2]<<8)|data[1]) / 10.0);
+		 if (((data[2]<<8)|data[1]) & 0x8000) home_temp *= -1.0;
+		 home_hum = (float)(((data[4]<<8)|data[3]) / 10.0);
 	}
+	sprintf(temp_home,"%.1f",home_temp);
+	sprintf(hum_home,"%d",(int)home_hum);
 	pressure_home = BMP180_calculation()*0.0075;
 	sprintf(Press_home,"%d",pressure_home);
 	LCD_12864_Decode_UTF8(95, 4, 0, "°C");
@@ -190,8 +192,26 @@ void Print_Home_Page(uint8_t *Frame_buffer)
 	//-----------Вывод индикатора флюгера-----------------------//
 	DrawWeatherVane();
 	//-----------Вывод прогноза погоды-----------------------//
-	
-	DrawCloudsWithRain();
+	if ((wind_speed (HALL_counter) == 0.0f) && (RAIN_AMOUNT(adc_value2) >= 0.9f))
+	{
+		DrawSun();
+	}
+	else if ((wind_speed (HALL_counter) > 10.0f))
+	{
+		DrawClouds();
+	}
+	else if ((wind_speed (HALL_counter) > 0.0f) && (RAIN_AMOUNT(adc_value2) >= 0.9f))
+	{
+		DrawSunWithClouds();
+	}
+	else if ((RAIN_AMOUNT(adc_value2) < 0.85f) && (RAIN_AMOUNT(adc_value2) > 0.0f))
+	{
+		DrawCloudsWithRain();
+	}
+	else
+	{
+		DrawSun();
+	}
 	
 	LCD_12864_Draw_bitmap(Frame_buffer);
 	LCD_12864_GrapnicMode(0);

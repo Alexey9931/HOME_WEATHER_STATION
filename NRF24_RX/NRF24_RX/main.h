@@ -20,8 +20,8 @@
 
 #define LED PORTD4
 #define	SW_ENC PORTD3
-#define DT_ENC PORTB7
-#define CLK_ENC PORTB6
+#define DT_ENC PORTB6
+#define CLK_ENC PORTB7
 
 #include "NRF24.h"
 #include "TWI.h"
