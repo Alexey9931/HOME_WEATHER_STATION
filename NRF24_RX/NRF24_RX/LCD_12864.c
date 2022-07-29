@@ -6,9 +6,9 @@
  */ 
 #include "LCD_12864.h"
 
-extern uint8_t Frame_buffer[1024]; //Буфер кадра
-uint8_t ST7920_width; //Ширина дисплея в пикселях
-uint8_t ST7920_height; //Высота дисплея в пикселях
+//extern uint8_t Frame_buffer[1024]; //Буфер кадра
+extern uint8_t ST7920_width; //Ширина дисплея в пикселях
+extern uint8_t ST7920_height; //Высота дисплея в пикселях
 
 /*-----------------------------------Шрифт 5*7----------------------------------*/
 __flash const uint8_t Font5_7[] = {
@@ -274,7 +274,7 @@ void LCD_12864_Draw_bitmap(const unsigned char *bitmap) {
 	}
 }
 /*----------Рисование пикселя--------------------*/
-void LCD_12864_Draw_pixel(uint8_t x, uint8_t y) {
+void LCD_12864_Draw_pixel(uint8_t x, uint8_t y, uint8_t *Frame_buffer) {
 	/// Функция рисования точки.
 	/// param\ x - координата по X(от 0 до 127)
 	/// paran\ y - координата по Y(от 0 до 63)
@@ -283,9 +283,9 @@ void LCD_12864_Draw_pixel(uint8_t x, uint8_t y) {
 	}
 }
 /*---------------------Удаление пикселя на экране----------------------------*/
-void LCD_12864_Clean_pixel(uint8_t x, uint8_t y) {
+void LCD_12864_Clean_pixel(uint8_t x, uint8_t y, uint8_t *Frame_buffer) {
 	/// Функция удаления точки.
-	/// param\ x - координата по X(от 0 до 127)
+	/// param\ x - координата по X(от 0 до 127) 
 	/// paran\ y - координата по Y(от 0 до 63)
 	if (y < ST7920_height && x < ST7920_width) {
 		Frame_buffer[(x) + ((y / 8) * 128)] &= 0xFE << y % 8;
@@ -422,7 +422,7 @@ void strob(void)
 	_delay_us(1);
 }
 /*---------------------Функция вывода символа 5*7 на дисплей-----------------------------*/
-void LCD_12864_print_symbol(uint16_t x, uint16_t symbol, uint8_t inversion) {
+void LCD_12864_print_symbol(uint16_t x, uint16_t symbol, uint8_t inversion, uint8_t *Frame_buffer) {
 	/// Функция вывода символа на дисплей
 	/// \param x положение по х (от 0 до 1023)
 	/// Дисплей поделен по страницам(строка из 8 пикселей)
@@ -447,7 +447,7 @@ void LCD_12864_print_symbol(uint16_t x, uint16_t symbol, uint8_t inversion) {
 	}
 }
 /*---------------------Функция вывода символа 4*6 на дисплей-----------------------------*/
-void LCD_12864_print_symbol_4_6(uint16_t x, uint16_t symbol, uint8_t inversion) {
+void LCD_12864_print_symbol_4_6(uint16_t x, uint16_t symbol, uint8_t inversion, uint8_t *Frame_buffer) {
 	/// Функция вывода символа на дисплей
 	/// \param x положение по х (от 0 до 1023)
 	/// Дисплей поделен по страницам(строка из 8 пикселей)
@@ -472,7 +472,7 @@ void LCD_12864_print_symbol_4_6(uint16_t x, uint16_t symbol, uint8_t inversion) 
 	}
 }
 /*---------------------Функция вывода символа 11*16 для отображения времени-----------------------------*/
-void LCD_12864_print_symbol_11_16(uint16_t x, uint16_t symbol, uint8_t inversion) {
+void LCD_12864_print_symbol_11_16(uint16_t x, uint16_t symbol, uint8_t inversion, uint8_t *Frame_buffer) {
 	/// Функция вывода символа на дисплей
 	/// \param x положение по х (от 0 до 1023)
 	/// Дисплей поделен по страницам(строка из 8 пикселей)
@@ -507,7 +507,7 @@ void LCD_12864_print_symbol_11_16(uint16_t x, uint16_t symbol, uint8_t inversion
 	}
 }
 /*---------------------Функция вывода символа 7*11 -----------------------------*/
-void LCD_12864_print_symbol_7_11(uint16_t x, uint16_t symbol, uint8_t inversion) {
+void LCD_12864_print_symbol_7_11(uint16_t x, uint16_t symbol, uint8_t inversion, uint8_t *Frame_buffer) {
 	/// Функция вывода символа на дисплей
 	/// \param x положение по х (от 0 до 1023)
 	/// Дисплей поделен по страницам(строка из 8 пикселей)
@@ -542,7 +542,7 @@ void LCD_12864_print_symbol_7_11(uint16_t x, uint16_t symbol, uint8_t inversion)
 	}
 }
 /*---------------------Функция вывода строки 7*11-----------------------------*/
-void LCD_12864_Print_7_11(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer) {
+void LCD_12864_Print_7_11(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer, uint8_t *Frame_buffer) {
 	/// Функция декодирования UTF-8 в набор символов и последующее занесение в буфер кадра
 	/// \param x - координата по х. От 0 до 127
 	/// \param y - координата по y. от 0 до 7
@@ -569,13 +569,13 @@ void LCD_12864_Print_7_11(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buf
 		symbol = tx_buffer[i];
 		if (inversion)
 		{
-			if(symbol != 46) LCD_12864_print_symbol_7_11(x, symbol - 48, 1);
-			else LCD_12864_print_symbol_7_11(x, 10, 1);
+			if(symbol != 46) LCD_12864_print_symbol_7_11(x, symbol - 48, 1, Frame_buffer);
+			else LCD_12864_print_symbol_7_11(x, 10, 1, Frame_buffer);
 		}
 		else
 		{
-			if(symbol != 46) LCD_12864_print_symbol_7_11(x, symbol - 48, 0);
-			else LCD_12864_print_symbol_7_11(x, 10, 0);
+			if(symbol != 46) LCD_12864_print_symbol_7_11(x, symbol - 48, 0, Frame_buffer);
+			else LCD_12864_print_symbol_7_11(x, 10, 0, Frame_buffer);
 		}
 		x = x + 8;
 	}
@@ -583,7 +583,7 @@ void LCD_12864_Print_7_11(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buf
 	//pf_mount(0x00);
 }
 /*---------------------Функция вывода строки 4*6-----------------------------*/
-void LCD_12864_Print_4_6(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer) {
+void LCD_12864_Print_4_6(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer, uint8_t *Frame_buffer) {
 	/// Функция декодирования UTF-8 в набор символов и последующее занесение в буфер кадра
 	/// \param x - координата по х. От 0 до 127
 	/// \param y - координата по y. от 0 до 7
@@ -610,13 +610,13 @@ void LCD_12864_Print_4_6(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buff
 		symbol = tx_buffer[i];
 		if (inversion)
 		{
-			if(symbol != 46) LCD_12864_print_symbol_4_6(x, symbol - 48, 1);
-			else LCD_12864_print_symbol_4_6(x, 10, 1);
+			if(symbol != 46) LCD_12864_print_symbol_4_6(x, symbol - 48, 1, Frame_buffer);
+			else LCD_12864_print_symbol_4_6(x, 10, 1, Frame_buffer);
 		}
 		else
 		{
-			if(symbol != 46) LCD_12864_print_symbol_4_6(x, symbol - 48, 0);
-			else LCD_12864_print_symbol_4_6(x, 10, 0);
+			if(symbol != 46) LCD_12864_print_symbol_4_6(x, symbol - 48, 0, Frame_buffer);
+			else LCD_12864_print_symbol_4_6(x, 10, 0, Frame_buffer);
 		}
 		x = x + 5;
 	}
@@ -624,7 +624,7 @@ void LCD_12864_Print_4_6(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buff
 	//pf_mount(0x00);
 }
 /*---------------------Функция вывода строки 11*16-----------------------------*/
-void LCD_12864_Print_11_16(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer) {
+void LCD_12864_Print_11_16(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer, uint8_t *Frame_buffer) {
 	/// Функция декодирования UTF-8 в набор символов и последующее занесение в буфер кадра
 	/// \param x - координата по х. От 0 до 127
 	/// \param y - координата по y. от 0 до 7
@@ -651,11 +651,11 @@ void LCD_12864_Print_11_16(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 			symbol = tx_buffer[i];
 			if (inversion)
 			{
-				LCD_12864_print_symbol_11_16(x, symbol - 48, 1); 
+				LCD_12864_print_symbol_11_16(x, symbol - 48, 1, Frame_buffer); 
 			}
 			else
 			{
-				LCD_12864_print_symbol_11_16(x, symbol - 48, 0); 
+				LCD_12864_print_symbol_11_16(x, symbol - 48, 0, Frame_buffer); 
 			}
 			x = x + 12;
 	}
@@ -663,7 +663,7 @@ void LCD_12864_Print_11_16(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 	//pf_mount(0x00);
 }
 /*----------------Функция декодирования UTF-8 в набор символов 5*7-----------------*/
-void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer) {
+void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer, uint8_t *Frame_buffer) {
 	/// Функция декодирования UTF-8 в набор символов и последующее занесение в буфер кадра
 	/// \param x - координата по х. От 0 до 127
 	/// \param y - координата по y. от 0 до 7
@@ -692,11 +692,11 @@ void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 			symbol = tx_buffer[i];
 			if (inversion) 
 			{
-				LCD_12864_print_symbol(x, symbol - 32, 1); //Таблица UTF-8. Basic Latin. С "пробел" до "z". Инверсия вкл.
+				LCD_12864_print_symbol(x, symbol - 32, 1, Frame_buffer); //Таблица UTF-8. Basic Latin. С "пробел" до "z". Инверсия вкл.
 			} 
 			else 
 			{
-				LCD_12864_print_symbol(x, symbol - 32, 0); //Таблица UTF-8. Basic Latin. С "пробел" до "z". Инверсия выкл.
+				LCD_12864_print_symbol(x, symbol - 32, 0, Frame_buffer); //Таблица UTF-8. Basic Latin. С "пробел" до "z". Инверсия выкл.
 			}
 			x = x + 6;			
 		}
@@ -707,11 +707,11 @@ void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 			{
 				if (inversion) 
 				{
-					LCD_12864_print_symbol(x, symbol - 97, 1); //Таблица UTF-8. Кириллица. С буквы "А" до "п". Инверсия вкл.
+					LCD_12864_print_symbol(x, symbol - 97, 1, Frame_buffer); //Таблица UTF-8. Кириллица. С буквы "А" до "п". Инверсия вкл.
 				} 
 				else 
 				{
-					LCD_12864_print_symbol(x, symbol - 97, 0); //Таблица UTF-8. Кириллица. С буквы "А" до "п". Инверсия выкл.
+					LCD_12864_print_symbol(x, symbol - 97, 0, Frame_buffer); //Таблица UTF-8. Кириллица. С буквы "А" до "п". Инверсия выкл.
 				}
 				x = x + 6;
 			} 			
@@ -719,11 +719,11 @@ void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 			{
 				if (inversion) 
 				{
-					LCD_12864_print_symbol(x, 159, 1); ////Таблица UTF-8. Кириллица. Буква "Ё". Инверсия вкл.
+					LCD_12864_print_symbol(x, 159, 1, Frame_buffer); ////Таблица UTF-8. Кириллица. Буква "Ё". Инверсия вкл.
 				} 
 				else 
 				{
-					LCD_12864_print_symbol(x, 159, 0); ////Таблица UTF-8. Кириллица. Буква "Ё". Инверсия выкл.
+					LCD_12864_print_symbol(x, 159, 0, Frame_buffer); ////Таблица UTF-8. Кириллица. Буква "Ё". Инверсия выкл.
 				}
 				x = x + 6;
 			} 
@@ -731,10 +731,10 @@ void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 			{
 				if (inversion) 
 				{
-					LCD_12864_print_symbol(x, 160, 1); ////Таблица UTF-8. Кириллица. Буква "ё". Инверсия вкл.
+					LCD_12864_print_symbol(x, 160, 1, Frame_buffer); ////Таблица UTF-8. Кириллица. Буква "ё". Инверсия вкл.
 				} else 
 				{
-					LCD_12864_print_symbol(x, 160, 0); ////Таблица UTF-8. Кириллица. Буква "ё". Инверсия выкл.
+					LCD_12864_print_symbol(x, 160, 0, Frame_buffer); ////Таблица UTF-8. Кириллица. Буква "ё". Инверсия выкл.
 				}
 				x = x + 6;
 			} 
@@ -742,11 +742,11 @@ void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 			{
 				if (inversion)
 			    {
-					LCD_12864_print_symbol(x, 161, 1); ////Таблица UTF-8. Basic Latin. Символ "°". Инверсия вкл.
+					LCD_12864_print_symbol(x, 161, 1, Frame_buffer); ////Таблица UTF-8. Basic Latin. Символ "°". Инверсия вкл.
 				} 
 				else 
 				{
-					LCD_12864_print_symbol(x, 161, 0); ////Таблица UTF-8. Basic Latin. Символ "°". Инверсия выкл.
+					LCD_12864_print_symbol(x, 161, 0, Frame_buffer); ////Таблица UTF-8. Basic Latin. Символ "°". Инверсия выкл.
 				}
 				x = x + 6;
 			}
@@ -757,7 +757,7 @@ void LCD_12864_Decode_UTF8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_bu
 	//pf_mount(0x00);
 }
 /*---------------------Функция вывода Jpg картинки------------------*/
-void LCD_12864_Print_jpeg()
+void LCD_12864_Print_jpeg(uint8_t *Frame_buffer)
 {
 	/*FATFS fs;
 	asm("nop");
@@ -776,16 +776,16 @@ void LCD_12864_Print_jpeg()
 	//pf_mount(0x00);
 }
 /*---------------------Функция инверсии любого места в буфере------------------*/
-void LCD_12864_Inversion(uint16_t x_start, uint16_t x_end) {
+/*void LCD_12864_Inversion(uint16_t x_start, uint16_t x_end) {
 	/// Функция инверсии любого места в буфере
 	/// \param x_start - начальная точка по х от 0 до 1024
 	/// \param x_end - конечная точка по y от 0 до 1024
 	for (; x_start < x_end; x_start++) {
 		Frame_buffer[x_start] = ~(Frame_buffer[x_start]);
 	}
-}
+}*/
 /*---------------Функция очистки дисплея в графическом режиме--------------------*/
-void LCD_12864_Clean() {
+void LCD_12864_Clean(uint8_t *Frame_buffer) {
 	/// Функция очистки дисплея в графическом режиме
 	uint8_t x, y;
 	for (y = 0; y < 64; y++) {
@@ -801,17 +801,17 @@ void LCD_12864_Clean() {
 			LCD_12864_send_data(0x00);
 		}
 	}
-	LCD_12864_Clean_Frame_buffer();
+	LCD_12864_Clean_Frame_buffer(Frame_buffer);
 }
 /*------------------------Функция очистки буфера кадра-------------------------*/
-void LCD_12864_Clean_Frame_buffer(void) {
+void LCD_12864_Clean_Frame_buffer(uint8_t *Frame_buffer) {
 	/// Функция очистки буфера кадра
 	memset(Frame_buffer, 0x00, sizeof(Frame_buffer));
 }
 /*----------Различная графика--------------------*/
 /*-----------------------------------------------*/
 /*----------Линия--------------------*/
-void LCD_12864_Draw_line(uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end) {
+void LCD_12864_Draw_line(uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, uint8_t *Frame_buffer) {
 	int dx = (x_end >= x_start) ? x_end - x_start : x_start - x_end;
 	int dy = (y_end >= y_start) ? y_end - y_start : y_start - y_end;
 	int sx = (x_start < x_end) ? 1 : -1;
@@ -819,7 +819,7 @@ void LCD_12864_Draw_line(uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_
 	int err = dx - dy;
 
 	for (;;) {
-		LCD_12864_Draw_pixel(x_start, y_start);
+		LCD_12864_Draw_pixel(x_start, y_start, Frame_buffer);
 		if (x_start == x_end && y_start == y_end)
 		break;
 		int e2 = err + err;
@@ -834,7 +834,7 @@ void LCD_12864_Draw_line(uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_
 	}
 }
 /*----------Пустотелый прямоугольник--------------------*/
-void LCD_12864_Draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
+void LCD_12864_Draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *Frame_buffer) {
 	/// Вывести пустотелый прямоугольник
 	/// \param x - начальная точка по оси "x"
 	/// \param y - начальная точка по оси "y"
@@ -850,13 +850,13 @@ void LCD_12864_Draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t h
 	}
 
 	/*Рисуем линии*/
-	LCD_12864_Draw_line(x, y, x + width, y); /*Верх прямоугольника*/
-	LCD_12864_Draw_line(x, y + height, x + width, y + height); /*Низ прямоугольника*/
-	LCD_12864_Draw_line(x, y, x, y + height); /*Левая сторона прямоугольника*/
-	LCD_12864_Draw_line(x + width, y, x + width, y + height); /*Правая сторона прямоугольника*/
+	LCD_12864_Draw_line(x, y, x + width, y, Frame_buffer); /*Верх прямоугольника*/
+	LCD_12864_Draw_line(x, y + height, x + width, y + height, Frame_buffer); /*Низ прямоугольника*/
+	LCD_12864_Draw_line(x, y, x, y + height, Frame_buffer); /*Левая сторона прямоугольника*/
+	LCD_12864_Draw_line(x + width, y, x + width, y + height, Frame_buffer); /*Правая сторона прямоугольника*/
 }
 /*-------------------------------Закрашенный прямоугольник---------------------------------*/
-void LCD_12864_Draw_rectangle_filled(uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
+void LCD_12864_Draw_rectangle_filled(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *Frame_buffer) {
 	/// Вывести закрашенный прямоугольник
 	/// \param x - начальная точка по оси "x"
 	/// \param y - начальная точка по оси "y"
@@ -873,11 +873,11 @@ void LCD_12864_Draw_rectangle_filled(uint16_t x, uint16_t y, uint16_t width, uin
 
 	/*Рисуем линии*/
 	for (uint8_t i = 0; i <= height; i++) {
-		LCD_12864_Draw_line(x, y + i, x + width, y + i);
+		LCD_12864_Draw_line(x, y + i, x + width, y + i, Frame_buffer);
 	}
 }
 /*---------------------------------Пустотелая окружность-----------------------------------*/
-void LCD_12864_Draw_circle(uint8_t x, uint8_t y, uint8_t radius) {
+void LCD_12864_Draw_circle(uint8_t x, uint8_t y, uint8_t radius, uint8_t *Frame_buffer) {
 	/// Вывести пустотелую окружность
 	/// \param x - точка центра окружности по оси "x"
 	/// \param y - точка центра окружности по оси "y"
@@ -889,10 +889,10 @@ void LCD_12864_Draw_circle(uint8_t x, uint8_t y, uint8_t radius) {
 	int ddF_y = -2 * (int) radius;
 	int x_0 = 0;
 
-	LCD_12864_Draw_pixel(x, y + radius);
-	LCD_12864_Draw_pixel(x, y - radius);
-	LCD_12864_Draw_pixel(x + radius, y);
-	LCD_12864_Draw_pixel(x - radius, y);
+	LCD_12864_Draw_pixel(x, y + radius, Frame_buffer);
+	LCD_12864_Draw_pixel(x, y - radius, Frame_buffer);
+	LCD_12864_Draw_pixel(x + radius, y, Frame_buffer);
+	LCD_12864_Draw_pixel(x - radius, y, Frame_buffer);
 
 	int y_0 = radius;
 	while (x_0 < y_0) {
@@ -904,18 +904,18 @@ void LCD_12864_Draw_circle(uint8_t x, uint8_t y, uint8_t radius) {
 		x_0++;
 		ddF_x += 2;
 		f += ddF_x;
-		LCD_12864_Draw_pixel(x + x_0, y + y_0);
-		LCD_12864_Draw_pixel(x - x_0, y + y_0);
-		LCD_12864_Draw_pixel(x + x_0, y - y_0);
-		LCD_12864_Draw_pixel(x - x_0, y - y_0);
-		LCD_12864_Draw_pixel(x + y_0, y + x_0);
-		LCD_12864_Draw_pixel(x - y_0, y + x_0);
-		LCD_12864_Draw_pixel(x + y_0, y - x_0);
-		LCD_12864_Draw_pixel(x - y_0, y - x_0);
+		LCD_12864_Draw_pixel(x + x_0, y + y_0, Frame_buffer);
+		LCD_12864_Draw_pixel(x - x_0, y + y_0, Frame_buffer);
+		LCD_12864_Draw_pixel(x + x_0, y - y_0, Frame_buffer);
+		LCD_12864_Draw_pixel(x - x_0, y - y_0, Frame_buffer);
+		LCD_12864_Draw_pixel(x + y_0, y + x_0, Frame_buffer);
+		LCD_12864_Draw_pixel(x - y_0, y + x_0, Frame_buffer);
+		LCD_12864_Draw_pixel(x + y_0, y - x_0, Frame_buffer);
+		LCD_12864_Draw_pixel(x - y_0, y - x_0, Frame_buffer);
 	}
 }
 /*--------------------------------Закрашенная окружность-----------------------------------*/
-void LCD_12864_Draw_circle_filled(int16_t x, int16_t y, int16_t radius) {
+void LCD_12864_Draw_circle_filled(int16_t x, int16_t y, int16_t radius, uint8_t *Frame_buffer) {
 	/// Вывести закрашенную окружность
 	/// \param x - точка центра окружности по оси "x"
 	/// \param y - точка центра окружности по оси "y"
@@ -927,11 +927,11 @@ void LCD_12864_Draw_circle_filled(int16_t x, int16_t y, int16_t radius) {
 	int16_t x_0 = 0;
 	int16_t y_0 = radius;
 
-	LCD_12864_Draw_pixel(x, y + radius);
-	LCD_12864_Draw_pixel(x, y - radius);
-	LCD_12864_Draw_pixel(x + radius, y);
-	LCD_12864_Draw_pixel(x - radius, y);
-	LCD_12864_Draw_line(x - radius, y, x + radius, y);
+	LCD_12864_Draw_pixel(x, y + radius, Frame_buffer);
+	LCD_12864_Draw_pixel(x, y - radius, Frame_buffer);
+	LCD_12864_Draw_pixel(x + radius, y, Frame_buffer);
+	LCD_12864_Draw_pixel(x - radius, y, Frame_buffer);
+	LCD_12864_Draw_line(x - radius, y, x + radius, y, Frame_buffer);
 
 	while (x_0 < y_0) {
 		if (f >= 0) {
@@ -943,14 +943,14 @@ void LCD_12864_Draw_circle_filled(int16_t x, int16_t y, int16_t radius) {
 		ddF_x += 2;
 		f += ddF_x;
 
-		LCD_12864_Draw_line(x - x_0, y + y_0, x + x_0, y + y_0);
-		LCD_12864_Draw_line(x + x_0, y - y_0, x - x_0, y - y_0);
-		LCD_12864_Draw_line(x + y_0, y + x_0, x - y_0, y + x_0);
-		LCD_12864_Draw_line(x + y_0, y - x_0, x - y_0, y - x_0);
+		LCD_12864_Draw_line(x - x_0, y + y_0, x + x_0, y + y_0, Frame_buffer);
+		LCD_12864_Draw_line(x + x_0, y - y_0, x - x_0, y - y_0, Frame_buffer);
+		LCD_12864_Draw_line(x + y_0, y + x_0, x - y_0, y + x_0, Frame_buffer);
+		LCD_12864_Draw_line(x + y_0, y - x_0, x - y_0, y - x_0, Frame_buffer);
 	}
 }
 /*----------------------------------Закрашенный треугольник--------------------------------*/
-void LCD_12864_Draw_triangle_filled(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3) {
+void LCD_12864_Draw_triangle_filled(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, uint8_t *Frame_buffer) {
 	/// Вывести закрашенный треугольник
 	/// \param x_1 - первая точка треугольника. Координата по оси "x"
 	/// \param y_1 - первая точка треугольника. Координата по оси "y"
@@ -1012,7 +1012,7 @@ void LCD_12864_Draw_triangle_filled(uint16_t x1, uint16_t y1, uint16_t x2, uint1
 	}
 
 	for (curpixel = 0; curpixel <= numpixels; curpixel++) {
-		LCD_12864_Draw_line(x, y, x3, y3);
+		LCD_12864_Draw_line(x, y, x3, y3, Frame_buffer);
 
 		num += numadd;
 		if (num >= den) {

@@ -6,6 +6,8 @@
  */ 
 #include "usart.h"
 
+extern uint8_t rx_flag;
+
 void USART_Init( unsigned int speed)//Инициализация модуля USART
 {	
   UBRR0H = (unsigned char)(speed>>8);
@@ -21,10 +23,23 @@ void USART_Init( unsigned int speed)//Инициализация модуля USART
 void USART_Transmit( char* data ) //Функция отправки данных
 {
   uint8_t i;
+  uint8_t Flag = 0;
+  
   for (i = 0; i < strlen(data); i++)
   {
-	  while ( !(UCSR0A & (1<<UDRE0)) ); //Ожидание опустошения буфера приема
+	  while ( !(UCSR0A & (1<<UDRE0)) )//Ожидание опустошения буфера приема
+	  {
+		  if (rx_flag == 1) 
+		  {
+			  Flag = 1;
+			  break;
+		  }
+	  } 
+	  if (Flag == 1)
+	  {
+		  break;
+	  }
 	  UDR0 = data[i]; //Начало передачи данных
   }
-
+  Flag = 0;
 }

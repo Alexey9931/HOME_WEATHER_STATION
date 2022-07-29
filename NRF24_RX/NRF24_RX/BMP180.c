@@ -72,6 +72,7 @@ void BMP180_Calibration (void)
 	mc = -11786;
 	md = 2705;*/
 }
+
 // прочитать значение температуры
 int32_t BMP180_get_temper(void)
 {
@@ -150,14 +151,14 @@ int32_t BMP180_calculation ()
 		p = (b7 / b4) << 1;
 	}
 
-	x1 = (p / (pow(2,8))) * (p / (pow(2,8)));
-	x1 = (x1 * 3038) / (pow(2,16));
-	x2 = (-7357 * p) / (pow(2,16));
-	pressure = p + ((x1 + x2 + 3791) / (pow(2,4)));
+	x1 = (p >> 8) * (p >> 8);
+	x1 = (x1 * 3038) >> 16;
+	x2 = (-7357 * p) >> 16;
+	pressure = p + ((x1 + x2 + 3791) >> 4);
 	return pressure;
 }
 // функция расчета высоты над уровнем моря (альтитуда) (функция берет очень много памяти из-за математических функций !!!)
-void bmp180CalcAltitude(int32_t pressure)
+/*void bmp180CalcAltitude(int32_t pressure)
 {
 	float temp;
 
@@ -166,4 +167,4 @@ void bmp180CalcAltitude(int32_t pressure)
 	//altitude = round(44330*temp*10);
 	altitude = 44330*temp*100;
 	//get altitude in dm
-}
+}*/

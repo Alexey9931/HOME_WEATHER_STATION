@@ -36,4 +36,6 @@
 #include "DHT22.h"
 #include "BMP180.h"
 
+uint8_t spi_send_recv(uint8_t data);
+
 #endif /* MAIN_H_ */

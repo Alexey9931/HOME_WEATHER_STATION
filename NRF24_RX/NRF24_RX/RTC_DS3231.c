@@ -107,7 +107,7 @@ void ModifyRTC(void)
 		case MODE_CHANGE_HOURS: //часы
 		{
 			I2C_SendByte(2);//ѕереходим на 0x02 Ч байт часов
-			if (hour < 23) I2C_SendByte(RTC_ConvertFromBinDec( hour ));
+			if (hour <= 23) I2C_SendByte(RTC_ConvertFromBinDec( hour ));
 			else I2C_SendByte(RTC_ConvertFromBinDec(0));
 			break;
 		}

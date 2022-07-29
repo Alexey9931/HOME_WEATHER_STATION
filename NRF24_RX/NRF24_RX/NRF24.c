@@ -10,25 +10,35 @@
 #define TX_PLOAD_WIDTH 5// величина пакета(кол-во байт в пакете)
 uint8_t TX_ADDRESS[TX_ADR_WIDTH] = {0xb3,0xb4,0x01};//адрес
 uint8_t RX_BUF[TX_PLOAD_WIDTH] = {0};//буффер дл€ пакетов
-extern char temp_street[5];
-extern char hum_street[5];
-float temp = 0.0f, hum = 0.0f;
-extern char HALL_counter[5];
-extern char wind_direction[5];
-extern char adc_value1[5];
-extern char adc_value2[5];
+extern struct Weather_Parameters {
+	char temp_street[5];
+	char hum_street[5];
+	char temp_home[5];
+	char hum_home[5];
+	char WIND_speed[5];
+	char wind_direction[6];
+	char Vbat[5];
+	char Rain[6];
+	char Press_home[6];
+} Weath_Param;
+extern struct Time_Parameters {
+	char hours[4];
+	char minutes[4];
+	char seconds[4];
+	char weakday[4];
+	char mounthday[4];
+	char Mounth[4];
+	char Year[4];
+} T_Param;
+char HALL_counter[5] = {0};
+char adc_value1[6];
+char adc_value2[6];
 uint8_t ErrCnt_Fl = 0;//дл€ подсчета ошибок
-extern uint8_t flag_irq;
-volatile uint8_t rx_flag = 0;
-extern uint8_t Frame_buffer[1024];
+uint8_t flag_irq = 1;
+uint8_t rx_flag = 0;
 extern char receive_time[20];
-uint8_t receive_counter = 0;
-char hours[4];
-char minutes[4];
-char seconds[4];
-char mounthday[4];
-char Mounth[6];
-char Year[4];
+uint8_t receive_counter;
+extern uint8_t timer1_flag, timer2_flag;
 
 //-------------------------------------------------------------
 void NRF24_ini(void)
@@ -54,133 +64,100 @@ void NRF24_ini(void)
 	NRF24L01_RX_Mode();
 }
 //-------------------------------------------------------------
-/*void NRF24L01_Receive(void)
-{
-	uint8_t status=0x01;
-	uint16_t dt=0;
-	while(flag_irq == 1);
-    status = nRF_read_register(STATUS);
-	_delay_us(1);
-	PORTD |= (1<<PORTD1);
-	_delay_ms(100);
-	PORTD &= ~(1<<PORTD1);
-    if(status & 0x40)
-    {
-	    NRF24_Read_Buf(R_RX_PAYLOAD,RX_BUF,TX_PLOAD_WIDTH);
-	    dt = *(int16_t*)RX_BUF;
-	    clearlcd();
-		setpos(0,0);
-		sendchar(dt/100+'0');
-        sendchar((dt/10)%10+'0');
-		sendchar(dt%10+'0');
-	    dt = *(int16_t*)(RX_BUF+2);
-	    sendchar(dt/100+'0');
-	    sendchar((dt/10)%10+'0');
-	    sendchar(dt%10+'0');
-	    nRF_write_register(STATUS, 0x40);
-    }
-    flag_irq = 1;
-}*/
 void NRF24L01_Receive(void)
 {
-	uint16_t dt=0;
+	int temp, hum;
 	uint8_t n = 0;
-	uint16_t T = 0;
 	
 	uint8_t byte1 = 0;
 	uint8_t byte2 = 0;
 	if(rx_flag==1)
 	{
-		//--------------------------------------
-		//получение температуры
-		if (RX_BUF[0] == 1)
+		switch (RX_BUF[0])
 		{
-		  memset(temp_street, 0, sizeof(int) * strlen(temp_street));//очистка массива
-		  byte1 = RX_BUF[1];//младший бит температуры
-		  byte2 = RX_BUF[2];//старший бит температуры
-		  temp = (float)(((byte2<<8)|byte1) / 10.0);
-		  if (((byte2<<8)|byte1) & 0x8000) temp *= -1.0;
-		  sprintf(temp_street,"%.1f",temp);
-		}
-		//--------------------------------------
-		//получение влажности
-		if (RX_BUF[0] == 5)
-		{
-			memset(hum_street, 0, sizeof(int) * strlen(hum_street));//очистка массива
-			byte1 = RX_BUF[1];//младший бит температуры
-			byte2 = RX_BUF[2];//старший бит температуры
-			hum = (float)(((byte2<<8)|byte1) / 10.0);
-			sprintf(hum_street,"%d",(int)hum);
-		}
-		//--------------------------------------
-		//получение скорости ветра
-		 if(RX_BUF[0] == 2)
-		{
-		  memset(HALL_counter, 0, sizeof(int) * strlen(HALL_counter));//очистка массива
-		  for ( n = 0; n < strlen(RX_BUF)-1; n++)
-		  {
-			 HALL_counter[n] = RX_BUF[n+1];
-		  }
-		}
-		//--------------------------------------
-		//получение направлени€ ветра
-		if(RX_BUF[0] == 3)
-		{
-			memset(wind_direction, 0, sizeof(int) * strlen(wind_direction));//очистка массива
-			for ( n = 0; n < strlen(RX_BUF)-1; n++)
-			{
-				wind_direction[n] = RX_BUF[n+1];
-			}
-			wind_direction[n+1] = ' ';
-		}
-		//--------------------------------------
-		//получение зар€да аккумул€тора
-		if(RX_BUF[0] == 4)
-		{
-			memset(adc_value1, 0, sizeof(int) * strlen(adc_value1));//очистка массива
-			for ( n = 0; n < strlen(RX_BUF)-1; n++)
-			{
-				adc_value1[n] = RX_BUF[n+1];
-			}
-		}
-		//--------------------------------------
-		//получение кол-ва осадков
-		if(RX_BUF[0] == 6)
-		{
-			memset(adc_value2, 0, sizeof(int) * strlen(adc_value2));//очистка массива
-			for ( n = 0; n < strlen(RX_BUF)-1; n++)
-			{
-				adc_value2[n] = RX_BUF[n+1];
-			}
+			//--------------------------------------
+			//получение температуры
+			case 1:	receive_counter++;
+					memset(Weath_Param.temp_street, 0, sizeof(int) * strlen(Weath_Param.temp_street));//очистка массива
+					byte1 = RX_BUF[1];//младший бит температуры
+					byte2 = RX_BUF[2];//старший бит температуры
+					temp = ((byte2<<8)|byte1);
+					if (((byte2<<8)|byte1) & 0x8000) temp *= -1;
+					sprintf(Weath_Param.temp_street,"%d.%d",temp/10 ,temp%10);
+					break;
+			//--------------------------------------
+			//получение влажности
+			case 5:	receive_counter++;
+					memset(Weath_Param.hum_street, 0, sizeof(int) * strlen(Weath_Param.hum_street));//очистка массива
+					byte1 = RX_BUF[1];//младший бит температуры
+					byte2 = RX_BUF[2];//старший бит температуры
+					hum = ((byte2<<8)|byte1) / 10;
+					sprintf(Weath_Param.hum_street,"%d",hum);
+					break;
+			//--------------------------------------
+			//получение скорости ветра
+			case 2:	receive_counter++;
+					memset(HALL_counter, 0, sizeof(int) * strlen(HALL_counter));//очистка массива
+					for ( n = 0; n < (strlen(RX_BUF)-1); n++)
+					{
+						HALL_counter[n] = RX_BUF[n+1];
+					}
+					sprintf(Weath_Param.WIND_speed,"%d.%d", wind_speed (HALL_counter)/100, wind_speed (HALL_counter)%100);
+					break;
+			//--------------------------------------
+			//получение направлени€ ветра
+			case 3:	receive_counter++;
+					memset(Weath_Param.wind_direction, 0, sizeof(int) * strlen(Weath_Param.wind_direction));//очистка массива
+					for ( n = 0; n < (strlen(RX_BUF)-1); n++)
+					{
+						Weath_Param.wind_direction[n] = RX_BUF[n+1];
+					}
+					break;
+			//--------------------------------------
+			//получение зар€да аккумул€тора
+			case 4:	receive_counter++;
+					memset(adc_value1, 0, sizeof(int) * strlen(adc_value1));//очистка массива
+					for ( n = 0; n < (strlen(RX_BUF)-1); n++)
+					{
+						adc_value1[n] = RX_BUF[n+1];
+					}
+					sprintf(Weath_Param.Vbat,"%d.%d", V_BAT(adc_value1)/100, V_BAT(adc_value1)%100);
+					break;
+			//--------------------------------------
+			//получение кол-ва осадков
+			case 6:	receive_counter++;
+					memset(adc_value2, 0, sizeof(int) * strlen(adc_value2));//очистка массива
+					for ( n = 0; n < (strlen(RX_BUF)-1); n++)
+					{
+						adc_value2[n] = RX_BUF[n+1];
+					}
+					sprintf(Weath_Param.Rain,"%d.%d", RAIN_AMOUNT(adc_value2)/100, RAIN_AMOUNT(adc_value2)%100);
+					break;
 		}
 		//--------------------------------------
 		//memset(RX_BUF, 0, sizeof(int) * strlen(RX_BUF));//очистка массива
 		rx_flag = 0;
 	}
 }
+//-------------------------------------------------------------
 ISR(INT0_vect)
 {
+	if ((timer1_flag == 1) || (timer2_flag == 1))
+	{
+		_delay_ms(200);
+	}
 	uint8_t status=0x01;
-	uint8_t pipe;
-	_delay_us(300);
-	PORTD |= (1<<LED);
-	_delay_us(300);
-	PORTD &= ~(1<<LED);
 	status = nRF_read_register(STATUS);
 	if(status & 0x40)
 	{
 		NRF24_Read_Buf(R_RX_PAYLOAD,RX_BUF,TX_PLOAD_WIDTH);
 		nRF_write_register(STATUS, 0x40);
 	}
-	 rx_flag = 1;
 	 if(receive_counter == 6)
 	 {
 		 receive_counter = 0;
 	 }
-	 NRF24L01_Receive();
-	 receive_counter++;
-	 Clock ();
-	 sprintf(receive_time,"%s:%s:%s,%s/%s/%s", hours, minutes, seconds, mounthday, Mounth, Year);
+	 rx_flag = 1;
 }
 //-------------------------------------------------------------
 void NRF24_Transmit(uint8_t addr,uint8_t *pBuf,uint8_t bytes)

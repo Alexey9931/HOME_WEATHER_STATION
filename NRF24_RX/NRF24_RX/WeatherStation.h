@@ -11,23 +11,25 @@
 
 #include "main.h"
 
-void Print_Hello_World(uint8_t *Frame_buffer);
-void Print_Download(uint8_t *Frame_buffer);
-void Print_Home_Page(uint8_t *Frame_buffer);
-void Print_Menu_Page(uint8_t *Frame_buffer);
-void Print_Page_Clock_Settings(uint8_t *Frame_buffer);
-void Print_Page_About(uint8_t *Frame_buffer);
+void Print_Hello_World();
+void Print_Download();
+void Print_Home_Page();
+void Print_Menu_Page();
+void Print_Page_Clock_Settings();
+void Print_Page_About();
+void Print_Page_Dop_Info();
 void Clock (void);
 void Convert_to_string_Clock(void);
-float RAIN_AMOUNT(char *adc_value);
-float V_BAT (char *adc_value);
-float wind_speed (char *counter);
-void DrawSun(void);
-void DrawSunWithClouds(void);
-void DrawClouds(void);
-void DrawCloudsWithRain(void);
-void DrawWeatherVane(void);
-void DrawBattery(void);
+int RAIN_AMOUNT(char *adc_value);
+int V_BAT (char *adc_value);
+int wind_speed (char *counter);
+void DrawSun(uint8_t *Frame_buffer);
+void DrawSunWithClouds(uint8_t *Frame_buffer);
+void DrawClouds(uint8_t *Frame_buffer);
+void DrawCloudsWithRain(uint8_t *Frame_buffer);
+void DrawWeatherVane(uint8_t *Frame_buffer);
+void DrawBattery(uint8_t *Frame_buffer);
+void sprintf_Home_Weath_Param(void);
 
 
 #endif /* WEATHERSTATION_H_ */
