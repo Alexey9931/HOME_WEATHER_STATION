@@ -7,18 +7,16 @@
 
 #include "main.h"
 
-struct Weather_Parameters {
-	char temp_street[5];
-	char hum_street[5];
-	char temp_home[5];
-	char hum_home[5];
-	char WIND_speed[5];
-	char wind_direction[6];
-	char Vbat[5];
-	char Rain[6];
-	char Press_home[6];
-} Weath_Param;
-struct Time_Parameters {
+extern char temp_street[5];
+extern char hum_street[5];
+extern char temp_home[5];
+extern char hum_home[5];
+extern char WIND_speed[5];
+extern char wind_direction[6];
+extern char Vbat[5];
+extern char Rain[6];
+extern char Press_home[6];
+extern struct Time_Parameters {
 	char hours[4];
 	char minutes[4];
 	char seconds[4];
@@ -39,27 +37,28 @@ uint8_t change_flag = 0;
 int8_t add_cnt;
 int8_t cnt;
 uint8_t enc_int_flag = 0;
-uint8_t timer2_flag = 0;
-uint8_t timer1_flag = 0;
+//uint8_t timer2_flag = 0;
+//uint8_t timer1_flag = 0;
 extern uint8_t rx_flag;
 extern uint8_t receive_counter;
+uint16_t millis = 0;
 
 //-------------------------------------------------------------
-void timer2_ini(void)//период 8мс
+/*void timer2_ini(void)//период 8мс
 {	
 	TCCR2A |= (1<<WGM21); // устанавливаем режим СТС (сброс по совпадению)
 	TIMSK2 |= (1<<OCIE2A); //устанавливаем бит разрешения прерывания 1ого счетчика по совпадению с OCR1A(H и L)
 	OCR2A = 0b11111010; //записываем в регистр число для сравнения 250
 	TCCR2B |= (1<<CS22)|(1<<CS21);//установим делитель 256.
-}
+}*/
 //-------------------------------------------------------------
-void timer1_ini(void)//период 2сек
+void timer1_ini(void)//период 1мс
 {
 	TCCR1B |= (1<<WGM12); // устанавливаем режим СТС (сброс по совпадению)
 	TIMSK1 |= (1<<OCIE1A); //устанавливаем бит разрешения прерывания 1ого счетчика по совпадению с OCR1A(H и L)
-	OCR1AH = 0b11110100; //записываем в регистр число для сравнения 62500
-	OCR1AL = 0b00100100;
-	TCCR1B |= (1<<CS12);//установим делитель 256.
+	OCR1AH = 0b00000011; //записываем в регистр число для сравнения 1000
+	OCR1AL = 0b11101000;
+	TCCR1B |= (1<<CS11);//установим делитель 8.
 }
 //-------------------------------------------------------------
 void timer0_ini(void) // период 100мкс
@@ -70,7 +69,7 @@ void timer0_ini(void) // период 100мкс
 	TIMSK0 |= (1<<OCIE0A); //устанавливаем бит разрешения прерывания 0-ого счетчика по совпадению с OCR0A
 }
 //-------------------------------------------------------------
-ISR (TIMER2_COMPA_vect)
+/*ISR (TIMER2_COMPA_vect)
 { 
 	if (timer2_flag == 0) 
 	{
@@ -80,18 +79,23 @@ ISR (TIMER2_COMPA_vect)
 	{
 		timer2_flag = 0;
 	}
-}
+}*/
 //-------------------------------------------------------------
 ISR (TIMER1_COMPA_vect)
-{
-	if (timer1_flag == 0) 
+{	
+	if (millis == 2001)
+	{
+		millis = 0;
+	}
+	millis++;
+	/*if (timer1_flag == 0) 
 	{
 		timer1_flag = 1;
 	}
 	else 
 	{
 		timer1_flag = 0;
-	}		
+	}*/	
 }
 //-------------------------------------------------------------
 ISR (TIMER0_COMPA_vect)
@@ -340,7 +344,7 @@ int main(void)
 	//Print_Download();
 	PORTD &= ~(1<<LED);
 	//Инициализация таймеров и прерываний
-	timer2_ini();
+	//timer2_ini();
 	timer1_ini();
 	timer0_ini();
 	// настраиваем параметры прерывания
@@ -350,27 +354,27 @@ int main(void)
 	// и разрешаем его глобально
 	sei();
 	//Начальная конфигурация
-	Weath_Param.temp_street[0] = '0';
-	Weath_Param.temp_street[1] = '0';
-	Weath_Param.temp_street[2] = '.';
-	Weath_Param.temp_street[3] = '0';
-	Weath_Param.hum_street[0] = '0';
-	Weath_Param.hum_street[1] = '0';
-	Weath_Param.Vbat[0] = '0';
-	Weath_Param.Vbat[1] = '.';
-	Weath_Param.Vbat[2] = '0';
-	Weath_Param.Vbat[3] = '0';
-	Weath_Param.temp_home[0] = '0';
-	Weath_Param.temp_home[1] = '0';
-	Weath_Param.temp_home[2] = '.';
-	Weath_Param.temp_home[3] = '0';
-	Weath_Param.hum_home[0] = '0';
-	Weath_Param.hum_home[1] = '0';
-	Weath_Param.WIND_speed[0] = '0';
-	Weath_Param.WIND_speed[1] = '.';
-	Weath_Param.WIND_speed[2] = '0';
-	Weath_Param.WIND_speed[3] = '0';
-	Weath_Param.Press_home[0] = '0';
+	temp_street[0] = '0';
+	temp_street[1] = '0';
+	temp_street[2] = '.';
+	temp_street[3] = '0';
+	hum_street[0] = '0';
+	hum_street[1] = '0';
+	Vbat[0] = '0';
+	Vbat[1] = '.';
+	Vbat[2] = '0';
+	Vbat[3] = '0';
+	temp_home[0] = '0';
+	temp_home[1] = '0';
+	temp_home[2] = '.';
+	temp_home[3] = '0';
+	hum_home[0] = '0';
+	hum_home[1] = '0';
+	WIND_speed[0] = '0';
+	WIND_speed[1] = '.';
+	WIND_speed[2] = '0';
+	WIND_speed[3] = '0';
+	Press_home[0] = '0';
     //Weath_Param.wind_direction[0] = '-';
     while (1) 
     {
@@ -384,7 +388,7 @@ int main(void)
 			Clock ();
 			sprintf(receive_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
 		}
-		if(timer2_flag == 1)
+	    if((millis % 50) == 0)
 		{
 			switch (menu_flag)
 			{
@@ -399,15 +403,18 @@ int main(void)
 				case 4:	Print_Page_Dop_Info();
 						break;
 			}
+			//timer2_flag = 0;
 		}
-		if(timer1_flag == 1)
+		else if((millis % 1999) == 0)
 		{
 			sprintf_HOME_Weath_Param();
 			//отправка строки по UART в формате: ул.темп./дом.темп./ул.влажность/дом.влажн./давление/осадки/заряд АКБ/скор.ветра/направл.ветра
-			sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s ",Weath_Param.temp_street, Weath_Param.temp_home, Weath_Param.hum_street, Weath_Param.hum_home, Weath_Param.Press_home, Weath_Param.Rain, Weath_Param.Vbat, Weath_Param.WIND_speed, Weath_Param.wind_direction);
+			sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s ",temp_street, temp_home,hum_street, hum_home, Press_home, Rain, Vbat, WIND_speed, wind_direction);
 			USART_Transmit(DATA_TO_UART);
 			memset(DATA_TO_UART, 0, sizeof(char) * strlen(DATA_TO_UART));//очистка массива
-		}	
+			//timer1_flag = 0;
+			millis = 0;
+		}
     }
 }
 

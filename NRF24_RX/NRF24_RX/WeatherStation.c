@@ -8,18 +8,16 @@
 
 #define RADIUS 0.09
 
-extern struct Weather_Parameters {
-	char temp_street[5];
-	char hum_street[5];
-	char temp_home[5];
-	char hum_home[5];
-	char WIND_speed[5];
-	char wind_direction[6];
-	char Vbat[5];
-	char Rain[6];
-	char Press_home[6];
-} Weath_Param;
-extern struct Time_Parameters {
+char temp_street[5];
+char hum_street[5];
+char temp_home[5];
+char hum_home[5];
+char WIND_speed[5];
+char wind_direction[6];
+char Vbat[5];
+char Rain[6];
+char Press_home[6];
+struct Time_Parameters {
 	char hours[4];
 	char minutes[4];
 	char seconds[4];
@@ -109,12 +107,12 @@ void Print_Home_Page()
 	//sprintf(Weath_Param.Rain,"%d",RAIN_AMOUNT(adc_value2));
 	LCD_12864_Decode_UTF8(30, 4, 0, "°C", Frame_buffer);
 	LCD_12864_Decode_UTF8(58, 4, 0, "%", Frame_buffer);
-	LCD_12864_Print_7_11(43, 3, 0, Weath_Param.hum_street, Frame_buffer);
-	LCD_12864_Print_7_11(1, 3, 0, Weath_Param.temp_street, Frame_buffer);
+	LCD_12864_Print_7_11(43, 3, 0, hum_street, Frame_buffer);
+	LCD_12864_Print_7_11(1, 3, 0, temp_street, Frame_buffer);
 	//sprintf(Weath_Param.Vbat,"%d",V_BAT(adc_value1));
-	LCD_12864_Print_4_6(44, 2, 0, Weath_Param.Vbat, Frame_buffer);
+	LCD_12864_Print_4_6(44, 2, 0, Vbat, Frame_buffer);
 	//sprintf(Weath_Param.WIND_speed,"%d", wind_speed (HALL_counter));
-	LCD_12864_Print_4_6(26, 5, 0, Weath_Param.WIND_speed, Frame_buffer);
+	LCD_12864_Print_4_6(26, 5, 0, WIND_speed, Frame_buffer);
 	LCD_12864_Decode_UTF8(45, 5, 0, "м/с", Frame_buffer);
 	LCD_12864_Decode_UTF8(30, 6, 0, "осадки", Frame_buffer);
 	LCD_12864_Draw_line(27, 52, 24, 52, Frame_buffer);
@@ -144,10 +142,10 @@ void Print_Home_Page()
 	pressure_home = BMP180_calculation()*0.0075;
 	sprintf(Weath_Param.Press_home,"%d",pressure_home);*/
 	LCD_12864_Decode_UTF8(95, 4, 0, "°C", Frame_buffer);
-	LCD_12864_Print_7_11(66, 3, 0, Weath_Param.temp_home, Frame_buffer);
+	LCD_12864_Print_7_11(66, 3, 0, temp_home, Frame_buffer);
 	LCD_12864_Decode_UTF8(123, 4, 0, "%", Frame_buffer);
-	LCD_12864_Print_7_11(108, 3, 0, Weath_Param.hum_home, Frame_buffer);
-	LCD_12864_Print_4_6(86, 2, 0, Weath_Param.Press_home, Frame_buffer);
+	LCD_12864_Print_7_11(108, 3, 0, hum_home, Frame_buffer);
+	LCD_12864_Print_4_6(86, 2, 0, Press_home, Frame_buffer);
 	LCD_12864_Decode_UTF8(101, 2, 0, "мм", Frame_buffer);
 	LCD_12864_Decode_UTF8(114, 2, 0, "Hg", Frame_buffer);
 	
@@ -618,7 +616,7 @@ void DrawWeatherVane(uint8_t *Frame_buffer)
 	//---------Стрелка-----------------
 	//--точка в центре---
 	LCD_12864_Draw_pixel(11, 52, Frame_buffer);
-	if (!strcmp(Weath_Param.wind_direction, "N"))
+	if (!strcmp(wind_direction, "N"))
 	{
 		for(i = 46; i <= 51; i++)
 		{
@@ -645,7 +643,7 @@ void DrawWeatherVane(uint8_t *Frame_buffer)
 		LCD_12864_Draw_pixel(12, 48, Frame_buffer);
 		LCD_12864_Draw_pixel(13, 48, Frame_buffer);*/
 	}
-	else if (!strcmp(Weath_Param.wind_direction, "S"))
+	else if (!strcmp(wind_direction, "S"))
 	{
 		LCD_12864_Draw_line(10, 50, 10, 51, Frame_buffer);
 		/*LCD_12864_Draw_pixel(10, 50, Frame_buffer);
@@ -672,7 +670,7 @@ void DrawWeatherVane(uint8_t *Frame_buffer)
 		//LCD_12864_Draw_pixel(12, 56, Frame_buffer);
 		//LCD_12864_Draw_pixel(13, 56, Frame_buffer);
 	}
-	else if (!strcmp(Weath_Param.wind_direction, "E"))
+	else if (!strcmp(wind_direction, "E"))
 	{
 		LCD_12864_Draw_line(9, 51, 10, 51, Frame_buffer);
 		LCD_12864_Draw_line(9, 53, 10, 53, Frame_buffer);
@@ -699,7 +697,7 @@ void DrawWeatherVane(uint8_t *Frame_buffer)
 		//LCD_12864_Draw_pixel(15, 51, Frame_buffer);
 		//LCD_12864_Draw_pixel(15, 50, Frame_buffer);
 	}
-	else if (!strcmp(Weath_Param.wind_direction, "W"))
+	else if (!strcmp(wind_direction, "W"))
 	{
 		LCD_12864_Draw_line(12, 51, 13, 51, Frame_buffer);
 		LCD_12864_Draw_line(12, 53, 13, 53, Frame_buffer);
@@ -726,7 +724,7 @@ void DrawWeatherVane(uint8_t *Frame_buffer)
 		//LCD_12864_Draw_pixel(7, 51, Frame_buffer);
 		//LCD_12864_Draw_pixel(7, 50, Frame_buffer);
 	}
-	else if (!strcmp(Weath_Param.wind_direction, "N-E"))
+	else if (!strcmp(wind_direction, "N-E"))
 	{
 		LCD_12864_Draw_pixel(10, 51, Frame_buffer);
 		LCD_12864_Draw_pixel(9, 52, Frame_buffer);
@@ -744,7 +742,7 @@ void DrawWeatherVane(uint8_t *Frame_buffer)
 		//LCD_12864_Draw_pixel(15, 49, Frame_buffer);
 		LCD_12864_Draw_pixel(16, 50, Frame_buffer);
 	}
-	else if (!strcmp(Weath_Param.wind_direction, "N-W"))
+	else if (!strcmp(wind_direction, "N-W"))
 	{
 		LCD_12864_Draw_pixel(12, 51, Frame_buffer);
 		LCD_12864_Draw_pixel(13, 52, Frame_buffer);
@@ -762,7 +760,7 @@ void DrawWeatherVane(uint8_t *Frame_buffer)
 		LCD_12864_Draw_pixel(6, 50, Frame_buffer);*/
 		LCD_12864_Draw_pixel(7, 49, Frame_buffer);
 	}
-	else if (!strcmp(Weath_Param.wind_direction, "S-E"))
+	else if (!strcmp(wind_direction, "S-E"))
 	{
 		LCD_12864_Draw_pixel(11, 50, Frame_buffer);
 		LCD_12864_Draw_pixel(12, 51, Frame_buffer);
@@ -780,7 +778,7 @@ void DrawWeatherVane(uint8_t *Frame_buffer)
 		LCD_12864_Draw_pixel(14, 57, Frame_buffer);*/
 		LCD_12864_Draw_pixel(13, 57, Frame_buffer);
 	}
-	else if (!strcmp(Weath_Param.wind_direction, "S-W"))
+	else if (!strcmp(wind_direction, "S-W"))
 	{
 		LCD_12864_Draw_pixel(11, 50, Frame_buffer);
 		LCD_12864_Draw_pixel(10, 51, Frame_buffer);
@@ -1043,8 +1041,8 @@ void sprintf_HOME_Weath_Param(void)
 		if (((data[2]<<8)|data[1]) & 0x8000) home_temp *= -1;
 		home_hum = ((data[4]<<8)|data[3]) / 10;
 	}
-	sprintf(Weath_Param.temp_home,"%d.%d",home_temp/10, home_temp%10);
-	sprintf(Weath_Param.hum_home,"%d",home_hum);
+	sprintf(temp_home,"%d.%d",home_temp/10, home_temp%10);
+	sprintf(hum_home,"%d",home_hum);
 	pressure_home = BMP180_calculation()*0.0075;
-	sprintf(Weath_Param.Press_home,"%d",pressure_home);
+	sprintf(Press_home,"%d",pressure_home);
 }
