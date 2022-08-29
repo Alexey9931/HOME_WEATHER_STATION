@@ -29,6 +29,7 @@ struct Time_Parameters {
 //uint8_t Frame_buffer[1024] = { 0 }; //Буфер кадра
 extern unsigned char sec,min,hour,day,date,month,year,alarmhour,alarmmin;
 extern char receive_time[20];
+extern char start_time[20];
 extern char adc_value1[6];
 extern char HALL_counter[5];
 extern char adc_value2[6];
@@ -38,6 +39,7 @@ extern uint8_t change_flag;
 extern int8_t cnt;
 extern int8_t add_cnt;
 extern uint8_t receive_counter;
+extern uint8_t WiFi_Flag;
 
 //Окно приветсвия на экране дисплея
 void Print_Hello_World()
@@ -64,7 +66,7 @@ void Print_Download()
 	{
 		LCD_12864_Draw_rectangle_filled(i, 37, 9, 11, Frame_buffer);
 		LCD_12864_Draw_bitmap(Frame_buffer);
-		_delay_ms(500);
+		_delay_ms(300);
 	}	
 	LCD_12864_GrapnicMode(0);
 }
@@ -88,6 +90,11 @@ void Print_Home_Page()
 	LCD_12864_Decode_UTF8(93, 1, 0, T_Param.Mounth, Frame_buffer);
 	LCD_12864_Decode_UTF8(111, 1, 0, "/", Frame_buffer);
 	LCD_12864_Decode_UTF8(116, 1, 0, T_Param.Year, Frame_buffer);
+	//-----------Вывод индикатора WiFi-------------------------------//
+	if (WiFi_Flag == 1)
+	{
+		LCD_12864_Decode_UTF8(100, 0, 0, "Wi-Fi", Frame_buffer);
+	}
 	//-----------Вывод уровня приема сигнала----------------------//
 	LCD_12864_Draw_line(82, 6, 82, 0, Frame_buffer);
 	LCD_12864_Draw_line(79, 0, 85, 0, Frame_buffer);
@@ -126,6 +133,7 @@ void Print_Home_Page()
 	else if ((RAIN_AMOUNT(adc_value2) < 90) && (RAIN_AMOUNT(adc_value2) >= 50))  {LCD_12864_Decode_UTF8(30, 7, 0, "слабые", Frame_buffer);}
     else if ((RAIN_AMOUNT(adc_value2) < 50) && (RAIN_AMOUNT(adc_value2) >= 25)) { LCD_12864_Decode_UTF8(30, 7, 0, "умеренные", Frame_buffer);}
 	else if ((RAIN_AMOUNT(adc_value2) < 25) && (RAIN_AMOUNT(adc_value2) > 0))  {LCD_12864_Decode_UTF8(30, 7, 0, "сильные", Frame_buffer);}
+	else {LCD_12864_Decode_UTF8(30, 7, 0, "нет данных", Frame_buffer);}
 	//-----------Вывод показателей в доме-----------------------//
 	/*if (dht22_GetData(data))
 	{
@@ -185,7 +193,6 @@ void Print_Home_Page()
 	{
 		DrawSun(Frame_buffer);
 	}
-	
 	LCD_12864_Draw_bitmap(Frame_buffer);
 	LCD_12864_GrapnicMode(0);
 }
@@ -352,10 +359,12 @@ void Print_Page_Dop_Info()
 	LCD_12864_GrapnicMode(1);
 	LCD_12864_Clean_Frame_buffer(Frame_buffer);
 	
-	LCD_12864_Decode_UTF8(5, 0, 1, "Дополнительная инфо", Frame_buffer);
-	LCD_12864_Decode_UTF8(0, 1, 0, "Уличный передатчик:", Frame_buffer);
-	LCD_12864_Decode_UTF8(0, 2, 0, "время посл.приема:", Frame_buffer);
-	LCD_12864_Decode_UTF8(0, 3, 0, receive_time, Frame_buffer);
+	LCD_12864_Decode_UTF8(7, 0, 1, "Дополнительная инфо", Frame_buffer);
+	LCD_12864_Decode_UTF8(0, 1, 0, "Время запуска:", Frame_buffer);
+	LCD_12864_Decode_UTF8(0, 2, 0, start_time, Frame_buffer);
+	LCD_12864_Decode_UTF8(0, 3, 0, "Уличный передатчик:", Frame_buffer);
+	LCD_12864_Decode_UTF8(0, 4, 0, "время посл.приема:", Frame_buffer);
+	LCD_12864_Decode_UTF8(0, 5, 0, receive_time, Frame_buffer);
 	
 	LCD_12864_Decode_UTF8(25, 7, 1, "Назад в МЕНЮ", Frame_buffer);
 	
@@ -452,10 +461,15 @@ void DrawSunWithClouds(uint8_t *Frame_buffer)
 	LCD_12864_Draw_pixel(106, 48, Frame_buffer);
 	LCD_12864_Draw_pixel(105, 48, Frame_buffer);
 	//закраска солнца
-	for(uint8_t i = 0; i <= 4;i++)
-	{
-		LCD_12864_Draw_circle(110, 53, i, Frame_buffer);
-	}
+	LCD_12864_Draw_line(108, 49, 113, 49, Frame_buffer);
+	LCD_12864_Draw_line(109, 50, 114, 50, Frame_buffer);
+	LCD_12864_Draw_line(110, 51, 115, 51, Frame_buffer);
+	LCD_12864_Draw_line(110, 52, 115, 52, Frame_buffer);
+	LCD_12864_Draw_line(110, 53, 115, 53, Frame_buffer);
+	LCD_12864_Draw_line(110, 54, 115, 54, Frame_buffer);
+	LCD_12864_Draw_line(109, 55, 114, 55, Frame_buffer);
+	LCD_12864_Draw_line(108, 56, 113, 56, Frame_buffer);
+	LCD_12864_Draw_line(107, 57, 112, 57, Frame_buffer);
 }
 void DrawClouds(uint8_t *Frame_buffer)
 {

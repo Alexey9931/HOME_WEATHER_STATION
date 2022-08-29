@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <avr/wdt.h>
 
 #define LED PORTD4
 #define	SW_ENC PORTD3

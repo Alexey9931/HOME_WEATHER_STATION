@@ -28,10 +28,12 @@ extern struct Time_Parameters {
 unsigned char sec,min,hour,day,date,month,year,alarmhour,alarmmin;
 unsigned char clock_change_mode;
 char receive_time[20] = "приема не было!";
+char start_time[20] = {0};
+char send_time[20] = {0};
 //uint8_t Frame_buffer[1024] = { 0 }; //Буфер кадра
 uint8_t ST7920_width = 128; //Ширина дисплея в пикселях
 uint8_t ST7920_height = 64; //Высота дисплея в пикселях
-char DATA_TO_UART[57] = {0};
+char DATA_TO_UART[80] = {0};
 uint8_t menu_flag = 0;
 uint8_t change_flag = 0;
 int8_t add_cnt;
@@ -41,7 +43,9 @@ uint8_t enc_int_flag = 0;
 //uint8_t timer1_flag = 0;
 extern uint8_t rx_flag;
 extern uint8_t receive_counter;
-uint16_t millis = 0;
+int32_t millis = 0;
+uint8_t WiFi_Flag = 1;
+uint8_t wifi_count = 0;
 
 //-------------------------------------------------------------
 /*void timer2_ini(void)//период 8мс
@@ -83,19 +87,11 @@ void timer0_ini(void) // период 100мкс
 //-------------------------------------------------------------
 ISR (TIMER1_COMPA_vect)
 {	
-	if (millis == 2001)
+	/*if (millis == 300001)
 	{
 		millis = 0;
-	}
+	}*/
 	millis++;
-	/*if (timer1_flag == 0) 
-	{
-		timer1_flag = 1;
-	}
-	else 
-	{
-		timer1_flag = 0;
-	}*/	
 }
 //-------------------------------------------------------------
 ISR (TIMER0_COMPA_vect)
@@ -153,6 +149,17 @@ void enc_interrupt_ini(void)
 	//разрешим внешние прерывания INT1
 	EIMSK |= (1<<INT1);
 }
+//-------------------------------------------------------------
+//прерывания по UART
+/*ISR(USART_RX_vect)
+{
+	UCSR0B &= ~(1<<RXCIE0); 
+	WiFi_Flag = 1;
+ 	_delay_us(300);
+ 	PORTD |= (1<<LED);
+ 	_delay_us(300);
+	PORTD &= ~(1<<LED);
+}*/
 //-------------------------------------------------------------
 //обработчик внешн.прерываний от кнопки энкодера
 ISR(INT1_vect)
@@ -318,12 +325,20 @@ uint8_t spi_send_recv(uint8_t data) // Передаёт и принимает 1 байт по SPI, возвр
 //-------------------------------------------------------------
 int main(void)
 {	
+	//настрока WDT
+	//wdt_reset();
+	WDTCSR &= ~(1<<WDE);
+	//WDTCSR |= (1<<WDP2)|(1<<WDP1)|(1<<WDP0);
+	//ACSR |= (1<<ACD);
+	//включаем Watchdog на 8с
+	wdt_enable(WDTO_8S);
+	
 	port_init();
 	PORTD |= (1<<LED);
 	//Инициализация интерфейсов
 	SPI_init();
 	I2C_Init();
-	USART_Init(8);    //Инициализация модуля USART скорость 115200
+	USART_Init(8);    //Инициализация модуля USART скорость 115200	
 	LCD_12864_ini();
 	//очистка дисплея
 	/*LCD_12864_GrapnicMode(1);
@@ -331,17 +346,20 @@ int main(void)
 	LCD_12864_Draw_bitmap(Frame_buffer);
 	LCD_12864_GrapnicMode(0);*/
 	//Вывод приветствия
-	//Print_Hello_World();
+	Print_Hello_World();
+	wdt_reset();
 	//Инициализация оборудования
 	NRF24_ini();
 	RTC_init();
 	dht22_init();
 	BMP180_Calibration();
+	wdt_reset();
 	// Установка времени для DS3231(делается 1 разv)
 	//RTC_write_time(13, 30, 0);
 	//RTC_write_date(2, 28, 6, 22);
 	//Вывод окна загрузки
-	//Print_Download();
+	Print_Download();
+	wdt_reset();
 	PORTD &= ~(1<<LED);
 	//Инициализация таймеров и прерываний
 	//timer2_ini();
@@ -375,9 +393,24 @@ int main(void)
 	WIND_speed[2] = '0';
 	WIND_speed[3] = '0';
 	Press_home[0] = '0';
-    //Weath_Param.wind_direction[0] = '-';
+	wind_direction[0] = '-';
+	Rain[0] = '-';
+	//Фиксация времени начала работы
+	Clock ();
+	sprintf(start_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
+	//первоначальная отправка данных в БД
+	Clock ();
+	sprintf(send_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
+	sprintf_HOME_Weath_Param();
+	//отправка строки по UART в формате: ул.темп./дом.темп./ул.влажность/дом.влажн./давление/осадки/заряд АКБ/скор.ветра/направл.ветра
+	sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street, temp_home, hum_street, hum_home, Press_home, Rain, Vbat, WIND_speed, wind_direction, send_time);
+	//UCSR0B &= ~(1<<RXCIE0);
+	USART_Transmit(DATA_TO_UART);
+	memset(DATA_TO_UART, 0, sizeof(char) * strlen(DATA_TO_UART));//очистка массива
+	
     while (1) 
     {
+		//прием данных от передатчика
 		if (rx_flag == 1)
 		{
 			_delay_us(300);
@@ -388,33 +421,49 @@ int main(void)
 			Clock ();
 			sprintf(receive_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
 		}
-	    if((millis % 50) == 0)
-		{
-			switch (menu_flag)
-			{
-				case 0:	Print_Home_Page();
-						break;
-				case 1:	Print_Menu_Page();
-						break;
-				case 2:	Print_Page_Clock_Settings();
-						break;
-				case 3:	Print_Page_About();
-						break;
-				case 4:	Print_Page_Dop_Info();
-						break;
-			}
-			//timer2_flag = 0;
-		}
-		else if((millis % 1999) == 0)
-		{
-			sprintf_HOME_Weath_Param();
+		//отправка данных в БД
+		 if(millis == 300000)
+ 		{
+			Clock ();
+			sprintf(send_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
+		    sprintf_HOME_Weath_Param();
 			//отправка строки по UART в формате: ул.темп./дом.темп./ул.влажность/дом.влажн./давление/осадки/заряд АКБ/скор.ветра/направл.ветра
-			sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s ",temp_street, temp_home,hum_street, hum_home, Press_home, Rain, Vbat, WIND_speed, wind_direction);
+			sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street, temp_home, hum_street, hum_home, Press_home, Rain, Vbat, WIND_speed, wind_direction, send_time);
+			//UCSR0B &= ~(1<<RXCIE0); 
 			USART_Transmit(DATA_TO_UART);
 			memset(DATA_TO_UART, 0, sizeof(char) * strlen(DATA_TO_UART));//очистка массива
 			//timer1_flag = 0;
 			millis = 0;
+			/*if(WiFi_Flag != 0)
+			{
+				WiFi_Flag = 0;
+				UCSR0B |= (1<<RXCIE0); //Разрешаем прерывание при приеме
+			}*/
 		}
+		//обновление домашних показаний
+		else if ((millis % 3000) == 0)
+		{
+			sprintf_HOME_Weath_Param();
+		}
+		//обновление изображения на дисплее
+		else if((millis % 50) == 0)
+		{
+			switch (menu_flag)
+			{
+				case 0:	Print_Home_Page();
+				break;
+				case 1:	Print_Menu_Page();
+				break;
+				case 2:	Print_Page_Clock_Settings();
+				break;
+				case 3:	Print_Page_About();
+				break;
+				case 4:	Print_Page_Dop_Info();
+				break;
+			}
+			//timer2_flag = 0;
+		}
+		wdt_reset();
     }
 }
 
