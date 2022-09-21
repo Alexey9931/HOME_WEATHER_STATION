@@ -1,0 +1,1537 @@
+
+AVR_C_BMP180.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000924  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000012  00800060  00000924  000009b8  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000028  00800072  00800072  000009ca  2**0
+                  ALLOC
+  3 .stab         00001608  00000000  00000000  000009cc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000f88  00000000  00000000  00001fd4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .comment      00000030  00000000  00000000  00002f5c  2**0
+                  CONTENTS, READONLY
+  6 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00002f8c  2**2
+                  CONTENTS, READONLY
+  7 .debug_info   0000052e  00000000  00000000  00002fc8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev 000004e7  00000000  00000000  000034f6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line   0000001a  00000000  00000000  000039dd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000001af  00000000  00000000  000039f7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 c9 02 	jmp	0x592	; 0x592 <__vector_3>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e4 e2       	ldi	r30, 0x24	; 36
+  68:	f9 e0       	ldi	r31, 0x09	; 9
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a2 37       	cpi	r26, 0x72	; 114
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+
+00000076 <__do_clear_bss>:
+  76:	20 e0       	ldi	r18, 0x00	; 0
+  78:	a2 e7       	ldi	r26, 0x72	; 114
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	aa 39       	cpi	r26, 0x9A	; 154
+  82:	b2 07       	cpc	r27, r18
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 3f 03 	call	0x67e	; 0x67e <main>
+  8a:	0c 94 90 04 	jmp	0x920	; 0x920 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <BMP180_ReadShort>:
+
+	static int16_t 		BMP180_Calibration_Values[11];
+//==========================================================================================
+// чтение 16-битного значения из BMP180
+uint16_t BMP180_ReadShort(uint8_t address)
+{
+  92:	cf 93       	push	r28
+  94:	df 93       	push	r29
+  96:	c8 2f       	mov	r28, r24
+	I2C_Start(BMP180_WRITE);
+  98:	8e ee       	ldi	r24, 0xEE	; 238
+  9a:	0e 94 8a 02 	call	0x514	; 0x514 <I2C_Start>
+	I2C_SendByte(address);
+  9e:	8c 2f       	mov	r24, r28
+  a0:	0e 94 ae 02 	call	0x55c	; 0x55c <I2C_SendByte>
+	I2C_Start(BMP180_READ);
+  a4:	8f ee       	ldi	r24, 0xEF	; 239
+  a6:	0e 94 8a 02 	call	0x514	; 0x514 <I2C_Start>
+	uint16_t msb = I2C_ReceiveByteACK();
+  aa:	0e 94 bb 02 	call	0x576	; 0x576 <I2C_ReceiveByteACK>
+  ae:	c8 2f       	mov	r28, r24
+	uint16_t lsb = I2C_ReceiveByteNACK();
+  b0:	0e 94 c2 02 	call	0x584	; 0x584 <I2C_ReceiveByteNACK>
+  b4:	d8 2f       	mov	r29, r24
+	I2C_Stop();
+  b6:	0e 94 a8 02 	call	0x550	; 0x550 <I2C_Stop>
+uint16_t BMP180_ReadShort(uint8_t address)
+{
+	I2C_Start(BMP180_WRITE);
+	I2C_SendByte(address);
+	I2C_Start(BMP180_READ);
+	uint16_t msb = I2C_ReceiveByteACK();
+  ba:	2c 2f       	mov	r18, r28
+  bc:	30 e0       	ldi	r19, 0x00	; 0
+	uint16_t lsb = I2C_ReceiveByteNACK();
+	I2C_Stop();
+	uint16_t data = (msb << 8) + lsb;
+  be:	92 2f       	mov	r25, r18
+  c0:	88 27       	eor	r24, r24
+	return data;
+}
+  c2:	8d 0f       	add	r24, r29
+  c4:	91 1d       	adc	r25, r1
+  c6:	df 91       	pop	r29
+  c8:	cf 91       	pop	r28
+  ca:	08 95       	ret
+
+000000cc <BMP180_ReadLong>:
+//==========================================================================================
+// чтение 32-битного значения из BMP180
+uint32_t BMP180_ReadLong(uint8_t address)
+{
+  cc:	0f 93       	push	r16
+  ce:	1f 93       	push	r17
+  d0:	cf 93       	push	r28
+  d2:	df 93       	push	r29
+  d4:	c8 2f       	mov	r28, r24
+	I2C_Start(BMP180_WRITE);
+  d6:	8e ee       	ldi	r24, 0xEE	; 238
+  d8:	0e 94 8a 02 	call	0x514	; 0x514 <I2C_Start>
+	I2C_SendByte(address);
+  dc:	8c 2f       	mov	r24, r28
+  de:	0e 94 ae 02 	call	0x55c	; 0x55c <I2C_SendByte>
+	I2C_Start(BMP180_READ);
+  e2:	8f ee       	ldi	r24, 0xEF	; 239
+  e4:	0e 94 8a 02 	call	0x514	; 0x514 <I2C_Start>
+	uint32_t msb = I2C_ReceiveByteACK();
+  e8:	0e 94 bb 02 	call	0x576	; 0x576 <I2C_ReceiveByteACK>
+  ec:	08 2f       	mov	r16, r24
+	uint32_t lsb = I2C_ReceiveByteNACK();
+  ee:	0e 94 c2 02 	call	0x584	; 0x584 <I2C_ReceiveByteNACK>
+  f2:	c8 2f       	mov	r28, r24
+	uint32_t xlsb = I2C_ReceiveByteNACK();
+  f4:	0e 94 c2 02 	call	0x584	; 0x584 <I2C_ReceiveByteNACK>
+  f8:	d8 2f       	mov	r29, r24
+	I2C_Stop();
+  fa:	0e 94 a8 02 	call	0x550	; 0x550 <I2C_Stop>
+uint32_t BMP180_ReadLong(uint8_t address)
+{
+	I2C_Start(BMP180_WRITE);
+	I2C_SendByte(address);
+	I2C_Start(BMP180_READ);
+	uint32_t msb = I2C_ReceiveByteACK();
+  fe:	80 2f       	mov	r24, r16
+ 100:	90 e0       	ldi	r25, 0x00	; 0
+ 102:	a0 e0       	ldi	r26, 0x00	; 0
+ 104:	b0 e0       	ldi	r27, 0x00	; 0
+	uint32_t lsb = I2C_ReceiveByteNACK();
+	uint32_t xlsb = I2C_ReceiveByteNACK();
+	I2C_Stop();
+	uint32_t data = ((msb << 16) + (lsb << 8) + xlsb) >> (8 - BMP180_OSS);
+ 106:	9c 01       	movw	r18, r24
+ 108:	11 27       	eor	r17, r17
+ 10a:	00 27       	eor	r16, r16
+{
+	I2C_Start(BMP180_WRITE);
+	I2C_SendByte(address);
+	I2C_Start(BMP180_READ);
+	uint32_t msb = I2C_ReceiveByteACK();
+	uint32_t lsb = I2C_ReceiveByteNACK();
+ 10c:	4c 2f       	mov	r20, r28
+ 10e:	50 e0       	ldi	r21, 0x00	; 0
+ 110:	60 e0       	ldi	r22, 0x00	; 0
+ 112:	70 e0       	ldi	r23, 0x00	; 0
+	uint32_t xlsb = I2C_ReceiveByteNACK();
+	I2C_Stop();
+	uint32_t data = ((msb << 16) + (lsb << 8) + xlsb) >> (8 - BMP180_OSS);
+ 114:	76 2f       	mov	r23, r22
+ 116:	65 2f       	mov	r22, r21
+ 118:	54 2f       	mov	r21, r20
+ 11a:	44 27       	eor	r20, r20
+ 11c:	d9 01       	movw	r26, r18
+ 11e:	c8 01       	movw	r24, r16
+ 120:	84 0f       	add	r24, r20
+ 122:	95 1f       	adc	r25, r21
+ 124:	a6 1f       	adc	r26, r22
+ 126:	b7 1f       	adc	r27, r23
+ 128:	8d 0f       	add	r24, r29
+ 12a:	91 1d       	adc	r25, r1
+ 12c:	a1 1d       	adc	r26, r1
+ 12e:	b1 1d       	adc	r27, r1
+ 130:	bc 01       	movw	r22, r24
+ 132:	cd 01       	movw	r24, r26
+ 134:	68 94       	set
+ 136:	14 f8       	bld	r1, 4
+ 138:	96 95       	lsr	r25
+ 13a:	87 95       	ror	r24
+ 13c:	77 95       	ror	r23
+ 13e:	67 95       	ror	r22
+ 140:	16 94       	lsr	r1
+ 142:	d1 f7       	brne	.-12     	; 0x138 <BMP180_ReadLong+0x6c>
+	return data;
+}
+ 144:	df 91       	pop	r29
+ 146:	cf 91       	pop	r28
+ 148:	1f 91       	pop	r17
+ 14a:	0f 91       	pop	r16
+ 14c:	08 95       	ret
+
+0000014e <BMP180_Calibration>:
+//==========================================================================================
+// чтение калибровочных констант из BMP180
+void BMP180_Calibration()
+{
+ 14e:	0f 93       	push	r16
+ 150:	1f 93       	push	r17
+ 152:	cf 93       	push	r28
+ 154:	08 e8       	ldi	r16, 0x88	; 136
+ 156:	10 e0       	ldi	r17, 0x00	; 0
+	uint8_t i = 11;
+	uint8_t address = 0xBE; // BMP180_MD address
+ 158:	ce eb       	ldi	r28, 0xBE	; 190
+	for(i = 11; i; --i){
+		BMP180_Calibration_Values[i-1] = BMP180_ReadShort(address);
+ 15a:	8c 2f       	mov	r24, r28
+ 15c:	0e 94 49 00 	call	0x92	; 0x92 <BMP180_ReadShort>
+ 160:	f8 01       	movw	r30, r16
+ 162:	92 93       	st	-Z, r25
+ 164:	82 93       	st	-Z, r24
+ 166:	8f 01       	movw	r16, r30
+		address-=2;
+ 168:	c2 50       	subi	r28, 0x02	; 2
+// чтение калибровочных констант из BMP180
+void BMP180_Calibration()
+{
+	uint8_t i = 11;
+	uint8_t address = 0xBE; // BMP180_MD address
+	for(i = 11; i; --i){
+ 16a:	c8 3a       	cpi	r28, 0xA8	; 168
+ 16c:	b1 f7       	brne	.-20     	; 0x15a <BMP180_Calibration+0xc>
+		BMP180_Calibration_Values[i-1] = BMP180_ReadShort(address);
+		address-=2;
+	}
+}
+ 16e:	cf 91       	pop	r28
+ 170:	1f 91       	pop	r17
+ 172:	0f 91       	pop	r16
+ 174:	08 95       	ret
+
+00000176 <BMP180_SoftReset>:
+//==========================================================================================
+void BMP180_SoftReset()
+{
+	I2C_Start(BMP180_WRITE);
+ 176:	8e ee       	ldi	r24, 0xEE	; 238
+ 178:	0e 94 8a 02 	call	0x514	; 0x514 <I2C_Start>
+	I2C_SendByte(BMP180_REG_RESET);
+ 17c:	80 ee       	ldi	r24, 0xE0	; 224
+ 17e:	0e 94 ae 02 	call	0x55c	; 0x55c <I2C_SendByte>
+	I2C_SendByte(BMP180_SOFT_RESET);
+ 182:	86 eb       	ldi	r24, 0xB6	; 182
+ 184:	0e 94 ae 02 	call	0x55c	; 0x55c <I2C_SendByte>
+	I2C_Stop();
+ 188:	0e 94 a8 02 	call	0x550	; 0x550 <I2C_Stop>
+ 18c:	08 95       	ret
+
+0000018e <BMP180_Init>:
+}
+//==========================================================================================
+void BMP180_Init()
+{
+	BMP180_Calibration();
+ 18e:	0e 94 a7 00 	call	0x14e	; 0x14e <BMP180_Calibration>
+	BMP180_SoftReset();
+ 192:	0e 94 bb 00 	call	0x176	; 0x176 <BMP180_SoftReset>
+ 196:	08 95       	ret
+
+00000198 <BMP180_ReadTemp>:
+}
+//==========================================================================================
+// чтение сырых показаний температуры из BMP180
+int32_t BMP180_ReadTemp()
+{
+	I2C_Start(BMP180_WRITE);
+ 198:	8e ee       	ldi	r24, 0xEE	; 238
+ 19a:	0e 94 8a 02 	call	0x514	; 0x514 <I2C_Start>
+	I2C_SendByte(BMP180_REG_CONVERT);
+ 19e:	84 ef       	ldi	r24, 0xF4	; 244
+ 1a0:	0e 94 ae 02 	call	0x55c	; 0x55c <I2C_SendByte>
+	I2C_SendByte(BMP180_CONVERT_T);
+ 1a4:	8e e2       	ldi	r24, 0x2E	; 46
+ 1a6:	0e 94 ae 02 	call	0x55c	; 0x55c <I2C_SendByte>
+	I2C_Stop();
+ 1aa:	0e 94 a8 02 	call	0x550	; 0x550 <I2C_Stop>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1ae:	8f e0       	ldi	r24, 0x0F	; 15
+ 1b0:	97 e2       	ldi	r25, 0x27	; 39
+ 1b2:	01 97       	sbiw	r24, 0x01	; 1
+ 1b4:	f1 f7       	brne	.-4      	; 0x1b2 <BMP180_ReadTemp+0x1a>
+ 1b6:	00 c0       	rjmp	.+0      	; 0x1b8 <BMP180_ReadTemp+0x20>
+ 1b8:	00 00       	nop
+	// ожидание измерения давления
+	_delay_ms(5);
+	int32_t temperature = BMP180_ReadShort(BMP180_VAL_MSB);
+ 1ba:	86 ef       	ldi	r24, 0xF6	; 246
+ 1bc:	0e 94 49 00 	call	0x92	; 0x92 <BMP180_ReadShort>
+ 1c0:	bc 01       	movw	r22, r24
+ 1c2:	80 e0       	ldi	r24, 0x00	; 0
+ 1c4:	90 e0       	ldi	r25, 0x00	; 0
+	return temperature;
+}
+ 1c6:	08 95       	ret
+
+000001c8 <BMP180_ReadPressure>:
+//==========================================================================================
+// чтение сырых показаний давления из BMP180
+int32_t BMP180_ReadPressure()
+{
+	I2C_Start(BMP180_WRITE);
+ 1c8:	8e ee       	ldi	r24, 0xEE	; 238
+ 1ca:	0e 94 8a 02 	call	0x514	; 0x514 <I2C_Start>
+	I2C_SendByte(BMP180_REG_CONVERT);
+ 1ce:	84 ef       	ldi	r24, 0xF4	; 244
+ 1d0:	0e 94 ae 02 	call	0x55c	; 0x55c <I2C_SendByte>
+	I2C_SendByte(BMP180_CONVERT_P0 + (BMP180_OSS << 6));
+ 1d4:	84 ef       	ldi	r24, 0xF4	; 244
+ 1d6:	0e 94 ae 02 	call	0x55c	; 0x55c <I2C_SendByte>
+	I2C_Stop();
+ 1da:	0e 94 a8 02 	call	0x550	; 0x550 <I2C_Stop>
+ 1de:	8f e4       	ldi	r24, 0x4F	; 79
+ 1e0:	93 ec       	ldi	r25, 0xC3	; 195
+ 1e2:	01 97       	sbiw	r24, 0x01	; 1
+ 1e4:	f1 f7       	brne	.-4      	; 0x1e2 <BMP180_ReadPressure+0x1a>
+ 1e6:	00 c0       	rjmp	.+0      	; 0x1e8 <BMP180_ReadPressure+0x20>
+ 1e8:	00 00       	nop
+	// ожидание измерения давления
+	_delay_ms(25);
+	int32_t pressure = BMP180_ReadLong(BMP180_VAL_MSB);
+ 1ea:	86 ef       	ldi	r24, 0xF6	; 246
+ 1ec:	0e 94 66 00 	call	0xcc	; 0xcc <BMP180_ReadLong>
+	return pressure;		
+}
+ 1f0:	08 95       	ret
+
+000001f2 <BMP180_Read>:
+//==========================================================================================
+void BMP180_Read(int32_t* temperature, uint32_t* pressure)
+{
+ 1f2:	2f 92       	push	r2
+ 1f4:	3f 92       	push	r3
+ 1f6:	4f 92       	push	r4
+ 1f8:	5f 92       	push	r5
+ 1fa:	6f 92       	push	r6
+ 1fc:	7f 92       	push	r7
+ 1fe:	8f 92       	push	r8
+ 200:	9f 92       	push	r9
+ 202:	af 92       	push	r10
+ 204:	bf 92       	push	r11
+ 206:	cf 92       	push	r12
+ 208:	df 92       	push	r13
+ 20a:	ef 92       	push	r14
+ 20c:	ff 92       	push	r15
+ 20e:	0f 93       	push	r16
+ 210:	1f 93       	push	r17
+ 212:	cf 93       	push	r28
+ 214:	df 93       	push	r29
+ 216:	cd b7       	in	r28, 0x3d	; 61
+ 218:	de b7       	in	r29, 0x3e	; 62
+ 21a:	28 97       	sbiw	r28, 0x08	; 8
+ 21c:	0f b6       	in	r0, 0x3f	; 63
+ 21e:	f8 94       	cli
+ 220:	de bf       	out	0x3e, r29	; 62
+ 222:	0f be       	out	0x3f, r0	; 63
+ 224:	cd bf       	out	0x3d, r28	; 61
+ 226:	7c 01       	movw	r14, r24
+ 228:	8b 01       	movw	r16, r22
+	int32_t ut=0;
+	int32_t up=0;
+	int32_t x1, x2, b5, b6, x3, b3, p;
+	uint32_t b4, b7;
+
+	ut = BMP180_ReadTemp();
+ 22a:	0e 94 cc 00 	call	0x198	; 0x198 <BMP180_ReadTemp>
+ 22e:	4b 01       	movw	r8, r22
+ 230:	5c 01       	movw	r10, r24
+	up = BMP180_ReadPressure();
+ 232:	0e 94 e4 00 	call	0x1c8	; 0x1c8 <BMP180_ReadPressure>
+ 236:	69 83       	std	Y+1, r22	; 0x01
+ 238:	7a 83       	std	Y+2, r23	; 0x02
+ 23a:	8b 83       	std	Y+3, r24	; 0x03
+ 23c:	9c 83       	std	Y+4, r25	; 0x04
+	x1 = ((int32_t)ut - (int32_t)BMP180_Calibration_Values[BMP180_AC6]) * (int32_t)BMP180_Calibration_Values[BMP180_AC5] >> 15;
+ 23e:	0f 2e       	mov	r0, r31
+ 240:	f2 e7       	ldi	r31, 0x72	; 114
+ 242:	2f 2e       	mov	r2, r31
+ 244:	f0 e0       	ldi	r31, 0x00	; 0
+ 246:	3f 2e       	mov	r3, r31
+ 248:	f0 2d       	mov	r31, r0
+ 24a:	f1 01       	movw	r30, r2
+ 24c:	82 85       	ldd	r24, Z+10	; 0x0a
+ 24e:	93 85       	ldd	r25, Z+11	; 0x0b
+ 250:	09 2e       	mov	r0, r25
+ 252:	00 0c       	add	r0, r0
+ 254:	aa 0b       	sbc	r26, r26
+ 256:	bb 0b       	sbc	r27, r27
+ 258:	a5 01       	movw	r20, r10
+ 25a:	94 01       	movw	r18, r8
+ 25c:	28 1b       	sub	r18, r24
+ 25e:	39 0b       	sbc	r19, r25
+ 260:	4a 0b       	sbc	r20, r26
+ 262:	5b 0b       	sbc	r21, r27
+ 264:	a0 85       	ldd	r26, Z+8	; 0x08
+ 266:	b1 85       	ldd	r27, Z+9	; 0x09
+ 268:	0e 94 79 04 	call	0x8f2	; 0x8f2 <__mulshisi3>
+ 26c:	4b 01       	movw	r8, r22
+ 26e:	5c 01       	movw	r10, r24
+ 270:	07 2e       	mov	r0, r23
+ 272:	7f e0       	ldi	r23, 0x0F	; 15
+ 274:	b5 94       	asr	r11
+ 276:	a7 94       	ror	r10
+ 278:	97 94       	ror	r9
+ 27a:	87 94       	ror	r8
+ 27c:	7a 95       	dec	r23
+ 27e:	d1 f7       	brne	.-12     	; 0x274 <BMP180_Read+0x82>
+ 280:	70 2d       	mov	r23, r0
+	x2 = ((int32_t)BMP180_Calibration_Values[BMP180_MC] << 11) / (x1 + BMP180_Calibration_Values[BMP180_MD]);
+ 282:	62 89       	ldd	r22, Z+18	; 0x12
+ 284:	73 89       	ldd	r23, Z+19	; 0x13
+ 286:	cb 01       	movw	r24, r22
+ 288:	77 0f       	add	r23, r23
+ 28a:	aa 0b       	sbc	r26, r26
+ 28c:	bb 0b       	sbc	r27, r27
+ 28e:	bc 01       	movw	r22, r24
+ 290:	cd 01       	movw	r24, r26
+ 292:	05 2e       	mov	r0, r21
+ 294:	5b e0       	ldi	r21, 0x0B	; 11
+ 296:	66 0f       	add	r22, r22
+ 298:	77 1f       	adc	r23, r23
+ 29a:	88 1f       	adc	r24, r24
+ 29c:	99 1f       	adc	r25, r25
+ 29e:	5a 95       	dec	r21
+ 2a0:	d1 f7       	brne	.-12     	; 0x296 <BMP180_Read+0xa4>
+ 2a2:	50 2d       	mov	r21, r0
+ 2a4:	24 89       	ldd	r18, Z+20	; 0x14
+ 2a6:	35 89       	ldd	r19, Z+21	; 0x15
+ 2a8:	29 01       	movw	r4, r18
+ 2aa:	33 0f       	add	r19, r19
+ 2ac:	66 08       	sbc	r6, r6
+ 2ae:	77 08       	sbc	r7, r7
+ 2b0:	a3 01       	movw	r20, r6
+ 2b2:	92 01       	movw	r18, r4
+ 2b4:	28 0d       	add	r18, r8
+ 2b6:	39 1d       	adc	r19, r9
+ 2b8:	4a 1d       	adc	r20, r10
+ 2ba:	5b 1d       	adc	r21, r11
+ 2bc:	0e 94 4f 04 	call	0x89e	; 0x89e <__divmodsi4>
+	b5 = x1 + x2;
+ 2c0:	82 0e       	add	r8, r18
+ 2c2:	93 1e       	adc	r9, r19
+ 2c4:	a4 1e       	adc	r10, r20
+ 2c6:	b5 1e       	adc	r11, r21
+	*temperature = (b5 + 8) >> 4;
+ 2c8:	d5 01       	movw	r26, r10
+ 2ca:	c4 01       	movw	r24, r8
+ 2cc:	08 96       	adiw	r24, 0x08	; 8
+ 2ce:	a1 1d       	adc	r26, r1
+ 2d0:	b1 1d       	adc	r27, r1
+ 2d2:	68 94       	set
+ 2d4:	13 f8       	bld	r1, 3
+ 2d6:	b5 95       	asr	r27
+ 2d8:	a7 95       	ror	r26
+ 2da:	97 95       	ror	r25
+ 2dc:	87 95       	ror	r24
+ 2de:	16 94       	lsr	r1
+ 2e0:	d1 f7       	brne	.-12     	; 0x2d6 <BMP180_Read+0xe4>
+ 2e2:	f7 01       	movw	r30, r14
+ 2e4:	80 83       	st	Z, r24
+ 2e6:	91 83       	std	Z+1, r25	; 0x01
+ 2e8:	a2 83       	std	Z+2, r26	; 0x02
+ 2ea:	b3 83       	std	Z+3, r27	; 0x03
+	b6 = b5 - 4000;
+ 2ec:	75 01       	movw	r14, r10
+ 2ee:	64 01       	movw	r12, r8
+ 2f0:	f0 ea       	ldi	r31, 0xA0	; 160
+ 2f2:	cf 1a       	sub	r12, r31
+ 2f4:	ff e0       	ldi	r31, 0x0F	; 15
+ 2f6:	df 0a       	sbc	r13, r31
+ 2f8:	e1 08       	sbc	r14, r1
+ 2fa:	f1 08       	sbc	r15, r1
+	x1 = (BMP180_Calibration_Values[BMP180_B2] * ((b6 * b6) >> 12)) >> 11;
+ 2fc:	a7 01       	movw	r20, r14
+ 2fe:	96 01       	movw	r18, r12
+ 300:	c7 01       	movw	r24, r14
+ 302:	b6 01       	movw	r22, r12
+ 304:	0e 94 1d 04 	call	0x83a	; 0x83a <__mulsi3>
+ 308:	4b 01       	movw	r8, r22
+ 30a:	5c 01       	movw	r10, r24
+ 30c:	07 2e       	mov	r0, r23
+ 30e:	7c e0       	ldi	r23, 0x0C	; 12
+ 310:	b5 94       	asr	r11
+ 312:	a7 94       	ror	r10
+ 314:	97 94       	ror	r9
+ 316:	87 94       	ror	r8
+ 318:	7a 95       	dec	r23
+ 31a:	d1 f7       	brne	.-12     	; 0x310 <BMP180_Read+0x11e>
+ 31c:	70 2d       	mov	r23, r0
+	x2 = (BMP180_Calibration_Values[BMP180_AC2] * b6) >> 11;
+	x3 = x1 + x2;
+	b3 = (((((int32_t) BMP180_Calibration_Values[BMP180_AC1]) * 4 + x3)<<BMP180_OSS) + 2)>> 2;
+	x1 = (BMP180_Calibration_Values[BMP180_AC3] * b6) >> 13;
+ 31e:	f1 01       	movw	r30, r2
+ 320:	a4 81       	ldd	r26, Z+4	; 0x04
+ 322:	b5 81       	ldd	r27, Z+5	; 0x05
+ 324:	0e 94 79 04 	call	0x8f2	; 0x8f2 <__mulshisi3>
+ 328:	2b 01       	movw	r4, r22
+ 32a:	3c 01       	movw	r6, r24
+ 32c:	03 2e       	mov	r0, r19
+ 32e:	3d e0       	ldi	r19, 0x0D	; 13
+ 330:	75 94       	asr	r7
+ 332:	67 94       	ror	r6
+ 334:	57 94       	ror	r5
+ 336:	47 94       	ror	r4
+ 338:	3a 95       	dec	r19
+ 33a:	d1 f7       	brne	.-12     	; 0x330 <BMP180_Read+0x13e>
+ 33c:	30 2d       	mov	r19, r0
+	x2 = (BMP180_Calibration_Values[BMP180_B1] * ((b6 * b6) >> 12)) >> 16;
+ 33e:	a4 85       	ldd	r26, Z+12	; 0x0c
+ 340:	b5 85       	ldd	r27, Z+13	; 0x0d
+ 342:	a5 01       	movw	r20, r10
+ 344:	94 01       	movw	r18, r8
+ 346:	0e 94 79 04 	call	0x8f2	; 0x8f2 <__mulshisi3>
+ 34a:	bb 27       	eor	r27, r27
+ 34c:	97 fd       	sbrc	r25, 7
+ 34e:	b0 95       	com	r27
+ 350:	ab 2f       	mov	r26, r27
+	x3 = ((x1 + x2) + 2) >> 2;
+ 352:	84 0d       	add	r24, r4
+ 354:	95 1d       	adc	r25, r5
+ 356:	a6 1d       	adc	r26, r6
+ 358:	b7 1d       	adc	r27, r7
+ 35a:	02 96       	adiw	r24, 0x02	; 2
+ 35c:	a1 1d       	adc	r26, r1
+ 35e:	b1 1d       	adc	r27, r1
+ 360:	b5 95       	asr	r27
+ 362:	a7 95       	ror	r26
+ 364:	97 95       	ror	r25
+ 366:	87 95       	ror	r24
+ 368:	b5 95       	asr	r27
+ 36a:	a7 95       	ror	r26
+ 36c:	97 95       	ror	r25
+ 36e:	87 95       	ror	r24
+	b4 = ((uint16_t)BMP180_Calibration_Values[BMP180_AC4] * (uint32_t) (x3 + 32768)) >> 15;
+ 370:	9c 01       	movw	r18, r24
+ 372:	ad 01       	movw	r20, r26
+ 374:	30 58       	subi	r19, 0x80	; 128
+ 376:	4f 4f       	sbci	r20, 0xFF	; 255
+ 378:	5f 4f       	sbci	r21, 0xFF	; 255
+ 37a:	a6 81       	ldd	r26, Z+6	; 0x06
+ 37c:	b7 81       	ldd	r27, Z+7	; 0x07
+ 37e:	0e 94 6e 04 	call	0x8dc	; 0x8dc <__muluhisi3>
+ 382:	9b 01       	movw	r18, r22
+ 384:	ac 01       	movw	r20, r24
+ 386:	01 2e       	mov	r0, r17
+ 388:	1f e0       	ldi	r17, 0x0F	; 15
+ 38a:	56 95       	lsr	r21
+ 38c:	47 95       	ror	r20
+ 38e:	37 95       	ror	r19
+ 390:	27 95       	ror	r18
+ 392:	1a 95       	dec	r17
+ 394:	d1 f7       	brne	.-12     	; 0x38a <BMP180_Read+0x198>
+ 396:	10 2d       	mov	r17, r0
+ 398:	2d 83       	std	Y+5, r18	; 0x05
+ 39a:	3e 83       	std	Y+6, r19	; 0x06
+ 39c:	4f 83       	std	Y+7, r20	; 0x07
+ 39e:	58 87       	std	Y+8, r21	; 0x08
+	*temperature = (b5 + 8) >> 4;
+	b6 = b5 - 4000;
+	x1 = (BMP180_Calibration_Values[BMP180_B2] * ((b6 * b6) >> 12)) >> 11;
+	x2 = (BMP180_Calibration_Values[BMP180_AC2] * b6) >> 11;
+	x3 = x1 + x2;
+	b3 = (((((int32_t) BMP180_Calibration_Values[BMP180_AC1]) * 4 + x3)<<BMP180_OSS) + 2)>> 2;
+ 3a0:	80 81       	ld	r24, Z
+ 3a2:	91 81       	ldd	r25, Z+1	; 0x01
+ 3a4:	09 2e       	mov	r0, r25
+ 3a6:	00 0c       	add	r0, r0
+ 3a8:	aa 0b       	sbc	r26, r26
+ 3aa:	bb 0b       	sbc	r27, r27
+ 3ac:	2c 01       	movw	r4, r24
+ 3ae:	3d 01       	movw	r6, r26
+ 3b0:	44 0c       	add	r4, r4
+ 3b2:	55 1c       	adc	r5, r5
+ 3b4:	66 1c       	adc	r6, r6
+ 3b6:	77 1c       	adc	r7, r7
+ 3b8:	44 0c       	add	r4, r4
+ 3ba:	55 1c       	adc	r5, r5
+ 3bc:	66 1c       	adc	r6, r6
+ 3be:	77 1c       	adc	r7, r7
+	x1 = ((int32_t)ut - (int32_t)BMP180_Calibration_Values[BMP180_AC6]) * (int32_t)BMP180_Calibration_Values[BMP180_AC5] >> 15;
+	x2 = ((int32_t)BMP180_Calibration_Values[BMP180_MC] << 11) / (x1 + BMP180_Calibration_Values[BMP180_MD]);
+	b5 = x1 + x2;
+	*temperature = (b5 + 8) >> 4;
+	b6 = b5 - 4000;
+	x1 = (BMP180_Calibration_Values[BMP180_B2] * ((b6 * b6) >> 12)) >> 11;
+ 3c0:	a6 85       	ldd	r26, Z+14	; 0x0e
+ 3c2:	b7 85       	ldd	r27, Z+15	; 0x0f
+ 3c4:	a5 01       	movw	r20, r10
+ 3c6:	94 01       	movw	r18, r8
+ 3c8:	0e 94 79 04 	call	0x8f2	; 0x8f2 <__mulshisi3>
+ 3cc:	4b 01       	movw	r8, r22
+ 3ce:	5c 01       	movw	r10, r24
+ 3d0:	07 2e       	mov	r0, r23
+ 3d2:	7b e0       	ldi	r23, 0x0B	; 11
+ 3d4:	b5 94       	asr	r11
+ 3d6:	a7 94       	ror	r10
+ 3d8:	97 94       	ror	r9
+ 3da:	87 94       	ror	r8
+ 3dc:	7a 95       	dec	r23
+ 3de:	d1 f7       	brne	.-12     	; 0x3d4 <BMP180_Read+0x1e2>
+ 3e0:	70 2d       	mov	r23, r0
+	x2 = (BMP180_Calibration_Values[BMP180_AC2] * b6) >> 11;
+ 3e2:	a2 81       	ldd	r26, Z+2	; 0x02
+ 3e4:	b3 81       	ldd	r27, Z+3	; 0x03
+ 3e6:	a7 01       	movw	r20, r14
+ 3e8:	96 01       	movw	r18, r12
+ 3ea:	0e 94 79 04 	call	0x8f2	; 0x8f2 <__mulshisi3>
+ 3ee:	dc 01       	movw	r26, r24
+ 3f0:	cb 01       	movw	r24, r22
+ 3f2:	07 2e       	mov	r0, r23
+ 3f4:	7b e0       	ldi	r23, 0x0B	; 11
+ 3f6:	b5 95       	asr	r27
+ 3f8:	a7 95       	ror	r26
+ 3fa:	97 95       	ror	r25
+ 3fc:	87 95       	ror	r24
+ 3fe:	7a 95       	dec	r23
+ 400:	d1 f7       	brne	.-12     	; 0x3f6 <BMP180_Read+0x204>
+ 402:	70 2d       	mov	r23, r0
+	x3 = x1 + x2;
+ 404:	88 0e       	add	r8, r24
+ 406:	99 1e       	adc	r9, r25
+ 408:	aa 1e       	adc	r10, r26
+ 40a:	bb 1e       	adc	r11, r27
+	b3 = (((((int32_t) BMP180_Calibration_Values[BMP180_AC1]) * 4 + x3)<<BMP180_OSS) + 2)>> 2;
+ 40c:	84 0c       	add	r8, r4
+ 40e:	95 1c       	adc	r9, r5
+ 410:	a6 1c       	adc	r10, r6
+ 412:	b7 1c       	adc	r11, r7
+ 414:	88 0c       	add	r8, r8
+ 416:	99 1c       	adc	r9, r9
+ 418:	aa 1c       	adc	r10, r10
+ 41a:	bb 1c       	adc	r11, r11
+	x1 = (BMP180_Calibration_Values[BMP180_AC3] * b6) >> 13;
+	x2 = (BMP180_Calibration_Values[BMP180_B1] * ((b6 * b6) >> 12)) >> 16;
+	x3 = ((x1 + x2) + 2) >> 2;
+	b4 = ((uint16_t)BMP180_Calibration_Values[BMP180_AC4] * (uint32_t) (x3 + 32768)) >> 15;
+	b7 = ((uint32_t) (up - b3) * (50000 >> BMP180_OSS));
+ 41c:	29 81       	ldd	r18, Y+1	; 0x01
+ 41e:	3a 81       	ldd	r19, Y+2	; 0x02
+ 420:	4b 81       	ldd	r20, Y+3	; 0x03
+ 422:	5c 81       	ldd	r21, Y+4	; 0x04
+ 424:	28 19       	sub	r18, r8
+ 426:	39 09       	sbc	r19, r9
+ 428:	4a 09       	sbc	r20, r10
+ 42a:	5b 09       	sbc	r21, r11
+ 42c:	aa e6       	ldi	r26, 0x6A	; 106
+ 42e:	b8 e1       	ldi	r27, 0x18	; 24
+ 430:	0e 94 6e 04 	call	0x8dc	; 0x8dc <__muluhisi3>
+	if (b7 < 0x80000000)
+ 434:	99 23       	and	r25, r25
+ 436:	6c f0       	brlt	.+26     	; 0x452 <__LOCK_REGION_LENGTH__+0x52>
+	{
+		p = (b7 << 1) / b4;
+ 438:	66 0f       	add	r22, r22
+ 43a:	77 1f       	adc	r23, r23
+ 43c:	88 1f       	adc	r24, r24
+ 43e:	99 1f       	adc	r25, r25
+ 440:	2d 81       	ldd	r18, Y+5	; 0x05
+ 442:	3e 81       	ldd	r19, Y+6	; 0x06
+ 444:	4f 81       	ldd	r20, Y+7	; 0x07
+ 446:	58 85       	ldd	r21, Y+8	; 0x08
+ 448:	0e 94 2d 04 	call	0x85a	; 0x85a <__udivmodsi4>
+ 44c:	69 01       	movw	r12, r18
+ 44e:	7a 01       	movw	r14, r20
+ 450:	0c c0       	rjmp	.+24     	; 0x46a <__stack+0xb>
+	}
+	else
+	{ 
+		p = (b7 / b4) << 1;
+ 452:	2d 81       	ldd	r18, Y+5	; 0x05
+ 454:	3e 81       	ldd	r19, Y+6	; 0x06
+ 456:	4f 81       	ldd	r20, Y+7	; 0x07
+ 458:	58 85       	ldd	r21, Y+8	; 0x08
+ 45a:	0e 94 2d 04 	call	0x85a	; 0x85a <__udivmodsi4>
+ 45e:	69 01       	movw	r12, r18
+ 460:	7a 01       	movw	r14, r20
+ 462:	cc 0c       	add	r12, r12
+ 464:	dd 1c       	adc	r13, r13
+ 466:	ee 1c       	adc	r14, r14
+ 468:	ff 1c       	adc	r15, r15
+	}
+	x1 = (p >> 8) * (p >> 8);
+ 46a:	99 27       	eor	r25, r25
+ 46c:	f7 fc       	sbrc	r15, 7
+ 46e:	9a 95       	dec	r25
+ 470:	8f 2d       	mov	r24, r15
+ 472:	7e 2d       	mov	r23, r14
+ 474:	6d 2d       	mov	r22, r13
+ 476:	9b 01       	movw	r18, r22
+ 478:	ac 01       	movw	r20, r24
+ 47a:	0e 94 1d 04 	call	0x83a	; 0x83a <__mulsi3>
+ 47e:	9b 01       	movw	r18, r22
+ 480:	ac 01       	movw	r20, r24
+	x1 = (x1 * 3038) >> 16;
+ 482:	ae ed       	ldi	r26, 0xDE	; 222
+ 484:	bb e0       	ldi	r27, 0x0B	; 11
+ 486:	0e 94 6e 04 	call	0x8dc	; 0x8dc <__muluhisi3>
+ 48a:	4c 01       	movw	r8, r24
+ 48c:	bb 24       	eor	r11, r11
+ 48e:	97 fc       	sbrc	r9, 7
+ 490:	b0 94       	com	r11
+ 492:	ab 2c       	mov	r10, r11
+	x2 = (-7357 * p) >> 16;
+ 494:	a3 e4       	ldi	r26, 0x43	; 67
+ 496:	b3 ee       	ldi	r27, 0xE3	; 227
+ 498:	a7 01       	movw	r20, r14
+ 49a:	96 01       	movw	r18, r12
+ 49c:	0e 94 7c 04 	call	0x8f8	; 0x8f8 <__mulohisi3>
+ 4a0:	bb 27       	eor	r27, r27
+ 4a2:	97 fd       	sbrc	r25, 7
+ 4a4:	b0 95       	com	r27
+ 4a6:	ab 2f       	mov	r26, r27
+	*pressure = p + ((x1 + x2 + 3791) >> 4);
+ 4a8:	88 0d       	add	r24, r8
+ 4aa:	99 1d       	adc	r25, r9
+ 4ac:	aa 1d       	adc	r26, r10
+ 4ae:	bb 1d       	adc	r27, r11
+ 4b0:	81 53       	subi	r24, 0x31	; 49
+ 4b2:	91 4f       	sbci	r25, 0xF1	; 241
+ 4b4:	af 4f       	sbci	r26, 0xFF	; 255
+ 4b6:	bf 4f       	sbci	r27, 0xFF	; 255
+ 4b8:	68 94       	set
+ 4ba:	13 f8       	bld	r1, 3
+ 4bc:	b5 95       	asr	r27
+ 4be:	a7 95       	ror	r26
+ 4c0:	97 95       	ror	r25
+ 4c2:	87 95       	ror	r24
+ 4c4:	16 94       	lsr	r1
+ 4c6:	d1 f7       	brne	.-12     	; 0x4bc <__stack+0x5d>
+ 4c8:	8c 0d       	add	r24, r12
+ 4ca:	9d 1d       	adc	r25, r13
+ 4cc:	ae 1d       	adc	r26, r14
+ 4ce:	bf 1d       	adc	r27, r15
+ 4d0:	f8 01       	movw	r30, r16
+ 4d2:	80 83       	st	Z, r24
+ 4d4:	91 83       	std	Z+1, r25	; 0x01
+ 4d6:	a2 83       	std	Z+2, r26	; 0x02
+ 4d8:	b3 83       	std	Z+3, r27	; 0x03
+}
+ 4da:	28 96       	adiw	r28, 0x08	; 8
+ 4dc:	0f b6       	in	r0, 0x3f	; 63
+ 4de:	f8 94       	cli
+ 4e0:	de bf       	out	0x3e, r29	; 62
+ 4e2:	0f be       	out	0x3f, r0	; 63
+ 4e4:	cd bf       	out	0x3d, r28	; 61
+ 4e6:	df 91       	pop	r29
+ 4e8:	cf 91       	pop	r28
+ 4ea:	1f 91       	pop	r17
+ 4ec:	0f 91       	pop	r16
+ 4ee:	ff 90       	pop	r15
+ 4f0:	ef 90       	pop	r14
+ 4f2:	df 90       	pop	r13
+ 4f4:	cf 90       	pop	r12
+ 4f6:	bf 90       	pop	r11
+ 4f8:	af 90       	pop	r10
+ 4fa:	9f 90       	pop	r9
+ 4fc:	8f 90       	pop	r8
+ 4fe:	7f 90       	pop	r7
+ 500:	6f 90       	pop	r6
+ 502:	5f 90       	pop	r5
+ 504:	4f 90       	pop	r4
+ 506:	3f 90       	pop	r3
+ 508:	2f 90       	pop	r2
+ 50a:	08 95       	ret
+
+0000050c <I2C_Init>:
+	#include <compat/twi.h>
+	#include "i2c.h"
+//==========================================================================================
+void I2C_Init()
+{
+	TWSR = ((0 << TWPS0)|(0 << TWPS1));
+ 50c:	11 b8       	out	0x01, r1	; 1
+	TWBR = (uint8_t)I2C_TWBR;
+ 50e:	8c e0       	ldi	r24, 0x0C	; 12
+ 510:	80 b9       	out	0x00, r24	; 0
+ 512:	08 95       	ret
+
+00000514 <I2C_Start>:
+// return 0 = device accessible, 1= failed to access device
+uint8_t I2C_Start(uint8_t address)
+{
+	uint8_t twst;
+	// send START condition
+	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
+ 514:	94 ea       	ldi	r25, 0xA4	; 164
+ 516:	96 bf       	out	0x36, r25	; 54
+	// wait until transmission completed
+	while(!(TWCR & (1<<TWINT)));
+ 518:	06 b6       	in	r0, 0x36	; 54
+ 51a:	07 fe       	sbrs	r0, 7
+ 51c:	fd cf       	rjmp	.-6      	; 0x518 <I2C_Start+0x4>
+	// check value of TWI Status Register. Mask prescaler bits.
+	twst = TW_STATUS & 0xF8;
+ 51e:	91 b1       	in	r25, 0x01	; 1
+ 520:	98 7f       	andi	r25, 0xF8	; 248
+	if ( (twst != TW_START) && (twst != TW_REP_START)) return 1;
+ 522:	98 30       	cpi	r25, 0x08	; 8
+ 524:	11 f0       	breq	.+4      	; 0x52a <I2C_Start+0x16>
+ 526:	90 31       	cpi	r25, 0x10	; 16
+ 528:	79 f4       	brne	.+30     	; 0x548 <I2C_Start+0x34>
+	// send device address
+	TWDR = address;
+ 52a:	83 b9       	out	0x03, r24	; 3
+	TWCR = (1<<TWINT) | (1<<TWEN);
+ 52c:	84 e8       	ldi	r24, 0x84	; 132
+ 52e:	86 bf       	out	0x36, r24	; 54
+	// wail until transmission completed and ACK/NACK has been received
+	while(!(TWCR & (1<<TWINT)));
+ 530:	06 b6       	in	r0, 0x36	; 54
+ 532:	07 fe       	sbrs	r0, 7
+ 534:	fd cf       	rjmp	.-6      	; 0x530 <I2C_Start+0x1c>
+	// check value of TWI Status Register. Mask prescaler bits.
+	twst = TW_STATUS & 0xF8;
+ 536:	91 b1       	in	r25, 0x01	; 1
+ 538:	98 7f       	andi	r25, 0xF8	; 248
+	if ( (twst != TW_MT_SLA_ACK) && (twst != TW_MR_SLA_ACK) ) return 1;
+ 53a:	98 31       	cpi	r25, 0x18	; 24
+ 53c:	39 f0       	breq	.+14     	; 0x54c <I2C_Start+0x38>
+ 53e:	81 e0       	ldi	r24, 0x01	; 1
+ 540:	90 34       	cpi	r25, 0x40	; 64
+ 542:	29 f4       	brne	.+10     	; 0x54e <I2C_Start+0x3a>
+ 544:	80 e0       	ldi	r24, 0x00	; 0
+ 546:	08 95       	ret
+	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
+	// wait until transmission completed
+	while(!(TWCR & (1<<TWINT)));
+	// check value of TWI Status Register. Mask prescaler bits.
+	twst = TW_STATUS & 0xF8;
+	if ( (twst != TW_START) && (twst != TW_REP_START)) return 1;
+ 548:	81 e0       	ldi	r24, 0x01	; 1
+ 54a:	08 95       	ret
+	// wail until transmission completed and ACK/NACK has been received
+	while(!(TWCR & (1<<TWINT)));
+	// check value of TWI Status Register. Mask prescaler bits.
+	twst = TW_STATUS & 0xF8;
+	if ( (twst != TW_MT_SLA_ACK) && (twst != TW_MR_SLA_ACK) ) return 1;
+	return 0;	
+ 54c:	80 e0       	ldi	r24, 0x00	; 0
+}
+ 54e:	08 95       	ret
+
+00000550 <I2C_Stop>:
+//==========================================================================================
+void I2C_Stop()
+{
+	// send stop condition
+	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
+ 550:	84 e9       	ldi	r24, 0x94	; 148
+ 552:	86 bf       	out	0x36, r24	; 54
+	// wait until stop condition is executed and bus released
+	while(TWCR & (1<<TWSTO));
+ 554:	06 b6       	in	r0, 0x36	; 54
+ 556:	04 fc       	sbrc	r0, 4
+ 558:	fd cf       	rjmp	.-6      	; 0x554 <I2C_Stop+0x4>
+}
+ 55a:	08 95       	ret
+
+0000055c <I2C_SendByte>:
+// 0 write successful           1 write failed
+uint8_t I2C_SendByte(uint8_t data)
+{
+	uint8_t   twst;
+	// send data to the previously addressed device
+	TWDR = data;
+ 55c:	83 b9       	out	0x03, r24	; 3
+	TWCR = (1<<TWINT) | (1<<TWEN);
+ 55e:	84 e8       	ldi	r24, 0x84	; 132
+ 560:	86 bf       	out	0x36, r24	; 54
+	// wait until transmission completed
+	while(!(TWCR & (1<<TWINT)));
+ 562:	06 b6       	in	r0, 0x36	; 54
+ 564:	07 fe       	sbrs	r0, 7
+ 566:	fd cf       	rjmp	.-6      	; 0x562 <I2C_SendByte+0x6>
+	// check value of TWI Status Register. Mask prescaler bits
+	twst = TW_STATUS & 0xF8;
+ 568:	91 b1       	in	r25, 0x01	; 1
+ 56a:	98 7f       	andi	r25, 0xF8	; 248
+	if( twst != TW_MT_DATA_ACK) return 1;
+ 56c:	81 e0       	ldi	r24, 0x01	; 1
+ 56e:	98 32       	cpi	r25, 0x28	; 40
+ 570:	09 f4       	brne	.+2      	; 0x574 <I2C_SendByte+0x18>
+ 572:	80 e0       	ldi	r24, 0x00	; 0
+	return 0;
+}
+ 574:	08 95       	ret
+
+00000576 <I2C_ReceiveByteACK>:
+//==========================================================================================
+uint8_t I2C_ReceiveByteACK()
+{
+	TWCR = (1 << TWINT)|(1 << TWEN)|(1 << TWEA);
+ 576:	84 ec       	ldi	r24, 0xC4	; 196
+ 578:	86 bf       	out	0x36, r24	; 54
+	while(!(TWCR & (1<<TWINT)));
+ 57a:	06 b6       	in	r0, 0x36	; 54
+ 57c:	07 fe       	sbrs	r0, 7
+ 57e:	fd cf       	rjmp	.-6      	; 0x57a <I2C_ReceiveByteACK+0x4>
+	return TWDR;
+ 580:	83 b1       	in	r24, 0x03	; 3
+}
+ 582:	08 95       	ret
+
+00000584 <I2C_ReceiveByteNACK>:
+//==========================================================================================
+uint8_t I2C_ReceiveByteNACK()
+{
+	TWCR = (1 << TWINT)|(1 << TWEN);
+ 584:	84 e8       	ldi	r24, 0x84	; 132
+ 586:	86 bf       	out	0x36, r24	; 54
+	while(!(TWCR & (1<<TWINT)));
+ 588:	06 b6       	in	r0, 0x36	; 54
+ 58a:	07 fe       	sbrs	r0, 7
+ 58c:	fd cf       	rjmp	.-6      	; 0x588 <I2C_ReceiveByteNACK+0x4>
+	return TWDR;
+ 58e:	83 b1       	in	r24, 0x03	; 3
+}
+ 590:	08 95       	ret
+
+00000592 <__vector_3>:
+		0b01111111,
+		0b01101111,
+	};
+//=============================================================================================================
+ISR(TIMER2_COMP_vect)
+{
+ 592:	1f 92       	push	r1
+ 594:	0f 92       	push	r0
+ 596:	0f b6       	in	r0, 0x3f	; 63
+ 598:	0f 92       	push	r0
+ 59a:	11 24       	eor	r1, r1
+ 59c:	2f 93       	push	r18
+ 59e:	3f 93       	push	r19
+ 5a0:	8f 93       	push	r24
+ 5a2:	9f 93       	push	r25
+ 5a4:	af 93       	push	r26
+ 5a6:	bf 93       	push	r27
+	uint8_t sreg_save = SREG;
+ 5a8:	2f b7       	in	r18, 0x3f	; 63
+	ms++;
+ 5aa:	80 91 98 00 	lds	r24, 0x0098	; 0x800098 <ms>
+ 5ae:	90 91 99 00 	lds	r25, 0x0099	; 0x800099 <ms+0x1>
+ 5b2:	01 96       	adiw	r24, 0x01	; 1
+ 5b4:	90 93 99 00 	sts	0x0099, r25	; 0x800099 <ms+0x1>
+ 5b8:	80 93 98 00 	sts	0x0098, r24	; 0x800098 <ms>
+	if(ms == 1000)
+ 5bc:	88 3e       	cpi	r24, 0xE8	; 232
+ 5be:	93 40       	sbci	r25, 0x03	; 3
+ 5c0:	a9 f5       	brne	.+106    	; 0x62c <__vector_3+0x9a>
+	{
+		second_count++;
+ 5c2:	80 91 91 00 	lds	r24, 0x0091	; 0x800091 <second_count>
+ 5c6:	90 91 92 00 	lds	r25, 0x0092	; 0x800092 <second_count+0x1>
+ 5ca:	a0 91 93 00 	lds	r26, 0x0093	; 0x800093 <second_count+0x2>
+ 5ce:	b0 91 94 00 	lds	r27, 0x0094	; 0x800094 <second_count+0x3>
+ 5d2:	01 96       	adiw	r24, 0x01	; 1
+ 5d4:	a1 1d       	adc	r26, r1
+ 5d6:	b1 1d       	adc	r27, r1
+ 5d8:	80 93 91 00 	sts	0x0091, r24	; 0x800091 <second_count>
+ 5dc:	90 93 92 00 	sts	0x0092, r25	; 0x800092 <second_count+0x1>
+ 5e0:	a0 93 93 00 	sts	0x0093, r26	; 0x800093 <second_count+0x2>
+ 5e4:	b0 93 94 00 	sts	0x0094, r27	; 0x800094 <second_count+0x3>
+		ms = 0;
+ 5e8:	10 92 99 00 	sts	0x0099, r1	; 0x800099 <ms+0x1>
+ 5ec:	10 92 98 00 	sts	0x0098, r1	; 0x800098 <ms>
+		sec++;
+ 5f0:	80 91 97 00 	lds	r24, 0x0097	; 0x800097 <sec>
+ 5f4:	8f 5f       	subi	r24, 0xFF	; 255
+		if (sec == 60)
+ 5f6:	8c 33       	cpi	r24, 0x3C	; 60
+ 5f8:	19 f0       	breq	.+6      	; 0x600 <__vector_3+0x6e>
+	ms++;
+	if(ms == 1000)
+	{
+		second_count++;
+		ms = 0;
+		sec++;
+ 5fa:	80 93 97 00 	sts	0x0097, r24	; 0x800097 <sec>
+ 5fe:	16 c0       	rjmp	.+44     	; 0x62c <__vector_3+0x9a>
+		if (sec == 60)
+		{
+			sec = 0;
+ 600:	10 92 97 00 	sts	0x0097, r1	; 0x800097 <sec>
+			min++;
+ 604:	80 91 96 00 	lds	r24, 0x0096	; 0x800096 <min>
+ 608:	8f 5f       	subi	r24, 0xFF	; 255
+			if (min == 60)
+ 60a:	8c 33       	cpi	r24, 0x3C	; 60
+ 60c:	19 f0       	breq	.+6      	; 0x614 <__vector_3+0x82>
+		ms = 0;
+		sec++;
+		if (sec == 60)
+		{
+			sec = 0;
+			min++;
+ 60e:	80 93 96 00 	sts	0x0096, r24	; 0x800096 <min>
+ 612:	0c c0       	rjmp	.+24     	; 0x62c <__vector_3+0x9a>
+			if (min == 60)
+			{
+				min = 0;
+ 614:	10 92 96 00 	sts	0x0096, r1	; 0x800096 <min>
+				hour++;
+ 618:	80 91 95 00 	lds	r24, 0x0095	; 0x800095 <hour>
+ 61c:	8f 5f       	subi	r24, 0xFF	; 255
+				if (hour == 24)
+ 61e:	88 31       	cpi	r24, 0x18	; 24
+ 620:	19 f0       	breq	.+6      	; 0x628 <__vector_3+0x96>
+			sec = 0;
+			min++;
+			if (min == 60)
+			{
+				min = 0;
+				hour++;
+ 622:	80 93 95 00 	sts	0x0095, r24	; 0x800095 <hour>
+ 626:	02 c0       	rjmp	.+4      	; 0x62c <__vector_3+0x9a>
+				if (hour == 24)
+					hour = 0;
+ 628:	10 92 95 00 	sts	0x0095, r1	; 0x800095 <hour>
+			}
+		}
+	}
+	SREG = sreg_save;
+ 62c:	2f bf       	out	0x3f, r18	; 63
+}
+ 62e:	bf 91       	pop	r27
+ 630:	af 91       	pop	r26
+ 632:	9f 91       	pop	r25
+ 634:	8f 91       	pop	r24
+ 636:	3f 91       	pop	r19
+ 638:	2f 91       	pop	r18
+ 63a:	0f 90       	pop	r0
+ 63c:	0f be       	out	0x3f, r0	; 63
+ 63e:	0f 90       	pop	r0
+ 640:	1f 90       	pop	r1
+ 642:	18 95       	reti
+
+00000644 <BMP180_Update>:
+//=============================================================================================================
+void BMP180_Update()
+{
+	BMP180_Read(&BMP180_Temperature, &BMP180_Pressure);
+ 644:	6a e6       	ldi	r22, 0x6A	; 106
+ 646:	70 e0       	ldi	r23, 0x00	; 0
+ 648:	8e e6       	ldi	r24, 0x6E	; 110
+ 64a:	90 e0       	ldi	r25, 0x00	; 0
+ 64c:	0e 94 f9 00 	call	0x1f2	; 0x1f2 <BMP180_Read>
+	BMP180_Update_Time = second_count + BMP180_REFRESH_TIME;
+ 650:	80 91 91 00 	lds	r24, 0x0091	; 0x800091 <second_count>
+ 654:	90 91 92 00 	lds	r25, 0x0092	; 0x800092 <second_count+0x1>
+ 658:	a0 91 93 00 	lds	r26, 0x0093	; 0x800093 <second_count+0x2>
+ 65c:	b0 91 94 00 	lds	r27, 0x0094	; 0x800094 <second_count+0x3>
+ 660:	0a 96       	adiw	r24, 0x0a	; 10
+ 662:	a1 1d       	adc	r26, r1
+ 664:	b1 1d       	adc	r27, r1
+ 666:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <BMP180_Update_Time>
+ 66a:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <BMP180_Update_Time+0x1>
+ 66e:	a0 93 8a 00 	sts	0x008A, r26	; 0x80008a <BMP180_Update_Time+0x2>
+ 672:	b0 93 8b 00 	sts	0x008B, r27	; 0x80008b <BMP180_Update_Time+0x3>
+	refresh = 1;
+ 676:	81 e0       	ldi	r24, 0x01	; 1
+ 678:	80 93 90 00 	sts	0x0090, r24	; 0x800090 <refresh>
+ 67c:	08 95       	ret
+
+0000067e <main>:
+}
+//=============================================================================================================
+int main (void)
+{
+	// Запрещаем прерывания
+	cli();
+ 67e:	f8 94       	cli
+	// Настраиваем порты ввода-вывода
+	SEG_DDR = 0xFF;
+ 680:	8f ef       	ldi	r24, 0xFF	; 255
+ 682:	8a bb       	out	0x1a, r24	; 26
+	SEG_PORT = 0x00;
+ 684:	1b ba       	out	0x1b, r1	; 27
+	DIG_DDR = (1 << Digit1)|(1 << Digit2)|(1 << Digit3)|(1 << Digit4);
+ 686:	8f e0       	ldi	r24, 0x0F	; 15
+ 688:	87 bb       	out	0x17, r24	; 23
+	DIG_PORT &= ~((1 << Digit1)|(1 << Digit2)|(1 << Digit3)|(1 << Digit4));
+ 68a:	88 b3       	in	r24, 0x18	; 24
+ 68c:	80 7f       	andi	r24, 0xF0	; 240
+ 68e:	88 bb       	out	0x18, r24	; 24
+	I2C_Init();
+ 690:	0e 94 86 02 	call	0x50c	; 0x50c <I2C_Init>
+	BMP180_Init();
+ 694:	0e 94 c7 00 	call	0x18e	; 0x18e <BMP180_Init>
+	// Настраиваем таймеры
+	// Разрешение прерывания таймера 2
+	TIMSK = (1 << OCIE2);
+ 698:	80 e8       	ldi	r24, 0x80	; 128
+ 69a:	89 bf       	out	0x39, r24	; 57
+	// Настраиваем таймер 2 на подсчет секунд
+	// Предделитель на 64
+	TCCR2 = (1 << WGM21)|(0 << WGM20)|(1 << CS22)|(0 << CS21)|(0 << CS20);
+ 69c:	8c e0       	ldi	r24, 0x0C	; 12
+ 69e:	85 bd       	out	0x25, r24	; 37
+	OCR2 = F_CPU / 64 / 1000;
+ 6a0:	8d e7       	ldi	r24, 0x7D	; 125
+ 6a2:	83 bd       	out	0x23, r24	; 35
+	// Обнуляем счетчик таймера 2
+	TCNT2 = 0;
+ 6a4:	14 bc       	out	0x24, r1	; 36
+ 6a6:	2f ef       	ldi	r18, 0xFF	; 255
+ 6a8:	89 e6       	ldi	r24, 0x69	; 105
+ 6aa:	98 e1       	ldi	r25, 0x18	; 24
+ 6ac:	21 50       	subi	r18, 0x01	; 1
+ 6ae:	80 40       	sbci	r24, 0x00	; 0
+ 6b0:	90 40       	sbci	r25, 0x00	; 0
+ 6b2:	e1 f7       	brne	.-8      	; 0x6ac <main+0x2e>
+ 6b4:	00 c0       	rjmp	.+0      	; 0x6b6 <main+0x38>
+ 6b6:	00 00       	nop
+	// Запуск первого измерения температуры
+	_delay_ms(1000);
+	BMP180_Update();
+ 6b8:	0e 94 22 03 	call	0x644	; 0x644 <BMP180_Update>
+	// Разрешаем прерывания
+	sei();
+ 6bc:	78 94       	sei
+				dig[1] = digits[pressure % 1000 / 100];
+				dig[2] = digits[pressure / 10 % 10];
+				dig[3] = digits[pressure % 10];
+			}
+			else
+				memset(dig, SYMBOL_MINUS, sizeof(dig));
+ 6be:	cc e8       	ldi	r28, 0x8C	; 140
+ 6c0:	d0 e0       	ldi	r29, 0x00	; 0
+				int32_t pressure = BMP180_Pressure / 133;
+				if (pressure >= 1000)
+					dig[0] = digits[pressure % 10000 / 1000];
+				else
+					dig[0] = 0;
+				dig[1] = digits[pressure % 1000 / 100];
+ 6c2:	0f 2e       	mov	r0, r31
+ 6c4:	f8 ee       	ldi	r31, 0xE8	; 232
+ 6c6:	8f 2e       	mov	r8, r31
+ 6c8:	f3 e0       	ldi	r31, 0x03	; 3
+ 6ca:	9f 2e       	mov	r9, r31
+ 6cc:	a1 2c       	mov	r10, r1
+ 6ce:	b1 2c       	mov	r11, r1
+ 6d0:	f0 2d       	mov	r31, r0
+				dig[2] = digits[pressure / 10 % 10];
+ 6d2:	0f 2e       	mov	r0, r31
+ 6d4:	fa e0       	ldi	r31, 0x0A	; 10
+ 6d6:	cf 2e       	mov	r12, r31
+ 6d8:	d1 2c       	mov	r13, r1
+ 6da:	e1 2c       	mov	r14, r1
+ 6dc:	f1 2c       	mov	r15, r1
+ 6de:	f0 2d       	mov	r31, r0
+			}
+			else
+				memset(dig, SYMBOL_MINUS, sizeof(dig));
+			refresh = 0;
+		}
+		DIG_PORT = (1 << Digit1);
+ 6e0:	11 e0       	ldi	r17, 0x01	; 1
+		SEG_PORT = dig[0];
+		_delay_ms(DISPLAY_DELAY);
+		DIG_PORT = (1 << Digit2);
+ 6e2:	02 e0       	ldi	r16, 0x02	; 2
+		SEG_PORT = dig[1];
+		_delay_ms(DISPLAY_DELAY);
+		DIG_PORT = (1 << Digit3);
+ 6e4:	68 94       	set
+ 6e6:	33 24       	eor	r3, r3
+ 6e8:	32 f8       	bld	r3, 2
+		SEG_PORT = dig[2];
+		_delay_ms(DISPLAY_DELAY);
+		DIG_PORT = (1 << Digit4);
+ 6ea:	68 94       	set
+ 6ec:	22 24       	eor	r2, r2
+ 6ee:	23 f8       	bld	r2, 3
+	// Разрешаем прерывания
+	sei();
+	// Основная программа
+	while (1)
+	{
+		if(second_count >= BMP180_Update_Time)
+ 6f0:	40 91 91 00 	lds	r20, 0x0091	; 0x800091 <second_count>
+ 6f4:	50 91 92 00 	lds	r21, 0x0092	; 0x800092 <second_count+0x1>
+ 6f8:	60 91 93 00 	lds	r22, 0x0093	; 0x800093 <second_count+0x2>
+ 6fc:	70 91 94 00 	lds	r23, 0x0094	; 0x800094 <second_count+0x3>
+ 700:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <BMP180_Update_Time>
+ 704:	90 91 89 00 	lds	r25, 0x0089	; 0x800089 <BMP180_Update_Time+0x1>
+ 708:	a0 91 8a 00 	lds	r26, 0x008A	; 0x80008a <BMP180_Update_Time+0x2>
+ 70c:	b0 91 8b 00 	lds	r27, 0x008B	; 0x80008b <BMP180_Update_Time+0x3>
+ 710:	48 17       	cp	r20, r24
+ 712:	59 07       	cpc	r21, r25
+ 714:	6a 07       	cpc	r22, r26
+ 716:	7b 07       	cpc	r23, r27
+ 718:	10 f0       	brcs	.+4      	; 0x71e <main+0xa0>
+			BMP180_Update();
+ 71a:	0e 94 22 03 	call	0x644	; 0x644 <BMP180_Update>
+		// Преобразование температуры в отдельные цифры для вывода
+		if (refresh)
+ 71e:	80 91 90 00 	lds	r24, 0x0090	; 0x800090 <refresh>
+ 722:	88 23       	and	r24, r24
+ 724:	09 f4       	brne	.+2      	; 0x728 <main+0xaa>
+ 726:	64 c0       	rjmp	.+200    	; 0x7f0 <main+0x172>
+		{
+			if (BMP180_Pressure != BMP180_ERROR)
+ 728:	60 91 6a 00 	lds	r22, 0x006A	; 0x80006a <BMP180_Pressure>
+ 72c:	70 91 6b 00 	lds	r23, 0x006B	; 0x80006b <BMP180_Pressure+0x1>
+ 730:	80 91 6c 00 	lds	r24, 0x006C	; 0x80006c <BMP180_Pressure+0x2>
+ 734:	90 91 6d 00 	lds	r25, 0x006D	; 0x80006d <BMP180_Pressure+0x3>
+ 738:	6f 3f       	cpi	r22, 0xFF	; 255
+ 73a:	af ef       	ldi	r26, 0xFF	; 255
+ 73c:	7a 07       	cpc	r23, r26
+ 73e:	8a 07       	cpc	r24, r26
+ 740:	af e7       	ldi	r26, 0x7F	; 127
+ 742:	9a 07       	cpc	r25, r26
+ 744:	09 f4       	brne	.+2      	; 0x748 <main+0xca>
+ 746:	4b c0       	rjmp	.+150    	; 0x7de <main+0x160>
+			{
+				int32_t pressure = BMP180_Pressure / 133;
+ 748:	25 e8       	ldi	r18, 0x85	; 133
+ 74a:	30 e0       	ldi	r19, 0x00	; 0
+ 74c:	40 e0       	ldi	r20, 0x00	; 0
+ 74e:	50 e0       	ldi	r21, 0x00	; 0
+ 750:	0e 94 2d 04 	call	0x85a	; 0x85a <__udivmodsi4>
+ 754:	29 01       	movw	r4, r18
+ 756:	3a 01       	movw	r6, r20
+				if (pressure >= 1000)
+ 758:	28 3e       	cpi	r18, 0xE8	; 232
+ 75a:	b3 e0       	ldi	r27, 0x03	; 3
+ 75c:	3b 07       	cpc	r19, r27
+ 75e:	41 05       	cpc	r20, r1
+ 760:	51 05       	cpc	r21, r1
+ 762:	94 f0       	brlt	.+36     	; 0x788 <main+0x10a>
+					dig[0] = digits[pressure % 10000 / 1000];
+ 764:	ca 01       	movw	r24, r20
+ 766:	b9 01       	movw	r22, r18
+ 768:	20 e1       	ldi	r18, 0x10	; 16
+ 76a:	37 e2       	ldi	r19, 0x27	; 39
+ 76c:	40 e0       	ldi	r20, 0x00	; 0
+ 76e:	50 e0       	ldi	r21, 0x00	; 0
+ 770:	0e 94 4f 04 	call	0x89e	; 0x89e <__divmodsi4>
+ 774:	a5 01       	movw	r20, r10
+ 776:	94 01       	movw	r18, r8
+ 778:	0e 94 4f 04 	call	0x89e	; 0x89e <__divmodsi4>
+ 77c:	f9 01       	movw	r30, r18
+ 77e:	e0 5a       	subi	r30, 0xA0	; 160
+ 780:	ff 4f       	sbci	r31, 0xFF	; 255
+ 782:	80 81       	ld	r24, Z
+ 784:	88 83       	st	Y, r24
+ 786:	01 c0       	rjmp	.+2      	; 0x78a <main+0x10c>
+				else
+					dig[0] = 0;
+ 788:	18 82       	st	Y, r1
+				dig[1] = digits[pressure % 1000 / 100];
+ 78a:	c3 01       	movw	r24, r6
+ 78c:	b2 01       	movw	r22, r4
+ 78e:	a5 01       	movw	r20, r10
+ 790:	94 01       	movw	r18, r8
+ 792:	0e 94 4f 04 	call	0x89e	; 0x89e <__divmodsi4>
+ 796:	24 e6       	ldi	r18, 0x64	; 100
+ 798:	30 e0       	ldi	r19, 0x00	; 0
+ 79a:	40 e0       	ldi	r20, 0x00	; 0
+ 79c:	50 e0       	ldi	r21, 0x00	; 0
+ 79e:	0e 94 4f 04 	call	0x89e	; 0x89e <__divmodsi4>
+ 7a2:	f9 01       	movw	r30, r18
+ 7a4:	e0 5a       	subi	r30, 0xA0	; 160
+ 7a6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 7a8:	80 81       	ld	r24, Z
+ 7aa:	89 83       	std	Y+1, r24	; 0x01
+				dig[2] = digits[pressure / 10 % 10];
+ 7ac:	c3 01       	movw	r24, r6
+ 7ae:	b2 01       	movw	r22, r4
+ 7b0:	a7 01       	movw	r20, r14
+ 7b2:	96 01       	movw	r18, r12
+ 7b4:	0e 94 4f 04 	call	0x89e	; 0x89e <__divmodsi4>
+ 7b8:	2b 01       	movw	r4, r22
+ 7ba:	3c 01       	movw	r6, r24
+ 7bc:	ca 01       	movw	r24, r20
+ 7be:	b9 01       	movw	r22, r18
+ 7c0:	a7 01       	movw	r20, r14
+ 7c2:	96 01       	movw	r18, r12
+ 7c4:	0e 94 4f 04 	call	0x89e	; 0x89e <__divmodsi4>
+ 7c8:	fb 01       	movw	r30, r22
+ 7ca:	e0 5a       	subi	r30, 0xA0	; 160
+ 7cc:	ff 4f       	sbci	r31, 0xFF	; 255
+ 7ce:	80 81       	ld	r24, Z
+ 7d0:	8a 83       	std	Y+2, r24	; 0x02
+				dig[3] = digits[pressure % 10];
+ 7d2:	f2 01       	movw	r30, r4
+ 7d4:	e0 5a       	subi	r30, 0xA0	; 160
+ 7d6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 7d8:	80 81       	ld	r24, Z
+ 7da:	8b 83       	std	Y+3, r24	; 0x03
+ 7dc:	07 c0       	rjmp	.+14     	; 0x7ec <main+0x16e>
+			}
+			else
+				memset(dig, SYMBOL_MINUS, sizeof(dig));
+ 7de:	80 e4       	ldi	r24, 0x40	; 64
+ 7e0:	90 e4       	ldi	r25, 0x40	; 64
+ 7e2:	dc 01       	movw	r26, r24
+ 7e4:	88 83       	st	Y, r24
+ 7e6:	99 83       	std	Y+1, r25	; 0x01
+ 7e8:	aa 83       	std	Y+2, r26	; 0x02
+ 7ea:	bb 83       	std	Y+3, r27	; 0x03
+			refresh = 0;
+ 7ec:	10 92 90 00 	sts	0x0090, r1	; 0x800090 <refresh>
+		}
+		DIG_PORT = (1 << Digit1);
+ 7f0:	18 bb       	out	0x18, r17	; 24
+		SEG_PORT = dig[0];
+ 7f2:	88 81       	ld	r24, Y
+ 7f4:	8b bb       	out	0x1b, r24	; 27
+ 7f6:	af e3       	ldi	r26, 0x3F	; 63
+ 7f8:	bf e1       	ldi	r27, 0x1F	; 31
+ 7fa:	11 97       	sbiw	r26, 0x01	; 1
+ 7fc:	f1 f7       	brne	.-4      	; 0x7fa <main+0x17c>
+ 7fe:	00 c0       	rjmp	.+0      	; 0x800 <main+0x182>
+ 800:	00 00       	nop
+		_delay_ms(DISPLAY_DELAY);
+		DIG_PORT = (1 << Digit2);
+ 802:	08 bb       	out	0x18, r16	; 24
+		SEG_PORT = dig[1];
+ 804:	89 81       	ldd	r24, Y+1	; 0x01
+ 806:	8b bb       	out	0x1b, r24	; 27
+ 808:	8f e3       	ldi	r24, 0x3F	; 63
+ 80a:	9f e1       	ldi	r25, 0x1F	; 31
+ 80c:	01 97       	sbiw	r24, 0x01	; 1
+ 80e:	f1 f7       	brne	.-4      	; 0x80c <main+0x18e>
+ 810:	00 c0       	rjmp	.+0      	; 0x812 <main+0x194>
+ 812:	00 00       	nop
+		_delay_ms(DISPLAY_DELAY);
+		DIG_PORT = (1 << Digit3);
+ 814:	38 ba       	out	0x18, r3	; 24
+		SEG_PORT = dig[2];
+ 816:	8a 81       	ldd	r24, Y+2	; 0x02
+ 818:	8b bb       	out	0x1b, r24	; 27
+ 81a:	af e3       	ldi	r26, 0x3F	; 63
+ 81c:	bf e1       	ldi	r27, 0x1F	; 31
+ 81e:	11 97       	sbiw	r26, 0x01	; 1
+ 820:	f1 f7       	brne	.-4      	; 0x81e <main+0x1a0>
+ 822:	00 c0       	rjmp	.+0      	; 0x824 <main+0x1a6>
+ 824:	00 00       	nop
+		_delay_ms(DISPLAY_DELAY);
+		DIG_PORT = (1 << Digit4);
+ 826:	28 ba       	out	0x18, r2	; 24
+		SEG_PORT = dig[3];
+ 828:	8b 81       	ldd	r24, Y+3	; 0x03
+ 82a:	8b bb       	out	0x1b, r24	; 27
+ 82c:	8f e3       	ldi	r24, 0x3F	; 63
+ 82e:	9f e1       	ldi	r25, 0x1F	; 31
+ 830:	01 97       	sbiw	r24, 0x01	; 1
+ 832:	f1 f7       	brne	.-4      	; 0x830 <main+0x1b2>
+ 834:	00 c0       	rjmp	.+0      	; 0x836 <main+0x1b8>
+ 836:	00 00       	nop
+ 838:	5b cf       	rjmp	.-330    	; 0x6f0 <main+0x72>
+
+0000083a <__mulsi3>:
+ 83a:	db 01       	movw	r26, r22
+ 83c:	8f 93       	push	r24
+ 83e:	9f 93       	push	r25
+ 840:	0e 94 6e 04 	call	0x8dc	; 0x8dc <__muluhisi3>
+ 844:	bf 91       	pop	r27
+ 846:	af 91       	pop	r26
+ 848:	a2 9f       	mul	r26, r18
+ 84a:	80 0d       	add	r24, r0
+ 84c:	91 1d       	adc	r25, r1
+ 84e:	a3 9f       	mul	r26, r19
+ 850:	90 0d       	add	r25, r0
+ 852:	b2 9f       	mul	r27, r18
+ 854:	90 0d       	add	r25, r0
+ 856:	11 24       	eor	r1, r1
+ 858:	08 95       	ret
+
+0000085a <__udivmodsi4>:
+ 85a:	a1 e2       	ldi	r26, 0x21	; 33
+ 85c:	1a 2e       	mov	r1, r26
+ 85e:	aa 1b       	sub	r26, r26
+ 860:	bb 1b       	sub	r27, r27
+ 862:	fd 01       	movw	r30, r26
+ 864:	0d c0       	rjmp	.+26     	; 0x880 <__udivmodsi4_ep>
+
+00000866 <__udivmodsi4_loop>:
+ 866:	aa 1f       	adc	r26, r26
+ 868:	bb 1f       	adc	r27, r27
+ 86a:	ee 1f       	adc	r30, r30
+ 86c:	ff 1f       	adc	r31, r31
+ 86e:	a2 17       	cp	r26, r18
+ 870:	b3 07       	cpc	r27, r19
+ 872:	e4 07       	cpc	r30, r20
+ 874:	f5 07       	cpc	r31, r21
+ 876:	20 f0       	brcs	.+8      	; 0x880 <__udivmodsi4_ep>
+ 878:	a2 1b       	sub	r26, r18
+ 87a:	b3 0b       	sbc	r27, r19
+ 87c:	e4 0b       	sbc	r30, r20
+ 87e:	f5 0b       	sbc	r31, r21
+
+00000880 <__udivmodsi4_ep>:
+ 880:	66 1f       	adc	r22, r22
+ 882:	77 1f       	adc	r23, r23
+ 884:	88 1f       	adc	r24, r24
+ 886:	99 1f       	adc	r25, r25
+ 888:	1a 94       	dec	r1
+ 88a:	69 f7       	brne	.-38     	; 0x866 <__udivmodsi4_loop>
+ 88c:	60 95       	com	r22
+ 88e:	70 95       	com	r23
+ 890:	80 95       	com	r24
+ 892:	90 95       	com	r25
+ 894:	9b 01       	movw	r18, r22
+ 896:	ac 01       	movw	r20, r24
+ 898:	bd 01       	movw	r22, r26
+ 89a:	cf 01       	movw	r24, r30
+ 89c:	08 95       	ret
+
+0000089e <__divmodsi4>:
+ 89e:	05 2e       	mov	r0, r21
+ 8a0:	97 fb       	bst	r25, 7
+ 8a2:	1e f4       	brtc	.+6      	; 0x8aa <__divmodsi4+0xc>
+ 8a4:	00 94       	com	r0
+ 8a6:	0e 94 66 04 	call	0x8cc	; 0x8cc <__negsi2>
+ 8aa:	57 fd       	sbrc	r21, 7
+ 8ac:	07 d0       	rcall	.+14     	; 0x8bc <__divmodsi4_neg2>
+ 8ae:	0e 94 2d 04 	call	0x85a	; 0x85a <__udivmodsi4>
+ 8b2:	07 fc       	sbrc	r0, 7
+ 8b4:	03 d0       	rcall	.+6      	; 0x8bc <__divmodsi4_neg2>
+ 8b6:	4e f4       	brtc	.+18     	; 0x8ca <__divmodsi4_exit>
+ 8b8:	0c 94 66 04 	jmp	0x8cc	; 0x8cc <__negsi2>
+
+000008bc <__divmodsi4_neg2>:
+ 8bc:	50 95       	com	r21
+ 8be:	40 95       	com	r20
+ 8c0:	30 95       	com	r19
+ 8c2:	21 95       	neg	r18
+ 8c4:	3f 4f       	sbci	r19, 0xFF	; 255
+ 8c6:	4f 4f       	sbci	r20, 0xFF	; 255
+ 8c8:	5f 4f       	sbci	r21, 0xFF	; 255
+
+000008ca <__divmodsi4_exit>:
+ 8ca:	08 95       	ret
+
+000008cc <__negsi2>:
+ 8cc:	90 95       	com	r25
+ 8ce:	80 95       	com	r24
+ 8d0:	70 95       	com	r23
+ 8d2:	61 95       	neg	r22
+ 8d4:	7f 4f       	sbci	r23, 0xFF	; 255
+ 8d6:	8f 4f       	sbci	r24, 0xFF	; 255
+ 8d8:	9f 4f       	sbci	r25, 0xFF	; 255
+ 8da:	08 95       	ret
+
+000008dc <__muluhisi3>:
+ 8dc:	0e 94 81 04 	call	0x902	; 0x902 <__umulhisi3>
+ 8e0:	a5 9f       	mul	r26, r21
+ 8e2:	90 0d       	add	r25, r0
+ 8e4:	b4 9f       	mul	r27, r20
+ 8e6:	90 0d       	add	r25, r0
+ 8e8:	a4 9f       	mul	r26, r20
+ 8ea:	80 0d       	add	r24, r0
+ 8ec:	91 1d       	adc	r25, r1
+ 8ee:	11 24       	eor	r1, r1
+ 8f0:	08 95       	ret
+
+000008f2 <__mulshisi3>:
+ 8f2:	b7 ff       	sbrs	r27, 7
+ 8f4:	0c 94 6e 04 	jmp	0x8dc	; 0x8dc <__muluhisi3>
+
+000008f8 <__mulohisi3>:
+ 8f8:	0e 94 6e 04 	call	0x8dc	; 0x8dc <__muluhisi3>
+ 8fc:	82 1b       	sub	r24, r18
+ 8fe:	93 0b       	sbc	r25, r19
+ 900:	08 95       	ret
+
+00000902 <__umulhisi3>:
+ 902:	a2 9f       	mul	r26, r18
+ 904:	b0 01       	movw	r22, r0
+ 906:	b3 9f       	mul	r27, r19
+ 908:	c0 01       	movw	r24, r0
+ 90a:	a3 9f       	mul	r26, r19
+ 90c:	70 0d       	add	r23, r0
+ 90e:	81 1d       	adc	r24, r1
+ 910:	11 24       	eor	r1, r1
+ 912:	91 1d       	adc	r25, r1
+ 914:	b2 9f       	mul	r27, r18
+ 916:	70 0d       	add	r23, r0
+ 918:	81 1d       	adc	r24, r1
+ 91a:	11 24       	eor	r1, r1
+ 91c:	91 1d       	adc	r25, r1
+ 91e:	08 95       	ret
+
+00000920 <_exit>:
+ 920:	f8 94       	cli
+
+00000922 <__stop_program>:
+ 922:	ff cf       	rjmp	.-2      	; 0x922 <__stop_program>
