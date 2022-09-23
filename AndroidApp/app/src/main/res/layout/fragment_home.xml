@@ -13,9 +13,18 @@
         android:id="@+id/STREET_TEMP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/purple_700"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/purple_700"
+        android:textSize="60sp" />
+
+    <TextView
+        android:id="@+id/HOME_TEMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="195dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/purple_700"
         android:textSize="60sp" />
 
     <TextView
@@ -27,13 +36,33 @@
         android:text="°C"
         android:textColor="@color/purple_700"
         android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/degr2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="310dp"
+        android:layout_marginTop="43dp"
+        android:text="°C"
+        android:textColor="@color/purple_700"
+        android:textSize="30sp" />
+
     <TextView
         android:id="@+id/STREET_HUM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="80dp"
+        android:textColor="@color/purple_700"
+        android:textSize="60sp" />
+
+    <TextView
+        android:id="@+id/HOME_HUM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textColor="@color/purple_700"
         android:layout_marginTop="80dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="195dp"
         android:textSize="60sp" />
 
     <TextView
@@ -46,6 +75,15 @@
         android:textColor="@color/purple_700"
         android:textSize="30sp" />
 
+    <TextView
+        android:id="@+id/perc3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="315dp"
+        android:layout_marginTop="113dp"
+        android:text="%"
+        android:textColor="@color/purple_700"
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/RAIN"
@@ -73,6 +111,15 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="250dp"
+        android:textColor="@color/purple_700"
+        android:textSize="60sp" />
+
+    <TextView
+        android:id="@+id/PRESSURE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="430dp"
         android:textColor="@color/purple_700"
         android:textSize="60sp" />
 
@@ -119,10 +166,36 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="310dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/purple_500"
+        android:singleLine="true"
+        android:text="TEMPERATURE"
+        android:textColor="@color/white"
+        android:textSize="8sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/textView76"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="120dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/purple_500"
+        android:singleLine="true"
+        android:text="HUMIDITY"
+        android:textColor="@color/white"
+        android:textSize="8sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="310dp"
         android:layout_marginTop="100dp"
         android:background="@color/purple_500"
         android:singleLine="true"
@@ -152,7 +225,7 @@
 
     <View
         android:id="@+id/divider9"
-        android:layout_width="119dp"
+        android:layout_width="129dp"
         android:layout_height="2dp"
         android:layout_marginLeft="244dp"
         android:background="?android:attr/listDivider"
@@ -163,7 +236,7 @@
         android:id="@+id/divider5"
         android:layout_width="2dp"
         android:layout_height="150dp"
-        android:layout_marginLeft="362dp"
+        android:layout_marginLeft="372dp"
         android:background="@color/purple_700"
         android:backgroundTintMode="add" />
 
@@ -171,7 +244,7 @@
         android:id="@+id/divider12"
         android:layout_width="2dp"
         android:layout_height="174dp"
-        android:layout_marginLeft="362dp"
+        android:layout_marginLeft="372dp"
         android:layout_marginTop="240dp"
         android:background="@color/purple_700"
         android:backgroundTintMode="add" />
@@ -254,7 +327,7 @@
 
     <View
         android:id="@+id/divider17"
-        android:layout_width="290dp"
+        android:layout_width="300dp"
         android:layout_height="2dp"
         android:layout_marginLeft="75dp"
         android:layout_marginTop="510dp"
@@ -266,7 +339,7 @@
         android:id="@+id/divider15"
         android:layout_width="77dp"
         android:layout_height="2dp"
-        android:layout_marginLeft="287dp"
+        android:layout_marginLeft="297dp"
         android:layout_marginTop="420dp"
         android:background="?android:attr/listDivider"
         android:backgroundTint="@color/purple_700"
@@ -274,7 +347,7 @@
 
     <View
         android:id="@+id/divider11"
-        android:layout_width="325dp"
+        android:layout_width="335dp"
         android:layout_height="2dp"
         android:layout_marginLeft="38dp"
         android:layout_marginTop="240dp"
@@ -304,7 +377,7 @@
         android:id="@+id/divider16"
         android:layout_width="2dp"
         android:layout_height="79dp"
-        android:layout_marginLeft="363dp"
+        android:layout_marginLeft="373dp"
         android:layout_marginTop="420dp"
         android:background="@color/purple_700"
         android:backgroundTintMode="add" />
@@ -313,14 +386,14 @@
         android:id="@+id/divider18"
         android:layout_width="2dp"
         android:layout_height="199dp"
-        android:layout_marginLeft="363dp"
+        android:layout_marginLeft="373dp"
         android:layout_marginTop="510dp"
         android:background="@color/purple_700"
         android:backgroundTintMode="add" />
 
     <View
         android:id="@+id/divider8"
-        android:layout_width="85dp"
+        android:layout_width="95dp"
         android:layout_height="2dp"
         android:layout_marginLeft="278dp"
         android:layout_marginTop="155dp"
@@ -332,7 +405,7 @@
         android:id="@+id/divider10"
         android:layout_width="2dp"
         android:layout_height="79dp"
-        android:layout_marginLeft="362dp"
+        android:layout_marginLeft="372dp"
         android:layout_marginTop="155dp"
         android:background="@color/purple_700"
         android:backgroundTintMode="add" />
@@ -366,6 +439,16 @@
         android:layout_marginLeft="320dp"
         android:layout_marginTop="293dp"
         android:text="m/s"
+        android:textColor="@color/purple_700"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/hg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="115dp"
+        android:layout_marginTop="470dp"
+        android:text="mm Hg"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
 

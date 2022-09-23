@@ -25,16 +25,22 @@ public class Firebase {
     private List<String> LIST4;
     private List<String> LIST5;
     private List<String> LIST6;
+    private List<String> LIST7;
+    private List<String> LIST8;
+    private List<String> LIST9;
 
-    public  String street_temp;
+    public static String street_temp;
     public static String street_hum;
+    public static String home_temp;
+    public static String home_hum;
     public static String wind_speed;
     public static String wind_direct;
     public static String v_bat;
     public static String amount_rain;
+    public static String pressure;
 
     public void get_firebase(TextView textView1, TextView textView2, TextView textView3,
-                             TextView textView4, TextView textView5, TextView textView6, ImageView imageview)
+                             TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9, ImageView imageview)
     {
 
         myRef = FirebaseDatabase.getInstance().getReference();
@@ -50,7 +56,7 @@ public class Firebase {
                 textView1.setText(street_temp);
                 LIST2 = dataSnapshot.child("DATA").child("STREET_HUM").getValue(t);
                 street_hum = LIST2.get(LIST2.size()-1);
-                textView2.setText(street_hum);
+                textView2.setText(street_hum + ".0");
                 LIST3 = dataSnapshot.child("DATA").child("RAIN").getValue(t);
                 amount_rain = LIST3.get(LIST3.size()-1);
                 textView3.setText(amount_rain);
@@ -63,6 +69,15 @@ public class Firebase {
                 LIST6 = dataSnapshot.child("DATA").child("WIND_SPEED").getValue(t);
                 wind_speed = LIST6.get(LIST6.size()-1);
                 textView5.setText(wind_speed);
+                LIST7 = dataSnapshot.child("DATA").child("HOME_TEMP").getValue(t);
+                home_temp = LIST7.get(LIST7.size()-1);
+                textView7.setText(home_temp);
+                LIST8 = dataSnapshot.child("DATA").child("HOME_HUM").getValue(t);
+                home_hum = LIST8.get(LIST8.size()-1);
+                textView8.setText(home_hum + ".0");
+                LIST9 = dataSnapshot.child("DATA").child("PRESSURE").getValue(t);
+                pressure = LIST9.get(LIST9.size()-1);
+                textView9.setText(pressure);
                 switch (wind_direct)
                 {
                     case "N-W": imageview.setImageResource(R.drawable.nw);

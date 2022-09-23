@@ -66,10 +66,24 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         if (view.getId() == R.id.btn_sign_in)
         {
-            signing(ETemail.getText().toString(),ETpassword.getText().toString());
+            if((ETemail.getText().toString().isEmpty()==false)&&(ETpassword.getText().toString().isEmpty()==false))
+            {
+                signing(ETemail.getText().toString(),ETpassword.getText().toString());
+            }
+            else
+            {
+                Toast.makeText(EmailPasswordActivity.this, "Авторизация провалена! Проверьте правильность введенных данных и повторите попытку!", Toast.LENGTH_SHORT).show();
+            }
         }else if (view.getId() == R.id.btn_registration)
         {
-            registration(ETemail.getText().toString(),ETpassword.getText().toString());
+            if((ETemail.getText().toString().isEmpty()==false)&&(ETpassword.getText().toString().isEmpty()==false))
+            {
+                registration(ETemail.getText().toString(),ETpassword.getText().toString());
+            }
+            else
+            {
+                Toast.makeText(EmailPasswordActivity.this, "Регистрация провалена! Проверьте правильность введенных данных и повторите попытку!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -80,7 +94,7 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    Toast.makeText(EmailPasswordActivity.this, "Авторизация успешна", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EmailPasswordActivity.this, "Авторизация успешна!", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
                     if(user != null) {
                         Intent intent = new Intent(EmailPasswordActivity.this, MainActivity.class);
@@ -88,7 +102,7 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
                     }
 
                 }else
-                    Toast.makeText(EmailPasswordActivity.this, "Авторизация провалена", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EmailPasswordActivity.this, "Авторизация провалена! Проверьте правильность введенных данных и повторите попытку!", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -99,9 +113,9 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    Toast.makeText(EmailPasswordActivity.this, "Регистрация успешна", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EmailPasswordActivity.this, "Регистрация успешна!", Toast.LENGTH_SHORT).show();
                 }else
-                    Toast.makeText(EmailPasswordActivity.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EmailPasswordActivity.this, "Регистрация провалена!", Toast.LENGTH_SHORT).show();
 
             }
         });
