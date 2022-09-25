@@ -19,15 +19,15 @@ public class Firebase {
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
 
-    private List<String> LIST1;
-    private List<String> LIST2;
-    private List<String> LIST3;
-    private List<String> LIST4;
-    private List<String> LIST5;
-    private List<String> LIST6;
-    private List<String> LIST7;
-    private List<String> LIST8;
-    private List<String> LIST9;
+    public static List<String> LIST1;
+    public static List<String> LIST2;
+    public static List<String> LIST3;
+    public static List<String> LIST4;
+    public static List<String> LIST5;
+    public static List<String> LIST6;
+    public static List<String> LIST7;
+    public static List<String> LIST8;
+    public static List<String> LIST9;
 
     public static String street_temp;
     public static String street_hum;

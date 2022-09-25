@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/activity_authentication"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/street_temp_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/street_hum_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/rain_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/vbat_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/wind_speed_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/home_temp_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/home_hum_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/pressure_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+     </RelativeLayout>
+</ScrollView>
