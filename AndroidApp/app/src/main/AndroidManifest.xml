@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HomeWeatherStationApp">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".AboutActivity"
             android:theme="@style/Theme.HomeWeatherStationApp.NoActionBar"
             android:exported="false"
             tools:ignore="Instantiatable" />

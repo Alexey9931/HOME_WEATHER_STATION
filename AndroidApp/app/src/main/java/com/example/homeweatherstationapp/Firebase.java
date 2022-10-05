@@ -28,6 +28,7 @@ public class Firebase {
     public static List<String> LIST7;
     public static List<String> LIST8;
     public static List<String> LIST9;
+    public static List<String> LIST10;
 
     public static String street_temp;
     public static String street_hum;
@@ -38,6 +39,7 @@ public class Firebase {
     public static String v_bat;
     public static String amount_rain;
     public static String pressure;
+    public static String time;
 
     public void get_firebase(TextView textView1, TextView textView2, TextView textView3,
                              TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9, ImageView imageview)
@@ -78,6 +80,12 @@ public class Firebase {
                 LIST9 = dataSnapshot.child("DATA").child("PRESSURE").getValue(t);
                 pressure = LIST9.get(LIST9.size()-1);
                 textView9.setText(pressure);
+                LIST10 = dataSnapshot.child("DATA").child("TIME").getValue(t);
+                time = LIST10.get(LIST10.size()-1);
+                for(int i = 0; i < LIST10.size(); i++)
+                {
+                    LIST10.set(i, LIST10.get(i).substring(0,8));
+                }
                 switch (wind_direct)
                 {
                     case "N-W": imageview.setImageResource(R.drawable.nw);

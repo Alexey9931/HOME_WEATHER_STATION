@@ -4,37 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="412dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:textAlignment="center"
-        android:theme="?attr/actionBarTheme"
-        app:subtitleTextColor="@color/white"
-        app:title="Настройки"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="0dp" />
+    android:id="@+id/setting"
+    tools:context=".ui.chart_settings.ChartSettingFragment">
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView16"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="60dp"
-        android:text="Отображать графики:"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:text="Выберите параметры для отображения на графиках"
+        android:textAlignment="center"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="140dp"
         android:background="?android:attr/listDivider"
         android:backgroundTint="@color/purple_700"
         android:backgroundTintMode="add"
@@ -45,13 +34,13 @@
         android:id="@+id/checkBox_view_mode1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="300dp"
         android:layout_marginTop="85dp"
         android:buttonTint="@color/purple_700"
         android:checked="false"
-        android:text="Все по отдельности"
         android:textAlignment="textStart"
         android:textColor="@color/purple_700"
+        android:textIsSelectable="false"
         android:textSize="16sp" />
 
     <TextView
@@ -61,6 +50,16 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="220dp"
         android:text="T [°C] воздуха на улице"
+        android:textColor="@color/purple_700"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView56"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="95dp"
+        android:text="Отобразить все параметры"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
 

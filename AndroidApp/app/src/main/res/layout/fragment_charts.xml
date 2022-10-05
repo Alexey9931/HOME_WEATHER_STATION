@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:tag=".ui.charts.ChartsFragment">
+
     <RelativeLayout
-        android:id="@+id/activity_authentication"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp">
+
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp">
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:text=""
+            android:textAlignment="textStart"
+            android:textColor="#E91E63"
+            android:textSize="24sp"
+            android:textStyle="bold|italic"
+            tools:visibility="invisible" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/street_temp_chart"
@@ -72,5 +94,8 @@
             android:layout_marginTop="0dp"
             tools:ignore="MissingConstraints" />
 
-     </RelativeLayout>
+
+    </RelativeLayout>
+
+
 </ScrollView>

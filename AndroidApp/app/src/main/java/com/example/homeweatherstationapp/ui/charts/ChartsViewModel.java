@@ -1,4 +1,4 @@
-package com.example.homeweatherstationapp.ui.gallery;
+package com.example.homeweatherstationapp.ui.charts;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
