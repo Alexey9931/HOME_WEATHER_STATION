@@ -19,17 +19,15 @@
         </TableLayout>
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/error_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
-            android:text=""
-            android:textAlignment="textStart"
-            android:textColor="#E91E63"
-            android:textSize="24sp"
-            android:textStyle="bold|italic"
-            tools:visibility="invisible" />
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="140dp"
+            android:text="Данные не выбраны!\n Проверьте настройки графиков!\n(Вкладка Chart's settings) "
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="20sp" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/street_temp_chart"

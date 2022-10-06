@@ -41,6 +41,7 @@ public class ChartsFragment extends Fragment {
         final LineChart home_hum_chart = root.findViewById(R.id.home_hum_chart);
         final LineChart pressure_chart = root.findViewById(R.id.pressure_chart);
         final TableLayout wind_direct_table = root.findViewById(R.id.table);
+        final TextView error_message = root.findViewById(R.id.error_message);
 
         street_temp_chart.setVisibility(View.GONE);
         street_hum_chart.setVisibility(View.GONE);
@@ -51,13 +52,13 @@ public class ChartsFragment extends Fragment {
         home_hum_chart.setVisibility(View.GONE);
         pressure_chart.setVisibility(View.GONE);
         wind_direct_table.setVisibility(View.GONE);
-
+        error_message.setVisibility(View.GONE);
 
         //SettingsActivity settingsActivity = new SettingsActivity();
         String mode = ChartSettingFragment.choose_chart_mode;
         if (mode == "nothing")
         {
-
+            error_message.setVisibility(View.VISIBLE);
         }
         else if (mode == "all_other")
         {
@@ -70,6 +71,7 @@ public class ChartsFragment extends Fragment {
             home_hum_chart.setVisibility(View.VISIBLE);
             pressure_chart.setVisibility(View.VISIBLE);
             wind_direct_table.setVisibility(View.VISIBLE);
+            error_message.setVisibility(View.GONE);
 
             CreateCharts create_chart = new CreateCharts();
 
@@ -136,6 +138,7 @@ public class ChartsFragment extends Fragment {
         }
         else
         {
+            error_message.setVisibility(View.GONE);
             if (ChartSettingFragment.TEMP_HOME_MODE == true)
             {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(1300,750);
@@ -244,6 +247,12 @@ public class ChartsFragment extends Fragment {
                 wind_direct_table.setVisibility(View.VISIBLE);
                 create_chart.Fill_Wind_Direct_Table(wind_direct_table,getContext());
                 count++;
+            }
+            if ((ChartSettingFragment.TEMP_HOME_MODE == false)&&(ChartSettingFragment.TEMP_STREET_MODE == false)&&(ChartSettingFragment.HUM_STREET_MODE == false)
+                    &&(ChartSettingFragment.HUM_HOME_MODE == false)&& (ChartSettingFragment.PRESSURE_MODE == false)&&(ChartSettingFragment.WIND_SPEED_MODE == false)
+                    &&(ChartSettingFragment.RAIN_MODE == false)&&(ChartSettingFragment.VBAT_MODE == false)&&(ChartSettingFragment.WIND_DIRECT_MODE == false))
+            {
+                error_message.setVisibility(View.VISIBLE);
             }
         }
 
