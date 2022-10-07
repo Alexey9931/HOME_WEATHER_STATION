@@ -1,5 +1,7 @@
 package com.example.homeweatherstationapp;
 
+import static java.lang.String.valueOf;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +44,7 @@ public class Firebase {
     public static String time;
 
     public void get_firebase(TextView textView1, TextView textView2, TextView textView3,
-                             TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9, ImageView imageview)
+                             TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9,TextView textView10, ImageView imageview)
     {
 
         myRef = FirebaseDatabase.getInstance().getReference();
@@ -61,7 +63,7 @@ public class Firebase {
                 textView2.setText(street_hum + ".0");
                 LIST3 = dataSnapshot.child("DATA").child("RAIN").getValue(t);
                 amount_rain = LIST3.get(LIST3.size()-1);
-                textView3.setText(amount_rain);
+                textView3.setText(valueOf(100 - 100 * Float.parseFloat(amount_rain)).toString());
                 LIST4 = dataSnapshot.child("DATA").child("VBAT").getValue(t);
                 v_bat = LIST4.get(LIST4.size()-1);
                 textView4.setText(v_bat);
@@ -82,6 +84,8 @@ public class Firebase {
                 textView9.setText(pressure);
                 LIST10 = dataSnapshot.child("DATA").child("TIME").getValue(t);
                 time = LIST10.get(LIST10.size()-1);
+                time = time.replace(',','\n');
+                textView10.setText(time);
                 for(int i = 0; i < LIST10.size(); i++)
                 {
                     LIST10.set(i, LIST10.get(i).substring(0,8));

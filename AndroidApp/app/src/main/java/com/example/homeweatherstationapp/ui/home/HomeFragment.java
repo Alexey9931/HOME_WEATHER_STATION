@@ -18,7 +18,6 @@ import java.util.Date;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    static Date date;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,8 +36,9 @@ public class HomeFragment extends Fragment {
         final TextView WIND_SPEED = root.findViewById(R.id.WIND_SPEED);
         final TextView WIND_DIRECTION = root.findViewById(R.id.WIND_DIRECTION);
         final TextView PRESSURE = root.findViewById(R.id.PRESSURE);
+        final TextView TIME = root.findViewById(R.id.TIME);
 
-        firebase.get_firebase(STREET_TEMP, STREET_HUM, RAIN, VBat, WIND_SPEED, WIND_DIRECTION, HOME_TEMP, HOME_HUM, PRESSURE, imagewind);
+        firebase.get_firebase(STREET_TEMP, STREET_HUM, RAIN, VBat, WIND_SPEED, WIND_DIRECTION, HOME_TEMP, HOME_HUM, PRESSURE, TIME, imagewind);
 
         return root;
     }
