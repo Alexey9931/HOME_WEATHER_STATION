@@ -37,8 +37,9 @@ public class HomeFragment extends Fragment {
         final TextView WIND_DIRECTION = root.findViewById(R.id.WIND_DIRECTION);
         final TextView PRESSURE = root.findViewById(R.id.PRESSURE);
         final TextView TIME = root.findViewById(R.id.TIME);
+        final ImageView weath_forecast = root.findViewById(R.id.imageView_weath_forecast);
 
-        firebase.get_firebase(STREET_TEMP, STREET_HUM, RAIN, VBat, WIND_SPEED, WIND_DIRECTION, HOME_TEMP, HOME_HUM, PRESSURE, TIME, imagewind);
+        firebase.get_firebase(STREET_TEMP, STREET_HUM, RAIN, VBat, WIND_SPEED, WIND_DIRECTION, HOME_TEMP, HOME_HUM, PRESSURE, TIME, imagewind, weath_forecast);
 
         return root;
     }

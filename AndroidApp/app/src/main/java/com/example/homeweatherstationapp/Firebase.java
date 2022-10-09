@@ -44,7 +44,7 @@ public class Firebase {
     public static String time;
 
     public void get_firebase(TextView textView1, TextView textView2, TextView textView3,
-                             TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9,TextView textView10, ImageView imageview)
+                             TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9,TextView textView10, ImageView imageview, ImageView weath_forecast)
     {
 
         myRef = FirebaseDatabase.getInstance().getReference();
@@ -55,6 +55,7 @@ public class Firebase {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
+                //заполнение полей главного окна
                 LIST1 = dataSnapshot.child("DATA").child("STREET_TEMP").getValue(t);
                 street_temp = LIST1.get(LIST1.size()-1);
                 textView1.setText(street_temp);
@@ -90,6 +91,7 @@ public class Firebase {
                 {
                     LIST10.set(i, LIST10.get(i).substring(0,8));
                 }
+                //вывод индикатора направления ветра
                 switch (wind_direct)
                 {
                     case "N-W": imageview.setImageResource(R.drawable.nw);
@@ -111,7 +113,27 @@ public class Firebase {
                     default: imageview.setImageResource(R.drawable.def);
                         break;
                 }
+                //вывод индикатора прогноза погоды
+                if((Float.parseFloat(wind_speed) == 0f) && (Float.parseFloat(amount_rain) >= 0.90f))
+                {
+                    weath_forecast.setImageResource(R.drawable.weath_sunny);
+                }
+                else if ((Float.parseFloat(wind_speed) >= 10f) && (Float.parseFloat(amount_rain) >= 0.90f))
+                {
+                    weath_forecast.setImageResource(R.drawable.weath_only_clouds);
+                }
+                else if ((Float.parseFloat(wind_speed) < 10f) && (Float.parseFloat(amount_rain) >= 0.90f))
+                {
+                    weath_forecast.setImageResource(R.drawable.weath_cloud);
+                }
+                else if ((Float.parseFloat(amount_rain) > 0.1f) && (Float.parseFloat(amount_rain) < 0.85f))
+                {
+                    weath_forecast.setImageResource(R.drawable.weath_rainy);
+                }
+                else
+                {
 
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

@@ -560,5 +560,12 @@
         android:textSize="10sp"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/imageView_weath_forecast"
+        android:layout_width="277dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="530dp" />
+
 
 </RelativeLayout>

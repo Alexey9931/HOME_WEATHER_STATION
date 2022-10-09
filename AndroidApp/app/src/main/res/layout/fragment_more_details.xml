@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/purple_500"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="STREET TEMPERATURE"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="55dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Average value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_avg_str_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="55dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView111"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="77dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Max value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView1111"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Min value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="125dp"
+        android:background="@color/purple_500"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="HOME TEMPERATURE"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="155dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Average value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_avg_home_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="155dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView222"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="177dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Max value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2222"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="200dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Min value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="225dp"
+        android:background="@color/purple_500"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="STREET HUMIDITY"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="255dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Average value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_avg_str_hum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="255dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="277dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Max value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="300dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Min value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="325dp"
+        android:background="@color/purple_500"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="HOME HUMIDITY"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="355dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Average value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_avg_home_hum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="355dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView444"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="377dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Max value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView4444"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="400dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Min value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="425dp"
+        android:background="@color/purple_500"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="RAINFALL"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="455dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Average value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_avg_rainfall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="455dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView555"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="477dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Max value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView5555"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="500dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Min value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="525dp"
+        android:background="@color/purple_500"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="WIND SPEED"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView66"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="555dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Average value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_avg_wind_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="555dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="577dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Max value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView6666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="600dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Min value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="625dp"
+        android:background="@color/purple_500"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="BAT CHARGE"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView77"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="655dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Max value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView777"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="677dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:text="Min value"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

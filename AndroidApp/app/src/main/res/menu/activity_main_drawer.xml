@@ -17,5 +17,10 @@
             android:id="@+id/nav_chart_setting"
             android:icon="@drawable/chart_setting_icon"
             android:title="@string/menu_chart_setting" />
+
+        <item
+            android:id="@+id/nav_more_details"
+            android:icon="@drawable/details"
+            android:title="@string/more_details" />
     </group>
 </menu>
