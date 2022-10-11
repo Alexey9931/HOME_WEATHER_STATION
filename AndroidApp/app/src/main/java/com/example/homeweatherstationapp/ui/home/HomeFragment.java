@@ -6,9 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.example.homeweatherstationapp.EmailPasswordActivity;
 import com.example.homeweatherstationapp.Firebase;
 import com.example.homeweatherstationapp.R;
 import com.example.homeweatherstationapp.databinding.FragmentHomeBinding;
@@ -39,7 +42,7 @@ public class HomeFragment extends Fragment {
         final TextView TIME = root.findViewById(R.id.TIME);
         final ImageView weath_forecast = root.findViewById(R.id.imageView_weath_forecast);
 
-        firebase.get_firebase(STREET_TEMP, STREET_HUM, RAIN, VBat, WIND_SPEED, WIND_DIRECTION, HOME_TEMP, HOME_HUM, PRESSURE, TIME, imagewind, weath_forecast);
+        firebase.get_firebase(getContext(), STREET_TEMP, STREET_HUM, RAIN, VBat, WIND_SPEED, WIND_DIRECTION, HOME_TEMP, HOME_HUM, PRESSURE, TIME, imagewind, weath_forecast);
 
         return root;
     }

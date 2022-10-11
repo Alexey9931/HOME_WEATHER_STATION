@@ -27,7 +27,7 @@ public class CreateCharts {
         }
 
         // На основании массива точек создадим первую линию с названием
-        LineDataSet dataset = new LineDataSet(entries, "Уличная температура");
+        LineDataSet dataset = new LineDataSet(entries, "Уличная температура, °C");
         dataset.setDrawFilled(true);
         dataset.setColor(Color.RED);
         // Создадим переменную данных для графика
@@ -63,7 +63,7 @@ public class CreateCharts {
         }
 
         // На основании массива точек создадим первую линию с названием
-        LineDataSet dataset = new LineDataSet(entries, "Уличная влажность");
+        LineDataSet dataset = new LineDataSet(entries, "Уличная влажность, %");
         dataset.setDrawFilled(true);
         dataset.setColor(Color.BLUE);
         // Создадим переменную данных для графика
@@ -95,11 +95,12 @@ public class CreateCharts {
         ArrayList<Entry> entries = new ArrayList<>();
         for (int i = 0; i < Firebase.LIST3.size();i++)
         {
-            entries.add(new Entry(i, 100 - 100 * Float.parseFloat(Firebase.LIST3.get(i))));
+            //entries.add(new Entry(i, 100 - 100 * Float.parseFloat(Firebase.LIST3.get(i))));
+            entries.add(new Entry(i, Float.parseFloat(Firebase.LIST3.get(i))));
         }
 
         // На основании массива точек создадим первую линию с названием
-        LineDataSet dataset = new LineDataSet(entries, "Количество осадков");
+        LineDataSet dataset = new LineDataSet(entries, "Количество осадков, %");
         dataset.setDrawFilled(true);
         dataset.setColor(Color.GREEN);
         // Создадим переменную данных для графика
@@ -135,7 +136,7 @@ public class CreateCharts {
         }
 
         // На основании массива точек создадим первую линию с названием
-        LineDataSet dataset = new LineDataSet(entries, "Заряд аккумулятора");
+        LineDataSet dataset = new LineDataSet(entries, "Заряд аккумулятора, В");
         dataset.setDrawFilled(true);
         dataset.setColor(Color.CYAN);
         // Создадим переменную данных для графика
@@ -222,7 +223,7 @@ public class CreateCharts {
         }
 
         // На основании массива точек создадим первую линию с названием
-        LineDataSet dataset = new LineDataSet(entries, "Скорость ветра");
+        LineDataSet dataset = new LineDataSet(entries, "Скорость ветра, м/с");
         dataset.setDrawFilled(true);
         dataset.setColor(Color.MAGENTA);
         // Создадим переменную данных для графика
@@ -258,7 +259,7 @@ public class CreateCharts {
         }
 
         // На основании массива точек создадим первую линию с названием
-        LineDataSet dataset = new LineDataSet(entries, "Комнатная температура");
+        LineDataSet dataset = new LineDataSet(entries, "Комнатная температура, °C");
         dataset.setDrawFilled(true);
         dataset.setColor(Color.LTGRAY);
         // Создадим переменную данных для графика
@@ -294,7 +295,7 @@ public class CreateCharts {
         }
 
         // На основании массива точек создадим первую линию с названием
-        LineDataSet dataset = new LineDataSet(entries, "Комнатная влажность");
+        LineDataSet dataset = new LineDataSet(entries, "Комнатная влажность, %");
         dataset.setDrawFilled(true);
         dataset.setColor(Color.YELLOW);
         // Создадим переменную данных для графика
@@ -330,7 +331,7 @@ public class CreateCharts {
         }
 
         // На основании массива точек создадим первую линию с названием
-        LineDataSet dataset = new LineDataSet(entries, "Атмосферное давление");
+        LineDataSet dataset = new LineDataSet(entries, "Атмосферное давление, мм.рт.ст");
         dataset.setDrawFilled(true);
         dataset.setColor(Color.DKGRAY);
         // Создадим переменную данных для графика

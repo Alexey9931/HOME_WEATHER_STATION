@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp">
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -37,6 +41,32 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="250dp"
         android:layout_marginTop="55dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_max_str_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="77dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_min_str_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="100dp"
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
@@ -114,6 +144,32 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/textView_max_home_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="177dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_min_home_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="200dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/textView222"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -175,6 +231,32 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="250dp"
         android:layout_marginTop="255dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_max_str_hum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="277dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_min_str_hum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="300dp"
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
@@ -252,6 +334,32 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/textView_max_home_hum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="377dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_min_home_hum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="400dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/textView444"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -313,6 +421,32 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="250dp"
         android:layout_marginTop="455dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_max_rainfall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="477dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_min_rainfall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="500dp"
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
@@ -390,6 +524,32 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/textView_max_wind_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="577dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_min_wind_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="600dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-smallcaps"
+        android:singleLine="true"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/textView666"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -417,46 +577,95 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="625dp"
-        android:background="@color/purple_500"
-        android:fontFamily="sans-serif-smallcaps"
-        android:singleLine="true"
-        android:text="BAT CHARGE"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="625dp"
+            android:background="@color/purple_500"
+            android:fontFamily="sans-serif-smallcaps"
+            android:singleLine="true"
+            android:text="BAT CHARGE"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView77"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="655dp"
+            android:background="@color/white"
+            android:fontFamily="sans-serif-smallcaps"
+            android:singleLine="true"
+            android:text="Max value"
+            android:textColor="@color/purple_500"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView77"
+        android:id="@+id/textView_max_bat_charge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="250dp"
         android:layout_marginTop="655dp"
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Max value"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView777"
+        android:id="@+id/textView_min_bat_charge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="250dp"
         android:layout_marginTop="677dp"
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Min value"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/textView777"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="677dp"
+            android:background="@color/white"
+            android:fontFamily="sans-serif-smallcaps"
+            android:singleLine="true"
+            android:text="Min value"
+            android:textColor="@color/purple_500"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="707dp"
+            android:background="@color/purple_500"
+            android:fontFamily="sans-serif-smallcaps"
+            android:singleLine="true"
+            android:text="WIND DIRECTION"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/WindDirectDiagram"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="750dp"
+            tools:ignore="MissingConstraints" />
+
+    </RelativeLayout>
+</ScrollView>

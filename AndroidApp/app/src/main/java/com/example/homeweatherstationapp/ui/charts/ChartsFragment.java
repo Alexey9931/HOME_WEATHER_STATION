@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.homeweatherstationapp.CreateCharts;
+import com.example.homeweatherstationapp.Firebase;
 import com.example.homeweatherstationapp.R;
 import com.example.homeweatherstationapp.databinding.FragmentChartsBinding;
 import com.example.homeweatherstationapp.ui.chart_settings.ChartSettingFragment;
@@ -42,6 +43,7 @@ public class ChartsFragment extends Fragment {
         final LineChart pressure_chart = root.findViewById(R.id.pressure_chart);
         final TableLayout wind_direct_table = root.findViewById(R.id.table);
         final TextView error_message = root.findViewById(R.id.error_message);
+        final TextView firebase_error_message = root.findViewById(R.id.firebase_error_message);
 
         street_temp_chart.setVisibility(View.GONE);
         street_hum_chart.setVisibility(View.GONE);
@@ -53,10 +55,15 @@ public class ChartsFragment extends Fragment {
         pressure_chart.setVisibility(View.GONE);
         wind_direct_table.setVisibility(View.GONE);
         error_message.setVisibility(View.GONE);
+        firebase_error_message.setVisibility(View.GONE);
 
         //SettingsActivity settingsActivity = new SettingsActivity();
         String mode = ChartSettingFragment.choose_chart_mode;
-        if (mode == "nothing")
+        if (Firebase.error)
+        {
+            firebase_error_message.setVisibility(View.VISIBLE);
+        }
+        else if (mode == "nothing")
         {
             error_message.setVisibility(View.VISIBLE);
         }
