@@ -21,19 +21,19 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="55dp"
-        android:background="@color/white"
-        android:fontFamily="sans-serif-smallcaps"
-        android:singleLine="true"
-        android:text="Average value"
-        android:textColor="@color/purple_500"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="55dp"
+            android:background="@color/white"
+            android:fontFamily="sans-serif-smallcaps"
+            android:singleLine="true"
+            android:text="Average value"
+            android:textColor="@color/purple_500"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView_avg_str_temp"
@@ -665,6 +665,7 @@
             android:layout_height="300dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="750dp"
+            android:visibility="gone"
             tools:ignore="MissingConstraints" />
 
     </RelativeLayout>

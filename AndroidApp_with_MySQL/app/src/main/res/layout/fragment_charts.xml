@@ -29,16 +29,6 @@
             android:textColor="@color/purple_700"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/firebase_error_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="140dp"
-            android:text="Невозможно отобразить графики!\nОшибка в базе данных!\n Отсутствуют некоторые показания! "
-            android:textAlignment="center"
-            android:textColor="@color/purple_700"
-            android:textSize="20sp" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/street_temp_chart"

@@ -112,6 +112,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
         LIST8.clear();
         LIST9.clear();
         LIST10.clear();
+        Toast.makeText(context.getApplicationContext(),"Пожалуйста подождите, идет синхронизация с базой данных...",Toast.LENGTH_LONG).show();
     }
 
     @Override

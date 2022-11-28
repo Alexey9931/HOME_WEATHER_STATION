@@ -1,72 +1,66 @@
-package com.example.homeweatherstationapp.ui.charts;
+package com.example.homeweatherstationapp;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import com.example.homeweatherstationapp.BackgroundWorker;
-import com.example.homeweatherstationapp.BackgroundWorkerForCharts;
-import com.example.homeweatherstationapp.CreateCharts;
-import com.example.homeweatherstationapp.Firebase;
-import com.example.homeweatherstationapp.R;
-import com.example.homeweatherstationapp.databinding.FragmentChartsBinding;
 import com.example.homeweatherstationapp.ui.chart_settings.ChartSettingFragment;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 
-public class ChartsFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    private FragmentChartsBinding binding;
+public class BackgroundWorkerForCharts extends AsyncTask<View,Void,String> {
+    LineChart street_temp_chart;
+    LineChart street_hum_chart;
+    LineChart rain_chart;
+    LineChart vbat_chart;
+    LineChart wind_speed_chart;
+    LineChart home_temp_chart;
+    LineChart home_hum_chart;
+    LineChart pressure_chart;
+    TableLayout wind_direct_table;
+    //TextView error_message;
+    Context context;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    CreateCharts create_chart = new CreateCharts();
+    public BackgroundWorkerForCharts(Context ctx){
+        context = ctx;
+    }
+    @Override
+    protected String doInBackground(View... params) {
+        street_temp_chart = (LineChart) params[0];
+        street_hum_chart = (LineChart) params[1];
+        rain_chart = (LineChart) params[2];
+        vbat_chart = (LineChart) params[3];
+        wind_speed_chart = (LineChart) params[4];
+        home_temp_chart = (LineChart) params[5];
+        home_hum_chart = (LineChart) params[6];
+        pressure_chart = (LineChart) params[7];
+        wind_direct_table = (TableLayout) params[8];
 
-        binding = FragmentChartsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        return null;
+    }
 
+    @Override
+    protected void onPreExecute() {
 
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
         int count = 0;
-
-        final LineChart street_temp_chart = root.findViewById(R.id.street_temp_chart);
-        final LineChart street_hum_chart = root.findViewById(R.id.street_hum_chart);
-        final LineChart rain_chart = root.findViewById(R.id.rain_chart);
-        final LineChart vbat_chart = root.findViewById(R.id.vbat_chart);
-        final LineChart wind_speed_chart = root.findViewById(R.id.wind_speed_chart);
-        final LineChart home_temp_chart = root.findViewById(R.id.home_temp_chart);
-        final LineChart home_hum_chart = root.findViewById(R.id.home_hum_chart);
-        final LineChart pressure_chart = root.findViewById(R.id.pressure_chart);
-        final TableLayout wind_direct_table = root.findViewById(R.id.table);
-        final TextView error_message = root.findViewById(R.id.error_message);
-
-        /*BackgroundWorkerForCharts backgroundWorkerForCharts = new BackgroundWorkerForCharts(getContext());
-        backgroundWorkerForCharts.execute(root.findViewById(R.id.street_temp_chart),root.findViewById(R.id.street_hum_chart),root.findViewById(R.id.rain_chart),
-                root.findViewById(R.id.vbat_chart),root.findViewById(R.id.wind_speed_chart),root.findViewById(R.id.home_temp_chart),
-                root.findViewById(R.id.home_hum_chart),root.findViewById(R.id.pressure_chart),root.findViewById(R.id.table),
-                root.findViewById(R.id.error_message),root.findViewById(R.id.firebase_error_message));*/
-
-        street_temp_chart.setVisibility(View.GONE);
-        street_hum_chart.setVisibility(View.GONE);
-        rain_chart.setVisibility(View.GONE);
-        vbat_chart.setVisibility(View.GONE);
-        wind_speed_chart.setVisibility(View.GONE);
-        home_temp_chart.setVisibility(View.GONE);
-        home_hum_chart.setVisibility(View.GONE);
-        pressure_chart.setVisibility(View.GONE);
-        wind_direct_table.setVisibility(View.GONE);
-        error_message.setVisibility(View.GONE);
-
         String mode = ChartSettingFragment.choose_chart_mode;
-        if (mode == "nothing")
-        {
-            error_message.setVisibility(View.VISIBLE);
-        }
-        else if (mode == "all_other")
+        if (mode == "all_other")
         {
             street_temp_chart.setVisibility(View.VISIBLE);
             street_hum_chart.setVisibility(View.VISIBLE);
@@ -77,9 +71,8 @@ public class ChartsFragment extends Fragment {
             home_hum_chart.setVisibility(View.VISIBLE);
             pressure_chart.setVisibility(View.VISIBLE);
             wind_direct_table.setVisibility(View.VISIBLE);
-            error_message.setVisibility(View.GONE);
 
-            CreateCharts create_chart = new CreateCharts();
+            //CreateCharts create_chart = new CreateCharts();
 
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(1300,750);
             layoutParams.leftMargin = 15;
@@ -133,12 +126,11 @@ public class ChartsFragment extends Fragment {
             layoutParams8.leftMargin = 100;
             layoutParams8.topMargin = 6850;
             wind_direct_table.setLayoutParams(layoutParams8);
-            create_chart.Fill_Wind_Direct_Table(wind_direct_table,getContext());
+            create_chart.Fill_Wind_Direct_Table(wind_direct_table,context);
 
         }
         else
         {
-            error_message.setVisibility(View.GONE);
             if (ChartSettingFragment.TEMP_HOME_MODE == true)
             {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(1300,750);
@@ -146,7 +138,7 @@ public class ChartsFragment extends Fragment {
                 layoutParams.topMargin = 850*count;
                 home_temp_chart.setLayoutParams(layoutParams);
 
-                CreateCharts create_chart = new CreateCharts();
+               // CreateCharts create_chart = new CreateCharts();
                 home_temp_chart.setVisibility(View.VISIBLE);
                 create_chart.Fill_Home_Temp_Chart(home_temp_chart);
                 count++;
@@ -158,7 +150,7 @@ public class ChartsFragment extends Fragment {
                 layoutParams.topMargin = 850*count;
                 street_temp_chart.setLayoutParams(layoutParams);
 
-                CreateCharts create_chart = new CreateCharts();
+                //CreateCharts create_chart = new CreateCharts();
                 street_temp_chart.setVisibility(View.VISIBLE);
                 create_chart.Fill_Street_Temp_Chart(street_temp_chart);
                 count++;
@@ -170,7 +162,7 @@ public class ChartsFragment extends Fragment {
                 layoutParams.topMargin = 850*count;
                 street_hum_chart.setLayoutParams(layoutParams);
 
-                CreateCharts create_chart = new CreateCharts();
+                //CreateCharts create_chart = new CreateCharts();
                 street_hum_chart.setVisibility(View.VISIBLE);
                 create_chart.Fill_Street_HUM_Chart(street_hum_chart);
                 count++;
@@ -182,7 +174,7 @@ public class ChartsFragment extends Fragment {
                 layoutParams.topMargin = 850*count;
                 home_hum_chart.setLayoutParams(layoutParams);
 
-                CreateCharts create_chart = new CreateCharts();
+                //CreateCharts create_chart = new CreateCharts();
                 home_hum_chart.setVisibility(View.VISIBLE);
                 create_chart.Fill_Home_Hum_Chart(home_hum_chart);
                 count++;
@@ -194,7 +186,7 @@ public class ChartsFragment extends Fragment {
                 layoutParams.topMargin = 850*count;
                 pressure_chart.setLayoutParams(layoutParams);
 
-                CreateCharts create_chart = new CreateCharts();
+                //CreateCharts create_chart = new CreateCharts();
                 pressure_chart.setVisibility(View.VISIBLE);
                 create_chart.Fill_Pressure_Chart(pressure_chart);
                 count++;
@@ -206,7 +198,7 @@ public class ChartsFragment extends Fragment {
                 layoutParams.topMargin = 850*count;
                 wind_speed_chart.setLayoutParams(layoutParams);
 
-                CreateCharts create_chart = new CreateCharts();
+                //CreateCharts create_chart = new CreateCharts();
                 wind_speed_chart.setVisibility(View.VISIBLE);
                 create_chart.Fill_Wind_Speed_Chart(wind_speed_chart);
                 count++;
@@ -218,7 +210,7 @@ public class ChartsFragment extends Fragment {
                 layoutParams.topMargin = 850*count;
                 rain_chart.setLayoutParams(layoutParams);
 
-                CreateCharts create_chart = new CreateCharts();
+                //CreateCharts create_chart = new CreateCharts();
                 rain_chart.setVisibility(View.VISIBLE);
                 create_chart.Fill_Rain_Chart(rain_chart);
                 count++;
@@ -230,7 +222,7 @@ public class ChartsFragment extends Fragment {
                 layoutParams.topMargin = 850*count;
                 vbat_chart.setLayoutParams(layoutParams);
 
-                CreateCharts create_chart = new CreateCharts();
+                //CreateCharts create_chart = new CreateCharts();
                 vbat_chart.setVisibility(View.VISIBLE);
                 create_chart.Fill_VBAT_Chart(vbat_chart);
                 count++;
@@ -243,19 +235,17 @@ public class ChartsFragment extends Fragment {
                 wind_direct_table.setLayoutParams(layoutParams);
 
 
-                CreateCharts create_chart = new CreateCharts();
+                //CreateCharts create_chart = new CreateCharts();
                 wind_direct_table.setVisibility(View.VISIBLE);
-                create_chart.Fill_Wind_Direct_Table(wind_direct_table,getContext());
+                create_chart.Fill_Wind_Direct_Table(wind_direct_table,context);
                 count++;
             }
+
         }
-
-        return root;
     }
-
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    protected void onProgressUpdate(Void... values) {
+        super.onProgressUpdate(values);
+
     }
 }
