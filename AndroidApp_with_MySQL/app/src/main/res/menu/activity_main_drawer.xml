@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home_icon"
+            android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_chart"
+            android:icon="@drawable/chart_icon"
+            android:title="@string/menu_chart" />
+        <item
+            android:id="@+id/nav_chart_setting"
+            android:icon="@drawable/chart_setting_icon"
+            android:title="@string/menu_chart_setting" />
+
+        <item
+            android:id="@+id/nav_more_details"
+            android:icon="@drawable/details"
+            android:title="@string/more_details" />
+    </group>
+</menu>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:tag=".ui.charts.ChartsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp">
+
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp">
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="140dp"
+            android:text="Данные не выбраны!\n Проверьте настройки графиков!\n(Вкладка Chart's settings) "
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/firebase_error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="140dp"
+            android:text="Невозможно отобразить графики!\nОшибка в базе данных!\n Отсутствуют некоторые показания! "
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="20sp" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/street_temp_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/street_hum_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/rain_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/vbat_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/wind_speed_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/home_temp_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/home_hum_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/pressure_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            tools:ignore="MissingConstraints" />
+
+
+    </RelativeLayout>
+
+
+</ScrollView>
