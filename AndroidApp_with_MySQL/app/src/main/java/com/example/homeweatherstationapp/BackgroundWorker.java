@@ -216,7 +216,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
             id++;
         }
-        HomeFragment.time_for_display = LIST10.get(LIST10.size() - 1).replace(',', '\n');
+        if (i != 0) HomeFragment.time_for_display = LIST10.get(LIST10.size() - 1).replace(',', '\n');
         //Форматирование времени
         for (int j = 0; j < LIST10.size(); j++) {
             LIST10.set(j, LIST10.get(j).substring(0, 8));

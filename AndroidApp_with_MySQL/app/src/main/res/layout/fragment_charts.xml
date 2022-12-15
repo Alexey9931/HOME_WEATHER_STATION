@@ -19,6 +19,114 @@
         </TableLayout>
 
         <TextView
+            android:id="@+id/home_temp_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            android:text="График изменения комнатной температуры со временем"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/street_temp_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            android:text="График изменения уличной температуры со временем"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/street_hum_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            android:text="График изменения уличной влажности со временем"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/home_hum_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            android:text="График изменения комнатной влажности со временем"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/pressure_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            android:text="График изменения атмосферного давления со временем"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/wind_speed_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            android:text="График изменения скорости ветра со временем"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/rain_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            android:text="График изменения количества осадков со временем"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/vbat_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            android:text="График изменения заряда аккумулятора со временем"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/table_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            android:text="Таблица с результатами измерения направления ветра"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/error_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,6 +194,7 @@
             tools:ignore="MissingConstraints" />
 
         <com.github.mikephil.charting.charts.LineChart
+
             android:id="@+id/pressure_chart"
             android:layout_width="match_parent"
             android:layout_height="300dp"

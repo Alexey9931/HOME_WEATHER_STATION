@@ -188,31 +188,38 @@ public class BackgroundWorkerForDetails extends AsyncTask<View,Void,String> {
 
         @Override
         protected void onPostExecute(String result) {
-            WindDirectDiagram.setVisibility(View.VISIBLE);
-            textView_avg_str_temp.setText(avg_str_temp);
-            textView_avg_home_temp.setText(avg_home_temp);
-            textView_avg_str_hum.setText(avg_str_hum);
-            textView_avg_home_hum.setText(avg_home_hum);
-            textView_avg_rainfall.setText(avg_rainfall);
-            textView_avg_wind_speed.setText(avg_wind_speed);
+            if ((BackgroundWorker.LIST1.size() != 0) && (BackgroundWorker.LIST7.size() != 0) && (BackgroundWorker.LIST2.size() != 0) && (BackgroundWorker.LIST8.size() != 0) && (BackgroundWorker.LIST3.size() != 0) && (BackgroundWorker.LIST6.size() != 0) && (BackgroundWorker.LIST4.size() != 0))
+            {
+                WindDirectDiagram.setVisibility(View.VISIBLE);
+                textView_avg_str_temp.setText(avg_str_temp);
+                textView_avg_home_temp.setText(avg_home_temp);
+                textView_avg_str_hum.setText(avg_str_hum);
+                textView_avg_home_hum.setText(avg_home_hum);
+                textView_avg_rainfall.setText(avg_rainfall);
+                textView_avg_wind_speed.setText(avg_wind_speed);
 
-            textView_max_str_temp.setText(max_str_temp);
-            textView_max_home_temp.setText(max_home_temp);
-            textView_max_str_hum.setText(max_str_hum);
-            textView_max_home_hum.setText(max_home_hum);
-            textView_max_rainfall.setText(max_rainfall);
-            textView_max_wind_speed.setText(max_wind_speed);
-            textView_max_bat_charge.setText(max_bat_charge);
+                textView_max_str_temp.setText(max_str_temp);
+                textView_max_home_temp.setText(max_home_temp);
+                textView_max_str_hum.setText(max_str_hum);
+                textView_max_home_hum.setText(max_home_hum);
+                textView_max_rainfall.setText(max_rainfall);
+                textView_max_wind_speed.setText(max_wind_speed);
+                textView_max_bat_charge.setText(max_bat_charge);
 
-            textView_min_str_temp.setText(min_str_temp);
-            textView_min_home_temp.setText(min_home_temp);
-            textView_min_str_hum.setText(min_str_hum);
-            textView_min_home_hum.setText(min_home_hum);
-            textView_min_rainfall.setText(min_rainfall);
-            textView_min_wind_speed.setText(min_wind_speed);
-            textView_min_bat_charge.setText(min_bat_charge);
+                textView_min_str_temp.setText(min_str_temp);
+                textView_min_home_temp.setText(min_home_temp);
+                textView_min_str_hum.setText(min_str_hum);
+                textView_min_home_hum.setText(min_home_hum);
+                textView_min_rainfall.setText(min_rainfall);
+                textView_min_wind_speed.setText(min_wind_speed);
+                textView_min_bat_charge.setText(min_bat_charge);
 
-            WindDirectDiagram.setData(pieData);
+                WindDirectDiagram.setData(pieData);
+            }
+            else
+            {
+                Toast.makeText(context.getApplicationContext(),"Ошибка вычислений! (База Данных пустая!)",Toast.LENGTH_LONG).show();
+            }
         }
         @Override
         protected void onProgressUpdate(Void... values) {

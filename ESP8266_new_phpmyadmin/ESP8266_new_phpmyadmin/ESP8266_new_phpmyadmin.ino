@@ -7,12 +7,12 @@
 #include <Adafruit_BME280.h>
 
 // Replace with your network credentials
-const char* ssid     = "ASUS";
-const char* password = NULL;
+const char* ssid     = "Redmi";
+const char* password = "head2020";
 
 // REPLACE with your Domain name and URL path or IP address with path
 //const char* serverName_public = "http://alexgorlov99.ru/post-esp-data.php";
-const char* serverName_localRaspberry = "http://192.168.41.8/post-esp-data.php";
+const char* serverName_localRaspberry = "http://192.168.43.162/post-esp-data.php";
 
 // Keep this API Key value to be compatible with the PHP code provided in the project page. 
 // If you change the apiKeyValue value, the PHP file /post-esp-data.php also needs to have the same key 
@@ -191,7 +191,7 @@ void loop()
       Serial.println("WiFi Disconnected");
     } 
     //Send an HTTP POST request every 30 seconds
-    delay(30000); 
+    delay(300000); 
 }
 
 void clean_part_array(char * array)
