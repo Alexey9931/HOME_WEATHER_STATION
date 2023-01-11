@@ -8,9 +8,9 @@
 
 #define RADIUS 0.09
 
-char temp_street[5];
+char temp_street[6];
 char hum_street[5];
-char temp_home[5];
+char temp_home[6];
 char hum_home[5];
 char WIND_speed[5];
 char wind_direction[6];
@@ -121,9 +121,10 @@ void Print_Home_Page()
 	//-----------Вывод уличных показателей-----------------------//
 	//sprintf(Weath_Param.Rain,"%d",RAIN_AMOUNT(adc_value2));
 	LCD_12864_Decode_UTF8(30, 4, 0, "°C", Frame_buffer);
-	LCD_12864_Decode_UTF8(58, 4, 0, "%", Frame_buffer);
-	LCD_12864_Print_7_11(43, 3, 0, hum_street, Frame_buffer);
-	LCD_12864_Print_7_11(1, 3, 0, temp_street, Frame_buffer);
+	LCD_12864_Decode_UTF8(57, 4, 0, "%", Frame_buffer);
+	LCD_12864_Print_5_8(46, 4, 0, hum_street, Frame_buffer);
+	if (strchr(temp_street,'-') != 0) {LCD_12864_Print_5_8(0, 4, 0, temp_street, Frame_buffer);}
+	else {LCD_12864_Print_5_8(7, 4, 0, temp_street, Frame_buffer);}
 	//sprintf(Weath_Param.Vbat,"%d",V_BAT(adc_value1));
 	LCD_12864_Print_4_6(44, 2, 0, Vbat, Frame_buffer);
 	//sprintf(Weath_Param.WIND_speed,"%d", wind_speed (HALL_counter));
@@ -158,9 +159,10 @@ void Print_Home_Page()
 	pressure_home = BMP180_calculation()*0.0075;
 	sprintf(Weath_Param.Press_home,"%d",pressure_home);*/
 	LCD_12864_Decode_UTF8(95, 4, 0, "°C", Frame_buffer);
-	LCD_12864_Print_7_11(66, 3, 0, temp_home, Frame_buffer);
-	LCD_12864_Decode_UTF8(123, 4, 0, "%", Frame_buffer);
-	LCD_12864_Print_7_11(108, 3, 0, hum_home, Frame_buffer);
+	if (strchr(temp_home,'-') != 0) {LCD_12864_Print_5_8(65, 4, 0, temp_home, Frame_buffer);}
+	else {LCD_12864_Print_5_8(72, 4, 0, temp_home, Frame_buffer);}
+	LCD_12864_Decode_UTF8(122, 4, 0, "%", Frame_buffer);
+	LCD_12864_Print_5_8(111, 4, 0, hum_home, Frame_buffer);
 	LCD_12864_Print_4_6(86, 2, 0, Press_home, Frame_buffer);
 	LCD_12864_Decode_UTF8(101, 2, 0, "мм", Frame_buffer);
 	LCD_12864_Decode_UTF8(114, 2, 0, "Hg", Frame_buffer);

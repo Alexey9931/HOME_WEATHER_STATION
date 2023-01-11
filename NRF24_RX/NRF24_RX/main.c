@@ -7,9 +7,9 @@
 
 #include "main.h"
 
-extern char temp_street[5];
+extern char temp_street[6];
 extern char hum_street[5];
-extern char temp_home[5];
+extern char temp_home[6];
 extern char hum_home[5];
 extern char WIND_speed[5];
 extern char wind_direction[6];

@@ -199,6 +199,19 @@ __flash const uint8_t Font7_11[] = {0x80, 0xC0, 0x60, 0x20, 0x60, 0xC0, 0x80, 0x
 									0x80, 0xC0, 0x60, 0x20, 0x60, 0xC0, 0x80, 0x83, 0x87, 0xCC, 0x48, 0x78, 0x3F, 0x0F,  //9
 									0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0xC0, 0x00, 0x00, 0x00,  //.
 									 };
+__flash const uint8_t Font5_8[] = { 0x78, 0x86, 0x81, 0x61, 0x1E, //0
+									0x00, 0x04, 0xE2, 0x1F, 0x00, //1
+									0xC0, 0xA2, 0x91, 0x89, 0x06, //2
+									0x40, 0x82, 0x89, 0x89, 0x76,//3
+									0x30, 0x28, 0xE4, 0x3E, 0x23,//4
+									0x4C, 0x8B, 0x85, 0x45, 0x39,//5
+									0x7C, 0x92, 0x89, 0x49, 0x32,//6
+									0x00, 0xC1, 0x31, 0x0D, 0x03,//7
+									0x60, 0x96, 0x89, 0x89, 0x76,//8
+									0x4C, 0x92, 0x91, 0x49, 0x3E,//9
+									0x00, 0xC0, 0xC0, 0x00, 0x00, //.
+									0x00, 0x10, 0x10, 0x10, 0x00 //-
+									 };								 
 __flash const uint8_t Font11_16[] = {	0x00, 0xE0, 0xF8, 0xFC, 0x3E, 0x07, 0x03, 0x01, 0xE1, 0xFE, 0xFC, 0x3F, 0x7F, 0x87, 0x80, 0x80, 0xE0, 0x7C, 0x3F, 0x1F, 0x07, 0x00,  //0
 										0x00, 0x00, 0x00, 0x00, 0x02, 0xE2, 0xFE, 0xFF, 0x1F, 0x03, 0x00, 0x80, 0x80, 0xC0, 0xF8, 0xFF, 0xFF, 0x87, 0x80, 0x00, 0x00, 0x00,  //1
 										0x00, 0x00, 0x00, 0x0C, 0x06, 0x03, 0x03, 0x87, 0xFF, 0x7E, 0x1C, 0x80, 0xC0, 0xE0, 0xF0, 0xE8, 0xE4, 0xE3, 0xE1, 0xF0, 0x18, 0x00,  //2
@@ -471,6 +484,31 @@ void LCD_12864_print_symbol_4_6(uint16_t x, uint16_t symbol, uint8_t inversion, 
 		}
 	}
 }
+/*---------------------Функция вывода символа 5*8 на дисплей-----------------------------*/
+void LCD_12864_print_symbol_5_8(uint16_t x, uint16_t symbol, uint8_t inversion, uint8_t *Frame_buffer) {
+	/// Функция вывода символа на дисплей
+	/// \param x положение по х (от 0 до 1023)
+	/// Дисплей поделен по страницам(строка из 8 пикселей)
+	/// 1 строка: x = 0;
+	///	2 строка: x = 128;
+	/// 3 строка: x = 256;
+	/// 4 строка: x = 384;
+	/// 5 строка: x = 512;
+	/// 6 строка: x = 640;
+	/// 7 строка: x = 786;
+	/// 8 строка: x = 896;
+	/// \param symbol - код символа
+	/// \param inversion - инверсия. 1 - вкл, 0 - выкл.
+	for (int i = 0; i <= 4; i++) {
+		if (inversion) {
+			Frame_buffer[i + x - 1] = ~Font5_8[(symbol * 5) + i];//read_symbol_from_SD ((symbol * 4) + i);
+			//Frame_buffer[i + x - 1] = ~Font[(symbol * 6) + i];
+			} else {
+			Frame_buffer[i + x - 1] = Font5_8[(symbol * 5) + i];//read_symbol_from_SD ((symbol * 4) + i);
+			//Frame_buffer[i + x - 1] = Font[(symbol * 6) + i];
+		}
+	}
+}
 /*---------------------Функция вывода символа 11*16 для отображения времени-----------------------------*/
 void LCD_12864_print_symbol_11_16(uint16_t x, uint16_t symbol, uint8_t inversion, uint8_t *Frame_buffer) {
 	/// Функция вывода символа на дисплей
@@ -619,6 +657,49 @@ void LCD_12864_Print_4_6(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buff
 			else LCD_12864_print_symbol_4_6(x, 10, 0, Frame_buffer);
 		}
 		x = x + 5;
+	}
+	// Завершаем работу с файлом
+	//pf_mount(0x00);
+}
+/*---------------------Функция вывода строки 5*8-----------------------------*/
+void LCD_12864_Print_5_8(uint16_t x, uint8_t y, uint8_t inversion, char *tx_buffer, uint8_t *Frame_buffer) {
+	/// Функция декодирования UTF-8 в набор символов и последующее занесение в буфер кадра
+	/// \param x - координата по х. От 0 до 127
+	/// \param y - координата по y. от 0 до 7
+	/// Дисплей поделен по страницам(строка из 8 пикселей)
+	/// 1 строка: x = 0;
+	///	2 строка: x = 128;
+	/// 3 строка: x = 256;
+	/// 4 строка: x = 384;
+	/// 5 строка: x = 512;
+	/// 6 строка: x = 640;
+	/// 7 строка: x = 786;
+	/// 8 строка: x = 896;
+	
+	//Начинаем работу с файловой системой для считывания массива шрифтов
+	/*FATFS fs;
+	asm("nop");
+	pf_mount(&fs); //Монтируем FAT
+	pf_open("/4_6.txt");*/
+	
+	x = x + y * 128;
+	uint16_t symbol = 0;
+	for (int i = 0; i < strlen(tx_buffer); i++)
+	{
+		symbol = tx_buffer[i];
+		if (inversion)
+		{
+			if(symbol == 46) LCD_12864_print_symbol_5_8(x, 10, 1, Frame_buffer);
+			else if (symbol == 45) LCD_12864_print_symbol_5_8(x, 11, 1, Frame_buffer);
+			else LCD_12864_print_symbol_5_8(x, symbol - 48, 1, Frame_buffer);
+		}
+		else
+		{
+			if(symbol == 46) LCD_12864_print_symbol_5_8(x, 10, 0, Frame_buffer);
+			else if (symbol == 45) LCD_12864_print_symbol_5_8(x, 11, 0, Frame_buffer);
+			else LCD_12864_print_symbol_5_8(x, symbol - 48, 0, Frame_buffer);
+		}
+		x = x + 6;
 	}
 	// Завершаем работу с файлом
 	//pf_mount(0x00);
