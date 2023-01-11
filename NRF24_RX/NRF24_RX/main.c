@@ -16,6 +16,12 @@ extern char wind_direction[6];
 extern char Vbat[5];
 extern char Rain[6];
 extern char Press_home[6];
+extern char temp_street_to_DB[5];
+extern char hum_street_to_DB[5];
+extern char WIND_speed_to_DB[5];
+extern char wind_direction_to_DB[6];
+extern char Vbat_to_DB[5];
+extern char Rain_to_DB[6];
 extern struct Time_Parameters {
 	char hours[4];
 	char minutes[4];
@@ -372,6 +378,12 @@ int main(void)
 	// и разрешаем его глобально
 	sei();
 	//Начальная конфигурация
+	strcpy(temp_street_to_DB,"NULL");
+	strcpy(hum_street_to_DB,"NULL");
+	strcpy(WIND_speed_to_DB,"NULL");
+	strcpy(wind_direction_to_DB,"NULL");
+	strcpy(Vbat_to_DB,"NULL");
+	strcpy(Rain_to_DB,"NULL");
 	temp_street[0] = '0';
 	temp_street[1] = '0';
 	temp_street[2] = '.';
@@ -400,12 +412,12 @@ int main(void)
 	sprintf(start_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
 	//первоначальная отправка данных в БД
 	Clock ();
-	sprintf(send_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
+	sprintf(send_time,"%d:%d:%d,%d/%d/%d", hour, min, sec, date, month, year);
 	sprintf_HOME_Weath_Param();
 	//отправка строки по UART в формате: ул.темп./дом.темп./ул.влажность/дом.влажн./давление/осадки/заряд АКБ/скор.ветра/направл.ветра
-	sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street, temp_home, hum_street, hum_home, Press_home, Rain, Vbat, WIND_speed, wind_direction, send_time);
+	sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street_to_DB, temp_home, hum_street_to_DB, hum_home, Press_home, Rain_to_DB, Vbat_to_DB, WIND_speed_to_DB, wind_direction_to_DB, send_time);
 	//UCSR0B &= ~(1<<RXCIE0);
-	USART_Transmit(DATA_TO_UART);
+	//USART_Transmit(DATA_TO_UART);
 	memset(DATA_TO_UART, 0, sizeof(char) * strlen(DATA_TO_UART));//очистка массива
 	
     while (1) 
@@ -422,13 +434,13 @@ int main(void)
 			sprintf(receive_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
 		}
 		//отправка данных в БД
-		 if(millis == 300000)
+		 if(millis >= 300000)
  		{
 			Clock ();
-			sprintf(send_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
+			sprintf(send_time,"%d:%d:%d,%d/%d/%d", hour, min, sec, date, month, year);
 		    sprintf_HOME_Weath_Param();
 			//отправка строки по UART в формате: ул.темп./дом.темп./ул.влажность/дом.влажн./давление/осадки/заряд АКБ/скор.ветра/направл.ветра
-			sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street, temp_home, hum_street, hum_home, Press_home, Rain, Vbat, WIND_speed, wind_direction, send_time);
+			sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street_to_DB, temp_home, hum_street_to_DB, hum_home, Press_home, Rain_to_DB, Vbat_to_DB, WIND_speed_to_DB, wind_direction_to_DB, send_time);
 			//UCSR0B &= ~(1<<RXCIE0); 
 			USART_Transmit(DATA_TO_UART);
 			memset(DATA_TO_UART, 0, sizeof(char) * strlen(DATA_TO_UART));//очистка массива

@@ -17,6 +17,14 @@ char wind_direction[6];
 char Vbat[5];
 char Rain[6];
 char Press_home[6];
+
+char temp_street_to_DB[5];
+char hum_street_to_DB[5];
+char WIND_speed_to_DB[5];
+char wind_direction_to_DB[6];
+char Vbat_to_DB[5];
+char Rain_to_DB[6];
+
 struct Time_Parameters {
 	char hours[4];
 	char minutes[4];

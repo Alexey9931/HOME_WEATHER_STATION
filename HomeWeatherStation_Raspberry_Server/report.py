@@ -3,6 +3,12 @@ import mysql.connector
 from fpdf import FPDF
 import LogsWriter
 
+#Параметры локальной БД в phpmyadmin
+HOST = "localhost"  #Имя хоста
+USER = "root"   #Имя пользователя в phpmyadmin
+PASSWORD = "281299" #Пароль в phpmyadmin
+DATABASE = "esp_data"   #Имя базы данных в phpmyadmin
+
 class MakeReport:
 
     header = {"Content-type": "application/x-www-form-urlencoded"}
@@ -85,7 +91,7 @@ class MakeReport:
 
     def make_report(self, start_time,end_time):
         logs = LogsWriter.Logs()
-        logs.write_log(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" Запуск python-скрипта для формирования pdf-отчета ")
+        logs.write_log("OK!    "+datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" Запуск python-скрипта для формирования pdf-отчета ")
         #print(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" Запуск python-скрипта для формирования pdf-отчета ")
         MakeReport.find_now_params(self)
         MakeReport.find_params_each_time_of_day(self, start_time, end_time)
@@ -167,7 +173,7 @@ class MakeReport:
         pdf.cell(200, 15,txt="          %.1f %%                       %.1f %%                       %.1f %%                       %.1f %%" %(MakeReport.rain_morning, MakeReport.rain_day, MakeReport.rain_evening, MakeReport.rain_night),ln=36, align='L')
 
         #file_report = open("debug/"+datetime.datetime.now().strftime("%d-%b-%Y %H:%M:%S") + ".txt","w")
-        myconn = mysql.connector.connect(host="localhost", user="root", passwd="281299", database="esp_data")
+        myconn = mysql.connector.connect(host=HOST, user=USER, passwd=PASSWORD, database=DATABASE)
         cur = myconn.cursor()
         pdf.add_page()
         pdf.set_font("DejaVu", size=15)
@@ -186,10 +192,10 @@ class MakeReport:
                     pdf.cell(200, 15, txt="%s    %s    %s    %s    %s    %s       %s         %s         %s      %s     %s" % (row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]), ln=6)
                     #file_report.write("%d       %s           %s           %s          %s            %s           %s           %s         %s         %s              %s               %s\n" % (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]))
                     #print("%d       %s           %s           %s          %s            %s           %s           %s         %s         %s              %s               %s\n" % (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]))
-            logs.write_log(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" pdf-отчет успешно сформирован и отправлен! ")
+            logs.write_log("OK!    "+ datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" pdf-отчет успешно сформирован и отправлен! ")
             #print(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" pdf-отчет успешно сформирован и отправлен! ")
         except:
-            logs.write_log(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" pdf-отчет не удалось сформировать и отправить! ОШИБКА! ")
+            logs.write_log("ERROR! "+ datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" pdf-отчет не удалось сформировать и отправить! ОШИБКА! ")
             #print(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" pdf-отчет не удалось сформировать и отправить! ОШИБКА! ")
             myconn.rollback()
 
@@ -200,9 +206,9 @@ class MakeReport:
         return file_name
 
     def find_now_params(self):
-        myconn = mysql.connector.connect(host="localhost", user="root", passwd="281299", database="esp_data")
-        cur = myconn.cursor()
         try:
+            myconn = mysql.connector.connect(host=HOST, user=USER, passwd=PASSWORD, database=DATABASE)
+            cur = myconn.cursor()
             cur.execute(
                 "select id, HomeTemp, StreetTemp, HomeHum, StreetHum, Pressuare, WindSpeed, WindDirect, Rain, BatteryCharge, reading_time, MeasureTime from HomeWeatherStationIvnya")
             result = cur.fetchall()
@@ -215,30 +221,31 @@ class MakeReport:
                 MakeReport.wind_speed = row[6]
                 MakeReport.wind_direct = row[7]
                 MakeReport.rain = row[8]
+            if (MakeReport.wind_direct == "N"):
+                MakeReport.wind_direct = "Северный"
+            elif (MakeReport.wind_direct == "S"):
+                MakeReport.wind_direct = "Южный"
+            elif (MakeReport.wind_direct == "W"):
+                MakeReport.wind_direct = "Западный"
+            elif (MakeReport.wind_direct == "E"):
+                MakeReport.wind_direct = "Восточный"
+            elif (MakeReport.wind_direct == "N-W"):
+                MakeReport.wind_direct = "Северо-Западный"
+            elif (MakeReport.wind_direct == "N-E"):
+                MakeReport.wind_direct = "Северо-Восточный"
+            elif (MakeReport.wind_direct == "S-E"):
+                MakeReport.wind_direct = "Юго-Восточный"
+            elif (MakeReport.wind_direct == "S-W"):
+                MakeReport.wind_direct = "Юго-Западный"
         except:
             myconn.rollback()
-        myconn.close()
-        if (MakeReport.wind_direct == "N"):
-            MakeReport.wind_direct = "Северный"
-        elif (MakeReport.wind_direct == "S"):
-            MakeReport.wind_direct = "Южный"
-        elif (MakeReport.wind_direct == "W"):
-            MakeReport.wind_direct = "Западный"
-        elif (MakeReport.wind_direct == "E"):
-            MakeReport.wind_direct = "Восточный"
-        elif (MakeReport.wind_direct == "N-W"):
-            MakeReport.wind_direct = "Северо-Западный"
-        elif (MakeReport.wind_direct == "N-E"):
-            MakeReport.wind_direct = "Северо-Восточный"
-        elif (MakeReport.wind_direct == "S-E"):
-            MakeReport.wind_direct = "Юго-Восточный"
-        elif (MakeReport.wind_direct == "S-W"):
-            MakeReport.wind_direct = "Юго-Западный"
+        finally:
+            myconn.close()
 
     def find_params_each_time_of_day(self, start_time, end_time):
-        myconn = mysql.connector.connect(host="localhost", user="root", passwd="281299", database="esp_data")
-        cur = myconn.cursor()
         try:
+            myconn = mysql.connector.connect(host=HOST, user=USER, passwd=PASSWORD, database=DATABASE)
+            cur = myconn.cursor()
             cur.execute(
                 "select id, HomeTemp, StreetTemp, HomeHum, StreetHum, Pressuare, WindSpeed, WindDirect, Rain, BatteryCharge, reading_time, MeasureTime from HomeWeatherStationIvnya")
             result = cur.fetchall()
@@ -246,76 +253,77 @@ class MakeReport:
                 MakeReport.cur_date = datetime.datetime.strptime(str(row[10]), '%Y-%m-%d %H:%M:%S')
                 if((MakeReport.cur_date >= start_time) and (MakeReport.cur_date <= end_time)):
                     if ((MakeReport.cur_date.hour == 23) or (MakeReport.cur_date.hour < 5)):
-                        MakeReport.list_street_temp_night.append(row[2])
-                        MakeReport.list_street_hum_night.append(row[4])
+                        if (row[2] != "NULL"): MakeReport.list_street_temp_night.append(row[2])
+                        if (row[4] != "NULL"): MakeReport.list_street_hum_night.append(row[4])
                         MakeReport.list_home_temp_night.append(row[1])
                         MakeReport.list_home_hum_night.append(row[3])
                         MakeReport.list_pressure_night.append(row[5])
-                        MakeReport.list_wind_speed_night.append(row[6])
-                        MakeReport.list_wind_direct_night.append(row[7])
-                        MakeReport.list_rain_night.append(row[8])
+                        if (row[6] != "NULL"): MakeReport.list_wind_speed_night.append(row[6])
+                        if (row[7] != "NULL"): MakeReport.list_wind_direct_night.append(row[7])
+                        if (row[8] != "NULL"): MakeReport.list_rain_night.append(row[8])
                     elif((MakeReport.cur_date.hour >= 5) and (MakeReport.cur_date.hour < 11)):
-                        MakeReport.list_street_temp_morning.append(row[2])
-                        MakeReport.list_street_hum_morning.append(row[4])
+                        if (row[2] != "NULL"): MakeReport.list_street_temp_morning.append(row[2])
+                        if (row[4] != "NULL"): MakeReport.list_street_hum_morning.append(row[4])
                         MakeReport.list_home_temp_morning.append(row[1])
                         MakeReport.list_home_hum_morning.append(row[3])
                         MakeReport.list_pressure_morning.append(row[5])
-                        MakeReport.list_wind_speed_morning.append(row[6])
-                        MakeReport.list_wind_direct_morning.append(row[7])
-                        MakeReport.list_rain_morning.append(row[8])
+                        if (row[6] != "NULL"): MakeReport.list_wind_speed_morning.append(row[6])
+                        if (row[7] != "NULL"): MakeReport.list_wind_direct_morning.append(row[7])
+                        if (row[8] != "NULL"): MakeReport.list_rain_morning.append(row[8])
                     elif ((MakeReport.cur_date.hour >= 11) and (MakeReport.cur_date.hour < 17)):
-                        MakeReport.list_street_temp_day.append(row[2])
-                        MakeReport.list_street_hum_day.append(row[4])
+                        if (row[2] != "NULL"): MakeReport.list_street_temp_day.append(row[2])
+                        if (row[4] != "NULL"): MakeReport.list_street_hum_day.append(row[4])
                         MakeReport.list_home_temp_day.append(row[1])
                         MakeReport.list_home_hum_day.append(row[3])
                         MakeReport.list_pressure_day.append(row[5])
-                        MakeReport.list_wind_speed_day.append(row[6])
-                        MakeReport.list_wind_direct_day.append(row[7])
-                        MakeReport.list_rain_day.append(row[8])
+                        if (row[6] != "NULL"): MakeReport.list_wind_speed_day.append(row[6])
+                        if (row[7] != "NULL"): MakeReport.list_wind_direct_day.append(row[7])
+                        if (row[8] != "NULL"): MakeReport.list_rain_day.append(row[8])
                     elif ((MakeReport.cur_date.hour >= 17) and (MakeReport.cur_date.hour < 23)):
-                        MakeReport.list_street_temp_evening.append(row[2])
-                        MakeReport.list_street_hum_evening.append(row[4])
+                        if (row[2] != "NULL"): MakeReport.list_street_temp_evening.append(row[2])
+                        if (row[4] != "NULL"): MakeReport.list_street_hum_evening.append(row[4])
                         MakeReport.list_home_temp_evening.append(row[1])
                         MakeReport.list_home_hum_evening.append(row[3])
                         MakeReport.list_pressure_evening.append(row[5])
-                        MakeReport.list_wind_speed_evening.append(row[6])
-                        MakeReport.list_wind_direct_evening.append(row[7])
-                        MakeReport.list_rain_evening.append(row[8])
+                        if (row[6] != "NULL"):  MakeReport.list_wind_speed_evening.append(row[6])
+                        if (row[7] != "NULL"): MakeReport.list_wind_direct_evening.append(row[7])
+                        if (row[8] != "NULL"): MakeReport.list_rain_evening.append(row[8])
+            MakeReport.street_temp_morning = MakeReport.find_medium(self, MakeReport.list_street_temp_morning)
+            MakeReport.street_temp_day = MakeReport.find_medium(self, MakeReport.list_street_temp_day)
+            MakeReport.street_temp_evening = MakeReport.find_medium(self, MakeReport.list_street_temp_evening)
+            MakeReport.street_temp_night = MakeReport.find_medium(self, MakeReport.list_street_temp_night)
+            MakeReport.street_hum_morning = MakeReport.find_medium(self, MakeReport.list_street_hum_morning)
+            MakeReport.street_hum_day = MakeReport.find_medium(self, MakeReport.list_street_hum_day)
+            MakeReport.street_hum_evening = MakeReport.find_medium(self, MakeReport.list_street_hum_evening)
+            MakeReport.street_hum_night = MakeReport.find_medium(self, MakeReport.list_street_hum_night)
+            MakeReport.home_temp_morning = MakeReport.find_medium(self, MakeReport.list_home_temp_morning)
+            MakeReport.home_temp_day = MakeReport.find_medium(self, MakeReport.list_home_temp_day)
+            MakeReport.home_temp_evening = MakeReport.find_medium(self, MakeReport.list_home_temp_evening)
+            MakeReport.home_temp_night = MakeReport.find_medium(self, MakeReport.list_home_temp_night)
+            MakeReport.home_hum_morning = MakeReport.find_medium(self, MakeReport.list_home_hum_morning)
+            MakeReport.home_hum_day = MakeReport.find_medium(self, MakeReport.list_home_hum_day)
+            MakeReport.home_hum_evening = MakeReport.find_medium(self, MakeReport.list_home_hum_evening)
+            MakeReport.home_hum_night = MakeReport.find_medium(self, MakeReport.list_home_hum_night)
+            MakeReport.pressure_morning = MakeReport.find_medium(self, MakeReport.list_pressure_morning)
+            MakeReport.pressure_day = MakeReport.find_medium(self, MakeReport.list_pressure_day)
+            MakeReport.pressure_evening = MakeReport.find_medium(self, MakeReport.list_pressure_evening)
+            MakeReport.pressure_night = MakeReport.find_medium(self, MakeReport.list_pressure_night)
+            MakeReport.wind_speed_morning = MakeReport.find_medium(self, MakeReport.list_wind_speed_morning)
+            MakeReport.wind_speed_day = MakeReport.find_medium(self, MakeReport.list_wind_speed_day)
+            MakeReport.wind_speed_evening = MakeReport.find_medium(self, MakeReport.list_wind_speed_evening)
+            MakeReport.wind_speed_night = MakeReport.find_medium(self, MakeReport.list_wind_speed_night)
+            MakeReport.wind_direct_morning = MakeReport.find_max_wind_direct(self, MakeReport.list_wind_direct_morning)
+            MakeReport.wind_direct_day = MakeReport.find_max_wind_direct(self, MakeReport.list_wind_direct_day)
+            MakeReport.wind_direct_evening = MakeReport.find_max_wind_direct(self, MakeReport.list_wind_direct_evening)
+            MakeReport.wind_direct_night = MakeReport.find_max_wind_direct(self, MakeReport.list_wind_direct_night)
+            MakeReport.rain_morning = MakeReport.find_medium(self, MakeReport.list_rain_morning)
+            MakeReport.rain_day = MakeReport.find_medium(self, MakeReport.list_rain_day)
+            MakeReport.rain_evening = MakeReport.find_medium(self, MakeReport.list_rain_evening)
+            MakeReport.rain_night = MakeReport.find_medium(self, MakeReport.list_rain_night)
         except:
             myconn.rollback()
-        myconn.close()
-        MakeReport.street_temp_morning = MakeReport.find_medium(self, MakeReport.list_street_temp_morning)
-        MakeReport.street_temp_day = MakeReport.find_medium(self, MakeReport.list_street_temp_day)
-        MakeReport.street_temp_evening = MakeReport.find_medium(self, MakeReport.list_street_temp_evening)
-        MakeReport.street_temp_night = MakeReport.find_medium(self, MakeReport.list_street_temp_night)
-        MakeReport.street_hum_morning = MakeReport.find_medium(self, MakeReport.list_street_hum_morning)
-        MakeReport.street_hum_day = MakeReport.find_medium(self, MakeReport.list_street_hum_day)
-        MakeReport.street_hum_evening = MakeReport.find_medium(self, MakeReport.list_street_hum_evening)
-        MakeReport.street_hum_night = MakeReport.find_medium(self, MakeReport.list_street_hum_night)
-        MakeReport.home_temp_morning = MakeReport.find_medium(self, MakeReport.list_home_temp_morning)
-        MakeReport.home_temp_day = MakeReport.find_medium(self, MakeReport.list_home_temp_day)
-        MakeReport.home_temp_evening = MakeReport.find_medium(self, MakeReport.list_home_temp_evening)
-        MakeReport.home_temp_night = MakeReport.find_medium(self, MakeReport.list_home_temp_night)
-        MakeReport.home_hum_morning = MakeReport.find_medium(self, MakeReport.list_home_hum_morning)
-        MakeReport.home_hum_day = MakeReport.find_medium(self, MakeReport.list_home_hum_day)
-        MakeReport.home_hum_evening = MakeReport.find_medium(self, MakeReport.list_home_hum_evening)
-        MakeReport.home_hum_night = MakeReport.find_medium(self, MakeReport.list_home_hum_night)
-        MakeReport.pressure_morning = MakeReport.find_medium(self, MakeReport.list_pressure_morning)
-        MakeReport.pressure_day = MakeReport.find_medium(self, MakeReport.list_pressure_day)
-        MakeReport.pressure_evening = MakeReport.find_medium(self, MakeReport.list_pressure_evening)
-        MakeReport.pressure_night = MakeReport.find_medium(self, MakeReport.list_pressure_night)
-        MakeReport.wind_speed_morning = MakeReport.find_medium(self, MakeReport.list_wind_speed_morning)
-        MakeReport.wind_speed_day = MakeReport.find_medium(self, MakeReport.list_wind_speed_day)
-        MakeReport.wind_speed_evening = MakeReport.find_medium(self, MakeReport.list_wind_speed_evening)
-        MakeReport.wind_speed_night = MakeReport.find_medium(self, MakeReport.list_wind_speed_night)
-        MakeReport.wind_direct_morning = MakeReport.find_max_wind_direct(self, MakeReport.list_wind_direct_morning)
-        MakeReport.wind_direct_day = MakeReport.find_max_wind_direct(self, MakeReport.list_wind_direct_day)
-        MakeReport.wind_direct_evening = MakeReport.find_max_wind_direct(self, MakeReport.list_wind_direct_evening)
-        MakeReport.wind_direct_night = MakeReport.find_max_wind_direct(self, MakeReport.list_wind_direct_night)
-        MakeReport.rain_morning = MakeReport.find_medium(self, MakeReport.list_rain_morning)
-        MakeReport.rain_day = MakeReport.find_medium(self, MakeReport.list_rain_day)
-        MakeReport.rain_evening = MakeReport.find_medium(self, MakeReport.list_rain_evening)
-        MakeReport.rain_night = MakeReport.find_medium(self, MakeReport.list_rain_night)
+        finally:
+            myconn.close()
 
     def find_medium(self, List):
         sum = 0.0
