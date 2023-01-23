@@ -37,6 +37,7 @@ struct Time_Parameters {
 //uint8_t Frame_buffer[1024] = { 0 }; //Буфер кадра
 extern unsigned char sec,min,hour,day,date,month,year,alarmhour,alarmmin;
 extern char receive_time[20];
+extern char send_time[20];
 extern char start_time[20];
 extern char adc_value1[6];
 extern char HALL_counter[5];
@@ -372,9 +373,11 @@ void Print_Page_Dop_Info()
 	LCD_12864_Decode_UTF8(7, 0, 1, "Дополнительная инфо", Frame_buffer);
 	LCD_12864_Decode_UTF8(0, 1, 0, "Время запуска:", Frame_buffer);
 	LCD_12864_Decode_UTF8(0, 2, 0, start_time, Frame_buffer);
-	LCD_12864_Decode_UTF8(0, 3, 0, "Уличный передатчик:", Frame_buffer);
-	LCD_12864_Decode_UTF8(0, 4, 0, "время посл.приема:", Frame_buffer);
-	LCD_12864_Decode_UTF8(0, 5, 0, receive_time, Frame_buffer);
+	//LCD_12864_Decode_UTF8(0, 3, 0, "Уличный передатчик:", Frame_buffer);
+	LCD_12864_Decode_UTF8(0, 3, 0, "Время посл.приема:", Frame_buffer);
+	LCD_12864_Decode_UTF8(0, 4, 0, receive_time, Frame_buffer);
+	LCD_12864_Decode_UTF8(0, 5, 0, "Время отправки в БД:", Frame_buffer);
+	LCD_12864_Decode_UTF8(0, 6, 0, send_time, Frame_buffer);
 	
 	LCD_12864_Decode_UTF8(25, 7, 1, "Назад в МЕНЮ", Frame_buffer);
 	
@@ -1028,7 +1031,7 @@ int V_BAT (char *adc_value)
 	{
 		V = 0;
 	}
-	VBAT = V*0.72;
+	VBAT = V*0.68;
 	
 	return VBAT;
 }
@@ -1062,10 +1065,10 @@ void sprintf_HOME_Weath_Param(void)
 		//data[3]-младший бит влажности
 		//data[4]-старший бит влажности
 		home_temp = ((data[2]<<8)|data[1]);
-		if (((data[2]<<8)|data[1]) & 0x8000) home_temp *= -1;
+		if ((home_temp & 0x8000) == 0x8000) home_temp = ~(home_temp & 0x7FFF);
 		home_hum = ((data[4]<<8)|data[3]) / 10;
 	}
-	sprintf(temp_home,"%d.%d",home_temp/10, home_temp%10);
+	sprintf(temp_home,"%d.%d",home_temp/10, abs(home_temp)%10);
 	sprintf(hum_home,"%d",home_hum);
 	pressure_home = BMP180_calculation()*0.0075;
 	sprintf(Press_home,"%d",pressure_home);

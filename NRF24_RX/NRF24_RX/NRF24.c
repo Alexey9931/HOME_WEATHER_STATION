@@ -87,9 +87,9 @@ void NRF24L01_Receive(void)
 					byte1 = RX_BUF[1];//младший бит температуры
 					byte2 = RX_BUF[2];//старший бит температуры
 					temp = ((byte2<<8)|byte1);
-					if (((byte2<<8)|byte1) & 0x8000) temp *= -1;
-					sprintf(temp_street,"%d.%d",temp/10 ,temp%10);
-					sprintf(temp_street_to_DB,"%d.%d",temp/10 ,temp%10);
+					if ((temp & 0x8000) == 0x8000) temp = ~(temp & 0x7FFF);
+					sprintf(temp_street,"%d.%d",temp/10 ,abs(temp)%10);
+					sprintf(temp_street_to_DB,"%d.%d",temp/10 ,abs(temp)%10);
 					break;
 			//--------------------------------------
 			//получение влажности

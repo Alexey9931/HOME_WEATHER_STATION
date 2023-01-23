@@ -35,7 +35,7 @@ unsigned char sec,min,hour,day,date,month,year,alarmhour,alarmmin;
 unsigned char clock_change_mode;
 char receive_time[20] = "приема не было!";
 char start_time[20] = {0};
-char send_time[20] = {0};
+char send_time[20] = "отправки не было!";
 //uint8_t Frame_buffer[1024] = { 0 }; //Буфер кадра
 uint8_t ST7920_width = 128; //Ширина дисплея в пикселях
 uint8_t ST7920_height = 64; //Высота дисплея в пикселях
@@ -288,14 +288,15 @@ void SPI_init(void) //инициализация SPI
 {
 	DDRB |= ((1<<SS)|(1<<MOSI)|(1<<CE)|(1<<SCK)); //ножки SPI на выход
 	PORTB &= ~((1<<SS)|(1<<MOSI)|(1<<SCK)); //низкий уровень
-	DDRD &= ~(1<<IRQ);
-	PORTD |= (1<<IRQ);
 	HIGH_CSN;
 	SPCR = ((1<<SPE)|(1<<MSTR));//включим шину, объявим ведущим
 }
 //-------------------------------------------------------------
 void port_init(void)
 {
+	//инициализация ножки IRQ для внеш прерывания
+	DDRD &= ~(1<<IRQ);
+	PORTD |= (1<<IRQ);
 	//инициализация портов для светодиода
 	DDRD |= (1 << LED);//led
 	PORTD &= ~ (1 << LED);
@@ -412,7 +413,7 @@ int main(void)
 	sprintf(start_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
 	//первоначальная отправка данных в БД
 	Clock ();
-	sprintf(send_time,"%d:%d:%d,%d/%d/%d", hour, min, sec, date, month, year);
+	//sprintf(send_time,"%d:%d:%d,%d/%d/%d", hour, min, sec, date, month, year);
 	sprintf_HOME_Weath_Param();
 	//отправка строки по UART в формате: ул.темп./дом.темп./ул.влажность/дом.влажн./давление/осадки/заряд АКБ/скор.ветра/направл.ветра
 	sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street_to_DB, temp_home, hum_street_to_DB, hum_home, Press_home, Rain_to_DB, Vbat_to_DB, WIND_speed_to_DB, wind_direction_to_DB, send_time);
