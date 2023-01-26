@@ -20,8 +20,8 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        TextView firebase_link = findViewById(R.id.firebase_link);
-        firebase_link.setText("https://home-weather-station-ivnya-default-rtdb.europe-west1.firebasedatabase.app/");
+        TextView firebase_link = findViewById(R.id.github_link);
+        firebase_link.setText("https://github.com/Alexey9931/HOME_WEATHER_STATION.git");
         Linkify.addLinks(firebase_link, Linkify.ALL);
     }
 
