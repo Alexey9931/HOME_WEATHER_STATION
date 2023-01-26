@@ -1,9 +1,9 @@
 #include "BMP180.h"
 #include "math.h"
 // переменные данных
-int32_t temperature = 0;
-int32_t    pressure = 0;
-int32_t    altitude = 0;
+//int32_t temperature = 0;
+//int32_t    pressure = 0;
+//int32_t    altitude = 0;
 // переменные калибровки
 int16_t ac1;
 int16_t ac2;
@@ -17,9 +17,9 @@ int16_t mb;
 int16_t mc;
 int16_t md;
 // промежуточные переменные
-uint32_t D1;
-uint32_t D2;
-uint32_t D3;
+//uint32_t D1;
+//uint32_t D2;
+//uint32_t D3;
 // дефайны для работы с bmp180
 #define OSS 3
 #define BMP180_R 0xEF
@@ -89,6 +89,10 @@ int32_t BMP180_get_temper(void)
 // прочитать значение атмосферного давления
 int32_t BMP180_get_pressure()
 {
+	// промежуточные переменные
+	uint32_t D1;
+	uint32_t D2;
+	uint32_t D3;
 	I2C_StartCondition();               // запуск i2c
 	I2C_SendByte(BMP180_W);        // передача адреса устройства, режим записи
 	I2C_SendByte(0xF4);	        // передача адреса памяти
@@ -115,6 +119,7 @@ int32_t BMP180_get_pressure()
 // получить значения температуры и атмосферного давления с учетом калибровочных коэффициентов
 int32_t BMP180_calculation () 
 {
+	int32_t pressure = 0;
 	//int8_t i;
 	int32_t ut=0;
 	int32_t up=0;

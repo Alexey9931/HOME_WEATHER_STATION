@@ -36,12 +36,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
 
         View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.textView);
-        navUsername.setText("Пользователь:" + "?");
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_chart, R.id.nav_chart_setting, R.id.nav_more_details)
+                R.id.nav_home, R.id.nav_chart, R.id.nav_chart_setting, R.id.nav_more_details, R.id.nav_db_table)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

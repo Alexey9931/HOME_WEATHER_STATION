@@ -18,9 +18,12 @@ class Email:
             contents = file_object.read()
         return contents
 
-    def sendMail(self,report_file_name):
+    def sendMail(self,report_file_name, editor_journal):
         logs = LogsWriter.Logs()
         logs.write_log("OK!    "+datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S") + " Запуск отправки отчета на email")
+        editor_journal.configure(state='normal')
+        editor_journal.insert("insert", "OK    "+datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S") + "\t\t\tЗапуск отправки отчета на email\n")
+        editor_journal.configure(state='disabled')
         try:
             msg = email.mime.multipart.MIMEMultipart()
             msg['Subject'] = 'HomeWeatherStation_'+report_file_name[:-4]
@@ -40,6 +43,12 @@ class Email:
             server.sendmail(Email.fromaddr, Email.toaddr, msg.as_string())
             server.quit()
             logs.write_log("OK!    "+ datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+ " Отчет на email отправлен!")
+            editor_journal.configure(state='normal')
+            editor_journal.insert("insert", "OK    "+ datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S")+ "\t\t\tОтчет на email отправлен!\n")
+            editor_journal.configure(state='disabled')
         except:
             logs.write_log("ERROR! "+ datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S") + " Ошибка отправки отчета на email!")
+            editor_journal.configure(state='normal')
+            editor_journal.insert("insert", "ERROR "+ datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S") + "\t\t\tОшибка отправки отчета на email!\n")
+            editor_journal.configure(state='disabled')
         #print(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+ " Отчет на email отправлен!")

@@ -51,7 +51,10 @@ extern uint8_t rx_flag;
 extern uint8_t receive_counter;
 int32_t millis = 0;
 uint8_t WiFi_Flag = 1;
-uint8_t wifi_count = 0;
+//uint8_t wifi_count = 0;
+//uint8_t rx_count = 0;
+//int32_t time1 = 0;
+//int32_t time2 = 0;
 
 //-------------------------------------------------------------
 /*void timer2_ini(void)//период 8мс
@@ -332,6 +335,9 @@ uint8_t spi_send_recv(uint8_t data) // Передаёт и принимает 1 байт по SPI, возвр
 //-------------------------------------------------------------
 int main(void)
 {	
+	uint8_t rx_count = 0;
+	int32_t time1 = 0;
+	int32_t time2 = 0;
 	//настрока WDT
 	//wdt_reset();
 	WDTCSR &= ~(1<<WDE);
@@ -339,7 +345,6 @@ int main(void)
 	//ACSR |= (1<<ACD);
 	//включаем Watchdog на 8с
 	wdt_enable(WDTO_8S);
-	
 	port_init();
 	PORTD |= (1<<LED);
 	//Инициализация интерфейсов
@@ -401,10 +406,11 @@ int main(void)
 	temp_home[3] = '0';
 	hum_home[0] = '0';
 	hum_home[1] = '0';
-	WIND_speed[0] = '0';
+	sprintf(WIND_speed,"0.00");
+	/*WIND_speed[0] = '0';
 	WIND_speed[1] = '.';
 	WIND_speed[2] = '0';
-	WIND_speed[3] = '0';
+	WIND_speed[3] = '0';*/
 	Press_home[0] = '0';
 	wind_direction[0] = '-';
 	Rain[0] = '-';
@@ -416,65 +422,101 @@ int main(void)
 	//sprintf(send_time,"%d:%d:%d,%d/%d/%d", hour, min, sec, date, month, year);
 	sprintf_HOME_Weath_Param();
 	//отправка строки по UART в формате: ул.темп./дом.темп./ул.влажность/дом.влажн./давление/осадки/заряд АКБ/скор.ветра/направл.ветра
-	sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street_to_DB, temp_home, hum_street_to_DB, hum_home, Press_home, Rain_to_DB, Vbat_to_DB, WIND_speed_to_DB, wind_direction_to_DB, send_time);
+	//sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street_to_DB, temp_home, hum_street_to_DB, hum_home, Press_home, Rain_to_DB, Vbat_to_DB, WIND_speed_to_DB, wind_direction_to_DB, send_time);
 	//UCSR0B &= ~(1<<RXCIE0);
 	//USART_Transmit(DATA_TO_UART);
-	memset(DATA_TO_UART, 0, sizeof(char) * strlen(DATA_TO_UART));//очистка массива
+	//memset(DATA_TO_UART, 0, sizeof(char) * strlen(DATA_TO_UART));//очистка массива
 	
     while (1) 
     {
 		//прием данных от передатчика
 		if (rx_flag == 1)
 		{
-			_delay_us(300);
-			PORTD |= (1<<LED);
-			_delay_us(300);
-			PORTD &= ~(1<<LED);
-			NRF24L01_Receive();
-			Clock ();
-			sprintf(receive_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
-		}
-		//отправка данных в БД
-		 if(millis >= 300000)
- 		{
-			Clock ();
-			sprintf(send_time,"%d:%d:%d,%d/%d/%d", hour, min, sec, date, month, year);
-		    sprintf_HOME_Weath_Param();
-			//отправка строки по UART в формате: ул.темп./дом.темп./ул.влажность/дом.влажн./давление/осадки/заряд АКБ/скор.ветра/направл.ветра
-			sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street_to_DB, temp_home, hum_street_to_DB, hum_home, Press_home, Rain_to_DB, Vbat_to_DB, WIND_speed_to_DB, wind_direction_to_DB, send_time);
-			//UCSR0B &= ~(1<<RXCIE0); 
-			USART_Transmit(DATA_TO_UART);
-			memset(DATA_TO_UART, 0, sizeof(char) * strlen(DATA_TO_UART));//очистка массива
-			//timer1_flag = 0;
-			millis = 0;
-			/*if(WiFi_Flag != 0)
+			time1 = millis;
+			while(rx_count < 6)
 			{
-				WiFi_Flag = 0;
-				UCSR0B |= (1<<RXCIE0); //Разрешаем прерывание при приеме
-			}*/
-		}
-		//обновление домашних показаний
-		else if ((millis % 3000) == 0)
-		{
-			sprintf_HOME_Weath_Param();
-		}
-		//обновление изображения на дисплее
-		else if((millis % 50) == 0)
-		{
-			switch (menu_flag)
-			{
-				case 0:	Print_Home_Page();
-				break;
-				case 1:	Print_Menu_Page();
-				break;
-				case 2:	Print_Page_Clock_Settings();
-				break;
-				case 3:	Print_Page_About();
-				break;
-				case 4:	Print_Page_Dop_Info();
-				break;
+				time2 = millis;
+				if ((time2-time1)>15000)
+				{
+					rx_flag = 0;
+					receive_counter = 0;
+					rx_count = 0;
+					break;
+				}
+				if(rx_flag == 1)
+				{
+					_delay_us(300);
+					PORTD |= (1<<LED);
+					_delay_us(300);
+					PORTD &= ~(1<<LED);
+					NRF24L01_Receive();
+					Clock ();
+					sprintf(receive_time,"%s:%s:%s,%s/%s/%s", T_Param.hours, T_Param.minutes, T_Param.seconds, T_Param.mounthday, T_Param.Mounth, T_Param.Year);
+					rx_count++;
+				}
+				//обновление показаний на экране
+				switch (menu_flag)
+				{
+					case 0:	Print_Home_Page();
+					break;
+					case 1:	Print_Menu_Page();
+					break;
+					case 2:	Print_Page_Clock_Settings();
+					break;
+					case 3:	Print_Page_About();
+					break;
+					case 4:	Print_Page_Dop_Info();
+					break;
+				}
+				wdt_reset();
 			}
-			//timer2_flag = 0;
+			rx_count = 0;
+			_delay_ms(1000);
+		}
+		else
+		{
+			//отправка данных в БД
+			 if(millis >= 300000)
+ 			{
+				Clock ();
+				sprintf(send_time,"%d:%d:%d,%d/%d/%d", hour, min, sec, date, month, year);
+				sprintf_HOME_Weath_Param();
+				//отправка строки по UART в формате: ул.темп./дом.темп./ул.влажность/дом.влажн./давление/осадки/заряд АКБ/скор.ветра/направл.ветра
+				sprintf(DATA_TO_UART,"%s %s %s %s %s %s %s %s %s %s ", temp_street_to_DB, temp_home, hum_street_to_DB, hum_home, Press_home, Rain_to_DB, Vbat_to_DB, WIND_speed_to_DB, wind_direction_to_DB, send_time);
+				//UCSR0B &= ~(1<<RXCIE0); 
+				USART_Transmit(DATA_TO_UART);
+				memset(DATA_TO_UART, 0, sizeof(char) * strlen(DATA_TO_UART));//очистка массива
+				//timer1_flag = 0;
+				millis = 0;
+				/*if(WiFi_Flag != 0)
+				{
+					WiFi_Flag = 0;
+					UCSR0B |= (1<<RXCIE0); //Разрешаем прерывание при приеме
+				}*/
+			}
+			//обновление домашних показаний
+			else if ((millis % 3000) == 0)
+			{
+				sprintf_HOME_Weath_Param();
+			}
+			//обновление изображения на дисплее
+			else if((millis % 53) == 0)
+			{
+				switch (menu_flag)
+				{
+					case 0:	Print_Home_Page();
+					break;
+					case 1:	Print_Menu_Page();
+					break;
+					case 2:	Print_Page_Clock_Settings();
+					break;
+					case 3:	Print_Page_About();
+					break;
+					case 4:	Print_Page_Dop_Info();
+					break;
+				}
+				//timer2_flag = 0;
+			}
 		}
 		wdt_reset();
     }

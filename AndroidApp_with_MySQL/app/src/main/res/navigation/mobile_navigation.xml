@@ -29,4 +29,10 @@
         android:label="@string/more_details"
         tools:layout="@layout/fragment_more_details" />
 
+    <fragment
+        android:id="@+id/nav_db_table"
+        android:name="com.example.homeweatherstationapp.DBTableFragment"
+        android:label="Database"
+        tools:layout="@layout/db_table_fragment" />
+
 </navigation>

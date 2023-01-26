@@ -79,6 +79,7 @@ void NRF24L01_Receive(void)
 	{
 		switch (RX_BUF[0])
 		{
+			
 			//--------------------------------------
 			//получение температуры
 			case 1:	receive_counter++;
@@ -112,8 +113,16 @@ void NRF24L01_Receive(void)
 					{
 						HALL_counter[n] = RX_BUF[n+1];
 					}
-					sprintf(WIND_speed,"%d.%d", wind_speed (HALL_counter)/100, wind_speed (HALL_counter)%100);
-					sprintf(WIND_speed_to_DB,"%d.%d", wind_speed (HALL_counter)/100, wind_speed (HALL_counter)%100);
+					if (wind_speed (HALL_counter) != 0)
+					{
+						sprintf(WIND_speed,"%d.%d", wind_speed (HALL_counter)/100, wind_speed (HALL_counter)%100);
+						sprintf(WIND_speed_to_DB,"%d.%d", wind_speed (HALL_counter)/100, wind_speed (HALL_counter)%100);
+					}
+					else
+					{
+						sprintf(WIND_speed,"0.00");
+						sprintf(WIND_speed_to_DB,"0.00");
+					}
 					break;
 			//--------------------------------------
 			//получение направления ветра

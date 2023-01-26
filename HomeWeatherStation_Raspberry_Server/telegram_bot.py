@@ -24,7 +24,7 @@ class Telegramm:
     rain = ""
     telegram_bot = None
 
-    def start_Tg_BOT(self):
+    def start_Tg_BOT(self,editor_journal):
         logs = LogsWriter.Logs()
         try:
             Telegramm.telegram_bot = telepot.Bot(BOT_ID)
@@ -34,8 +34,14 @@ class Telegramm:
                                                     "💡Для получения дополнительной информации и помощи введите команду \"Help\"."))
 
             logs.write_log("OK!    "+datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+' Телеграмм-бот успешно запущен ')
+            editor_journal.configure(state='normal')
+            editor_journal.insert("insert", "OK    "+datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S")+'\t\t\tТелеграмм-бот успешно запущен \n')
+            editor_journal.configure(state='disabled')
         except:
             logs.write_log("ERROR! " + datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S") + ' Телеграмм-бот не удалось запустить! ')
+            editor_journal.configure(state='normal')
+            editor_journal.insert("insert", "ERROR " + datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S") + '\t\t\tТелеграмм-бот не удалось запустить! \n')
+            editor_journal.configure(state='disabled')
     def action(msg):
         try:
             #telegram_bot = telepot.Bot('5443734906:AAEaSLlrtKSQchGo1Yix5eRXqCJONtOZlnc')
@@ -109,7 +115,7 @@ class Telegramm:
             #    telegram_bot.sendDocument(chat_id, document=open('/home/alexey/HomeWeatherStationProject/GFG.pdf', 'rb'))
         except:
             pass
-    def send_report_tg(self,file_name,start_time,end_time):
+    def send_report_tg(self,file_name,start_time,end_time, editor_journal):
         logs = LogsWriter.Logs()
         try:
             #chat_id = msg['chat']['id']
@@ -118,22 +124,38 @@ class Telegramm:
             time.sleep(2)
             Telegramm.telegram_bot.sendDocument(CHAT_ID, document=open('/home/alexey/HomeWeatherStationProject/debug/'+file_name, 'rb'))
             logs.write_log("OK!    "+ datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+' Отправка отчета в Tg-bot успешно завершена! ')
+            editor_journal.configure(state='normal')
+            editor_journal.insert("insert", "OK    "+ datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S")+'\t\t\tОтправка отчета в Tg-bot успешно завершена! \n')
+            editor_journal.configure(state='disabled')
             #print(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+' Отправка отчета успешно завершена! ')
             Result = True
         except:
             logs.write_log("ERROR! "+ datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+' Отправка отчета в Tg-bot не удалась! ')
+            editor_journal.configure(state='normal')
+            editor_journal.insert("insert", "ERROR "+ datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S")+'\t\t\tОтправка отчета в Tg-bot не удалась! \n')
+            editor_journal.configure(state='disabled')
             Result = False
             #print(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+' Отправка отчета в Tg-bot не удалась! ОШИБКА! ')
         return  Result
-    def send_wifi_error_tg(self):
+    def send_wifi_error_tg(self, editor_journal):
         logs = LogsWriter.Logs()
         try:
             #telegram_bot = telepot.Bot('5443734906:AAEaSLlrtKSQchGo1Yix5eRXqCJONtOZlnc')
             Telegramm.telegram_bot.sendMessage(CHAT_ID, str("‼СООБЩЕНИЕ ОБ ОШИБКЕ!\nВ течение некоторого времени отсутствовало Wi-Fi соединение!\n"
                                                      "Возможны сбои в работе сервера (нарушены процедуры обновления БД и отправки отчетов)!"))
             time.sleep(2)
-            telegram_bot.sendMessage(CHAT_ID,str("✅На данный момент работа сервера успешно восстановлена!"))
+            Telegramm.telegram_bot.sendMessage(CHAT_ID,str("✅На данный момент работа сервера успешно восстановлена!"))
         except:
             logs.write_log("ERROR! "+ datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+' Отправка сообщения об ошибке в Tg-bot не удалась! ')
-
-
+            editor_journal.configure(state='normal')
+            editor_journal.insert("insert", "ERROR "+ datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S")+'\t\t\tОтправка сообщения об ошибке в Tg-bot не удалась! \n')
+            editor_journal.configure(state='disabled')
+    def send_close_info_tg(self, editor_journal):
+        logs = LogsWriter.Logs()
+        try:
+            Telegramm.telegram_bot.sendMessage(CHAT_ID,str("‼️Работа удаленного сервера успешно завершена!"))
+        except:
+            logs.write_log("ERROR! "+ datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+' Отправка сообщения о закрытии сервера в Tg-bot не удалась! ')
+            editor_journal.configure(state='normal')
+            editor_journal.insert("insert", "ERROR "+ datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S")+'\t\t\tОтправка сообщения о закрытии сервера в Tg-bot не удалась! \n')
+            editor_journal.configure(state='disabled')

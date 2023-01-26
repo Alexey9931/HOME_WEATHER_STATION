@@ -22,5 +22,10 @@
             android:id="@+id/nav_more_details"
             android:icon="@drawable/details"
             android:title="@string/more_details" />
+
+        <item
+            android:id="@+id/nav_db_table"
+            android:icon="@drawable/table"
+            android:title="Database" />
     </group>
 </menu>

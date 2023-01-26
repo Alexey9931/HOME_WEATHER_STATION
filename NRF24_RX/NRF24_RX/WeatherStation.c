@@ -8,22 +8,22 @@
 
 #define RADIUS 0.09
 
-char temp_street[6];
-char hum_street[5];
-char temp_home[6];
-char hum_home[5];
-char WIND_speed[5];
+char temp_street[6] = {0};
+char hum_street[5] = {0};
+char temp_home[6] = {0};
+char hum_home[5] = {0};
+char WIND_speed[5] = {0};
 char wind_direction[6];
-char Vbat[5];
-char Rain[6];
-char Press_home[6];
+char Vbat[5] = {0};
+char Rain[6] = {0};
+char Press_home[6] = {0};
 
-char temp_street_to_DB[5];
-char hum_street_to_DB[5];
-char WIND_speed_to_DB[5];
-char wind_direction_to_DB[6];
-char Vbat_to_DB[5];
-char Rain_to_DB[6];
+char temp_street_to_DB[5] = {0};
+char hum_street_to_DB[5] = {0};
+char WIND_speed_to_DB[5] = {0};
+char wind_direction_to_DB[6] = {0};
+char Vbat_to_DB[5] = {0};
+char Rain_to_DB[6] = {0};
 
 struct Time_Parameters {
 	char hours[4];
@@ -42,8 +42,8 @@ extern char start_time[20];
 extern char adc_value1[6];
 extern char HALL_counter[5];
 extern char adc_value2[6];
-uint8_t data[5] = {0};
-int pressure_home = 0;
+//uint8_t data[5] = {0};
+//int pressure_home = 0;
 extern uint8_t change_flag;
 extern int8_t cnt;
 extern int8_t add_cnt;
@@ -903,6 +903,13 @@ void Clock (void)
 }
 void Convert_to_string_Clock(void)
 {
+	memset(T_Param.seconds, 0, sizeof(char) * strlen(T_Param.seconds));//очистка массива
+	memset(T_Param.minutes, 0, sizeof(char) * strlen(T_Param.minutes));//очистка массива
+	memset(T_Param.hours, 0, sizeof(char) * strlen(T_Param.hours));//очистка массива
+	memset(T_Param.mounthday, 0, sizeof(char) * strlen(T_Param.mounthday));//очистка массива
+	memset(T_Param.Year, 0, sizeof(char) * strlen(T_Param.Year));//очистка массива
+	memset(T_Param.weakday, 0, sizeof(char) * strlen(T_Param.weakday));//очистка массива
+	memset(T_Param.Mounth, 0, sizeof(char) * strlen(T_Param.Mounth));//очистка массива
 	if ((sec >= 0) && (sec <= 9)) {
 		sprintf(T_Param.seconds,"0%d",sec);
 	}
@@ -1054,6 +1061,8 @@ int wind_speed (char *counter)
 }
 void sprintf_HOME_Weath_Param(void)
 {
+	uint8_t data[5] = {0};
+	int pressure_home = 0;
 	int home_temp, home_hum;
 	/*sprintf(Weath_Param.Rain,"%d",RAIN_AMOUNT(adc_value2));
 	sprintf(Weath_Param.Vbat,"%d",V_BAT(adc_value1));

@@ -89,9 +89,12 @@ class MakeReport:
     list_rain_night = list()
 
 
-    def make_report(self, start_time,end_time):
+    def make_report(self, start_time,end_time, editor_journal):
         logs = LogsWriter.Logs()
         logs.write_log("OK!    "+datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" Запуск python-скрипта для формирования pdf-отчета ")
+        editor_journal.configure(state='normal')
+        editor_journal.insert("insert", "OK    "+datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S")+"\t\t\tЗапуск python-скрипта для формирования pdf-отчета \n")
+        editor_journal.configure(state='disabled')
         #print(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" Запуск python-скрипта для формирования pdf-отчета ")
         MakeReport.find_now_params(self)
         MakeReport.find_params_each_time_of_day(self, start_time, end_time)
@@ -193,9 +196,15 @@ class MakeReport:
                     #file_report.write("%d       %s           %s           %s          %s            %s           %s           %s         %s         %s              %s               %s\n" % (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]))
                     #print("%d       %s           %s           %s          %s            %s           %s           %s         %s         %s              %s               %s\n" % (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]))
             logs.write_log("OK!    "+ datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" pdf-отчет успешно сформирован и отправлен! ")
+            editor_journal.configure(state='normal')
+            editor_journal.insert("insert", "OK    "+ datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S")+"\t\t\tpdf-отчет успешно сформирован и отправлен! \n")
+            editor_journal.configure(state='disabled')
             #print(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" pdf-отчет успешно сформирован и отправлен! ")
         except:
             logs.write_log("ERROR! "+ datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" pdf-отчет не удалось сформировать и отправить! ОШИБКА! ")
+            editor_journal.configure(state='normal')
+            editor_journal.insert("insert", "ERROR "+ datetime.datetime.now().strftime("\t%d-%b-%Y_%H:%M:%S")+"\t\t\tpdf-отчет не удалось сформировать и отправить! ОШИБКА! \n")
+            editor_journal.configure(state='disabled')
             #print(datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+" pdf-отчет не удалось сформировать и отправить! ОШИБКА! ")
             myconn.rollback()
 
