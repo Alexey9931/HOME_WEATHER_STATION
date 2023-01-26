@@ -4,11 +4,11 @@
     <item
         android:id="@+id/update_home"
         android:orderInCategory="100"
-        android:title="Update Home page"
+        android:title="Обновить Главную страницу"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
-        android:title="About App"
+        android:title="О приложении"
         app:showAsAction="never" />
 </menu>

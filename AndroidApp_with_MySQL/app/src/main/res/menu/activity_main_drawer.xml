@@ -7,25 +7,25 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/home_icon"
-            android:title="@string/menu_home" />
+            android:title="Главная" />
 
         <item
             android:id="@+id/nav_chart"
             android:icon="@drawable/chart_icon"
-            android:title="@string/menu_chart" />
+            android:title="Графики" />
         <item
             android:id="@+id/nav_chart_setting"
             android:icon="@drawable/chart_setting_icon"
-            android:title="@string/menu_chart_setting" />
+            android:title="Настройки графиков" />
 
         <item
             android:id="@+id/nav_more_details"
             android:icon="@drawable/details"
-            android:title="@string/more_details" />
+            android:title="Статистика" />
 
         <item
             android:id="@+id/nav_db_table"
             android:icon="@drawable/table"
-            android:title="Database" />
+            android:title="База Данных" />
     </group>
 </menu>

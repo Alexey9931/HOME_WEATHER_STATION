@@ -8,31 +8,31 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.homeweatherstationapp.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="Главная"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_chart"
         android:name="com.example.homeweatherstationapp.ui.charts.ChartsFragment"
-        android:label="@string/menu_chart"
+        android:label="Графики"
         tools:layout="@layout/fragment_charts" />
 
     <fragment
         android:id="@+id/nav_chart_setting"
         android:name="com.example.homeweatherstationapp.ui.chart_settings.ChartSettingFragment"
-        android:label="@string/menu_chart_setting"
+        android:label="Настройки графиков"
         tools:layout="@layout/fragment_chart_setting" />
 
     <fragment
         android:id="@+id/nav_more_details"
         android:name="com.example.homeweatherstationapp.MoreDetailsFragment"
-        android:label="@string/more_details"
+        android:label="Статистика"
         tools:layout="@layout/fragment_more_details" />
 
     <fragment
         android:id="@+id/nav_db_table"
         android:name="com.example.homeweatherstationapp.DBTableFragment"
-        android:label="Database"
+        android:label="База Данных"
         tools:layout="@layout/db_table_fragment" />
 
 </navigation>

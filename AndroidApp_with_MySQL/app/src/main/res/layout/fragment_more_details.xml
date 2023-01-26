@@ -16,7 +16,7 @@
         android:background="@color/purple_500"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="STREET TEMPERATURE"
+        android:text="УЛИЧНАЯ ТЕМПЕРАТУРА"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -30,7 +30,7 @@
             android:background="@color/white"
             android:fontFamily="sans-serif-smallcaps"
             android:singleLine="true"
-            android:text="Average value"
+            android:text="Средняя величина"
             android:textColor="@color/purple_500"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -83,7 +83,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Max value"
+        android:text="Максим. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -97,7 +97,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Min value"
+        android:text="Миним. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -111,7 +111,7 @@
         android:background="@color/purple_500"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="HOME TEMPERATURE"
+        android:text="ДОМАШНЯЯ ТЕМПЕРАТУРА"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -125,7 +125,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Average value"
+        android:text="Средняя величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -178,7 +178,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Max value"
+        android:text="Максим. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -192,7 +192,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Min value"
+        android:text="Миним. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -206,24 +206,24 @@
         android:background="@color/purple_500"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="STREET HUMIDITY"
+        android:text="УЛИЧНАЯ ВЛАЖНОСТЬ"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="255dp"
-        android:background="@color/white"
-        android:fontFamily="sans-serif-smallcaps"
-        android:singleLine="true"
-        android:text="Average value"
-        android:textColor="@color/purple_500"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="255dp"
+            android:background="@color/white"
+            android:fontFamily="sans-serif-smallcaps"
+            android:singleLine="true"
+            android:text="Средняя величина"
+            android:textColor="@color/purple_500"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView_avg_str_hum"
@@ -273,7 +273,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Max value"
+        android:text="Максим. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -287,7 +287,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Min value"
+        android:text="Миним. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -301,7 +301,7 @@
         android:background="@color/purple_500"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="HOME HUMIDITY"
+        android:text="ДОМАШНЯЯ ВЛАЖНОСТЬ"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -315,7 +315,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Average value"
+        android:text="Средняя величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -368,7 +368,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Max value"
+        android:text="Максим. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -382,7 +382,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Min value"
+        android:text="Миним. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -396,7 +396,7 @@
         android:background="@color/purple_500"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="RAINFALL"
+        android:text="ОСАДКИ"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -410,7 +410,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Average value"
+        android:text="Средняя величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -463,7 +463,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Max value"
+        android:text="Максим. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -477,7 +477,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Min value"
+        android:text="Миним. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -491,7 +491,7 @@
         android:background="@color/purple_500"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="WIND SPEED"
+        android:text="СКОРОСТЬ ВЕТРА"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -505,7 +505,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Average value"
+        android:text="Средняя величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -558,7 +558,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Max value"
+        android:text="Максим. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -572,7 +572,7 @@
         android:background="@color/white"
         android:fontFamily="sans-serif-smallcaps"
         android:singleLine="true"
-        android:text="Min value"
+        android:text="Миним. величина"
         android:textColor="@color/purple_500"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -586,7 +586,7 @@
             android:background="@color/purple_500"
             android:fontFamily="sans-serif-smallcaps"
             android:singleLine="true"
-            android:text="BAT CHARGE"
+            android:text="НАПРЯЖЕНИЕ ПИТАНИЯ"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -600,7 +600,7 @@
             android:background="@color/white"
             android:fontFamily="sans-serif-smallcaps"
             android:singleLine="true"
-            android:text="Max value"
+            android:text="Максим. величина"
             android:textColor="@color/purple_500"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -640,7 +640,7 @@
             android:background="@color/white"
             android:fontFamily="sans-serif-smallcaps"
             android:singleLine="true"
-            android:text="Min value"
+            android:text="Миним. величина"
             android:textColor="@color/purple_500"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -654,7 +654,7 @@
             android:background="@color/purple_500"
             android:fontFamily="sans-serif-smallcaps"
             android:singleLine="true"
-            android:text="WIND DIRECTION"
+            android:text="НАПРАВЛЕНИЕ ВЕТРА"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
