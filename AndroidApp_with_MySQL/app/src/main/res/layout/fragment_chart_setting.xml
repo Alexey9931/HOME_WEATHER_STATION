@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:tag=".ui.charts.ChartsFragment">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,35 +12,49 @@
     android:id="@+id/setting"
     tools:context=".ui.chart_settings.ChartSettingFragment">
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="20dp"
-        android:text="Выберите параметры для отображения на графиках"
-        android:textAlignment="center"
-        android:textColor="@color/purple_700"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="170dp"
+            android:text="Выберите параметры для отображения на графиках"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:text="Выберите временной диапазон на графиках"
+            android:textAlignment="center"
+            android:textColor="@color/purple_700"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="290dp"
         android:background="?android:attr/listDivider"
         android:backgroundTint="@color/purple_700"
         android:backgroundTintMode="add"
         android:visibility="visible"
         tools:visibility="visible" />
 
+
     <CheckBox
         android:id="@+id/checkBox_view_mode1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="235dp"
         android:buttonTint="@color/purple_700"
         android:checked="false"
         android:textAlignment="textStart"
@@ -48,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="370dp"
         android:text="T [°C] воздуха на улице"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
@@ -58,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="95dp"
+        android:layout_marginTop="245dp"
         android:text="Отобразить все параметры"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
@@ -68,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="310dp"
         android:text="T [°C] воздуха дома"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
@@ -78,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="300dp"
         android:buttonTint="@color/purple_700"
         android:checked="false"
         android:textColor="@color/purple_700"
@@ -89,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="360dp"
         android:buttonTint="@color/purple_700"
         android:checked="false"
         android:textColor="@color/purple_700"
@@ -100,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="430dp"
         android:text="RH [%] воздуха на улице"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
@@ -110,7 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="490dp"
         android:text="RH [%] воздуха дома"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
@@ -120,7 +139,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="550dp"
         android:text="Атм.давление[мм.рт.ст]"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
@@ -130,7 +149,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="420dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
         android:textSize="16sp" />
@@ -140,7 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="330dp"
+        android:layout_marginTop="480dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
         android:textSize="16sp" />
@@ -150,7 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="390dp"
+        android:layout_marginTop="540dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
         android:textSize="16sp" />
@@ -160,7 +179,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="460dp"
+        android:layout_marginTop="610dp"
         android:text="Скорость ветра [м/с]"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
@@ -170,7 +189,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="600dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
         android:textSize="16sp" />
@@ -180,7 +199,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="520dp"
+        android:layout_marginTop="670dp"
         android:text="Направление ветра"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
@@ -190,7 +209,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="510dp"
+        android:layout_marginTop="660dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
         android:textSize="16sp" />
@@ -200,7 +219,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="580dp"
+        android:layout_marginTop="730dp"
         android:text="Кол-во осадков [%]"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
@@ -210,7 +229,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="570dp"
+        android:layout_marginTop="720dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
         android:textSize="16sp" />
@@ -220,7 +239,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="640dp"
+        android:layout_marginTop="790dp"
         android:text="Заряд АКБ [В]"
         android:textColor="@color/purple_700"
         android:textSize="20sp" />
@@ -230,9 +249,74 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300dp"
-        android:layout_marginTop="630dp"
+        android:layout_marginTop="780dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
         android:textSize="16sp" />
 
+        <RadioGroup
+            android:id="@+id/display_mode"
+            android:layout_width="401dp"
+            android:layout_height="291dp">
+
+            <RadioButton
+                android:id="@+id/radioButton_1day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="95dp"
+                android:buttonTint="@color/purple_700"
+                android:checked="true"
+                android:text="1 День"
+                android:textColor="@color/purple_700"
+                android:textColorHighlight="@color/purple_700"
+                android:textColorHint="@color/purple_700"
+                android:textColorLink="@color/purple_700"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton_3day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="105dp"
+                android:layout_marginTop="-48dp"
+                android:buttonTint="@color/purple_700"
+                android:text="3 Дня"
+                android:textColor="@color/purple_700"
+                android:textColorHighlight="@color/purple_700"
+                android:textColorHint="@color/purple_700"
+                android:textColorLink="@color/purple_700"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton_5day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="205dp"
+                android:layout_marginTop="-48dp"
+                android:buttonTint="@color/purple_700"
+                android:text="5 Дней"
+                android:textColor="@color/purple_700"
+                android:textColorHighlight="@color/purple_700"
+                android:textColorHint="@color/purple_700"
+                android:textColorLink="@color/purple_700"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton_7day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="305dp"
+                android:layout_marginTop="-48dp"
+                android:buttonTint="@color/purple_700"
+                android:text="7 Дней"
+                android:textColor="@color/purple_700"
+                android:textColorHighlight="@color/purple_700"
+                android:textColorHint="@color/purple_700"
+                android:textColorLink="@color/purple_700"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+
 </RelativeLayout>
+</ScrollView>

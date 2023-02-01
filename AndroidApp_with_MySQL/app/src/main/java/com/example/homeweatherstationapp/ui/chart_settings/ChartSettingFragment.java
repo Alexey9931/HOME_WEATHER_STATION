@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.homeweatherstationapp.BackgroundWorker;
 import com.example.homeweatherstationapp.R;
 import com.example.homeweatherstationapp.databinding.FragmentChartSettingBinding;
 
@@ -54,6 +56,8 @@ public class ChartSettingFragment extends Fragment {
         checkBox_WIND_DIRECT = root.findViewById(R.id.checkBox_WIND_DIRECT);
         checkBox_RAIN = root.findViewById(R.id.checkBox_RAIN);
         checkBox_VBAT = root.findViewById(R.id.checkBox_VBAT);
+        RadioGroup radioGroup_display_mode = root.findViewById(R.id.display_mode);
+
         checkBox_view_mode1.setOnClickListener(CheckBoxClickListener);
         checkBox_TEMP_HOME.setOnClickListener(CheckBoxClickListener);
         checkBox_TEMP_STREET.setOnClickListener(CheckBoxClickListener);
@@ -64,6 +68,28 @@ public class ChartSettingFragment extends Fragment {
         checkBox_WIND_DIRECT.setOnClickListener(CheckBoxClickListener);
         checkBox_RAIN.setOnClickListener(CheckBoxClickListener);
         checkBox_VBAT.setOnClickListener(CheckBoxClickListener);
+
+        radioGroup_display_mode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioButton_1day:
+                        BackgroundWorker.ChartDaysMode = 1;
+                        break;
+                    case R.id.radioButton_3day:
+                        BackgroundWorker.ChartDaysMode = 3;
+                        break;
+                    case R.id.radioButton_5day:
+                        BackgroundWorker.ChartDaysMode = 5;
+                        break;
+                    case R.id.radioButton_7day:
+                        BackgroundWorker.ChartDaysMode = 7;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         return root;
     }

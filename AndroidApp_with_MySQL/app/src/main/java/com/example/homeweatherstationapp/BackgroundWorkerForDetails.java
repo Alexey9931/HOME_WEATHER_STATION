@@ -49,6 +49,9 @@ public class BackgroundWorkerForDetails extends AsyncTask<View,Void,String> {
         TextView textView_min_rainfall;
         TextView textView_min_wind_speed;
         TextView textView_min_bat_charge;
+        TextView textView_start_time;
+        TextView textView_end_time;
+        TextView textView_number_mesuamer;
         PieChart WindDirectDiagram;
         PieData pieData;
 
@@ -72,6 +75,9 @@ public class BackgroundWorkerForDetails extends AsyncTask<View,Void,String> {
         String min_rainfall;
         String min_wind_speed;
         String min_bat_charge;
+        String st_time;
+        String en_time;
+        String number;
         DecimalFormat decimalFormat = new DecimalFormat( "#.##" );
         CalculateDetails calculateDetails = new CalculateDetails();
         Context context;
@@ -102,7 +108,9 @@ public class BackgroundWorkerForDetails extends AsyncTask<View,Void,String> {
             textView_min_wind_speed = (TextView) params[18];
             textView_min_bat_charge = (TextView) params[19];
             WindDirectDiagram = (PieChart) params[20];
-
+            textView_start_time = (TextView) params[21];
+            textView_end_time = (TextView) params[22];
+            textView_number_mesuamer = (TextView) params[23];
 
             avg_str_temp = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateAverage(BackgroundWorker.LIST1)))) + " °C";
             avg_home_temp = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateAverage(BackgroundWorker.LIST7)))) + " °C";
@@ -124,6 +132,9 @@ public class BackgroundWorkerForDetails extends AsyncTask<View,Void,String> {
             min_rainfall = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMin(BackgroundWorker.LIST3)))) + " %";
             min_wind_speed = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMin(BackgroundWorker.LIST6)))) + " m/s";
             min_bat_charge = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMin(BackgroundWorker.LIST4)))) + " V";
+            st_time = BackgroundWorker.LIST10.get(0);
+            en_time = BackgroundWorker.LIST10.get(BackgroundWorker.LIST10.size()-1);
+            number = Integer.toString(BackgroundWorker.LIST10.size());
 
             CalculateDetails.Find_Wind_Direct_Percent(BackgroundWorker.LIST5);
             WindDirectDiagram.setUsePercentValues(true);
@@ -213,6 +224,10 @@ public class BackgroundWorkerForDetails extends AsyncTask<View,Void,String> {
                 textView_min_rainfall.setText(min_rainfall);
                 textView_min_wind_speed.setText(min_wind_speed);
                 textView_min_bat_charge.setText(min_bat_charge);
+
+                textView_start_time.setText(st_time);
+                textView_end_time.setText(en_time);
+                textView_number_mesuamer.setText(number);
 
                 WindDirectDiagram.setData(pieData);
             }

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp">
+        android:layout_marginTop="20dp">
 
         <TableLayout
             android:id="@+id/table"
@@ -23,11 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="5dp"
-            android:text="График изменения комнатной температуры со временем"
+            android:layout_marginTop="0dp"
+            android:text="График изменения комнатной температуры с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -35,11 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="5dp"
-            android:text="График изменения уличной температуры со временем"
+            android:layout_marginTop="0dp"
+            android:text="График изменения уличной температуры с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -47,11 +47,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="5dp"
-            android:text="График изменения уличной влажности со временем"
+            android:layout_marginTop="0dp"
+            android:text="График изменения уличной влажности с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -59,11 +59,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="5dp"
-            android:text="График изменения комнатной влажности со временем"
+            android:layout_marginTop="0dp"
+            android:text="График изменения комнатной влажности с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -71,11 +71,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="5dp"
-            android:text="График изменения атмосферного давления со временем"
+            android:layout_marginTop="0dp"
+            android:text="График изменения атмосферного давления с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -83,11 +83,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="5dp"
-            android:text="График изменения скорости ветра со временем"
+            android:layout_marginTop="0dp"
+            android:text="График изменения скорости ветра с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -95,11 +95,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="5dp"
-            android:text="График изменения количества осадков со временем"
+            android:layout_marginTop="0dp"
+            android:text="График изменения количества осадков с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -107,11 +107,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="5dp"
-            android:text="График изменения заряда аккумулятора со временем"
+            android:layout_marginTop="0dp"
+            android:text="График изменения заряда аккумулятора с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -119,11 +119,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="0dp"
             android:text="Таблица с результатами измерения направления ветра"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView

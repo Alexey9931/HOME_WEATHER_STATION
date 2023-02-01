@@ -62,7 +62,10 @@ public class HomeFragment extends Fragment {
 
 
         BackgroundWorker backgroundWorker = new BackgroundWorker(getContext());
-        backgroundWorker.execute("http://alexgorlov99.ru/validateData1.php","login");
+        backgroundWorker.execute(   "http://alexgorlov99.ru/validateData-1day.php",
+                                    "http://alexgorlov99.ru/validateData-3days.php",
+                                    "http://alexgorlov99.ru/validateData-5days.php",
+                                    "http://alexgorlov99.ru/validateData-7days.php","login");
 
 
         //firebase.get_firebase(getContext(), STREET_TEMP, STREET_HUM, RAIN, VBat, WIND_SPEED, WIND_DIRECTION, HOME_TEMP, HOME_HUM, PRESSURE, TIME, imagewind, weath_forecast);

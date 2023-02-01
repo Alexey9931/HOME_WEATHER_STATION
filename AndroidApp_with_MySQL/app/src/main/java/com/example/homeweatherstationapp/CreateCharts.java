@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -54,7 +56,7 @@ public class CreateCharts {
         yAxisRight.setTextColor(Color.WHITE);
 
         XAxis xAxis = chart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST10));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST11));
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(4, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -92,7 +94,7 @@ public class CreateCharts {
         yAxisRight.setTextColor(Color.WHITE);
 
         XAxis xAxis = chart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST10));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST11));
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(4, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -131,7 +133,7 @@ public class CreateCharts {
         yAxisRight.setTextColor(Color.WHITE);
 
         XAxis xAxis = chart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST10));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST11));
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(4, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -169,7 +171,7 @@ public class CreateCharts {
         yAxisRight.setTextColor(Color.WHITE);
 
         XAxis xAxis = chart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST10));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST11));
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(4, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -184,7 +186,7 @@ public class CreateCharts {
         //for (int i = 0; i < (Firebase.LIST10.size()/4) + 1; i++)
         int i = 0;
         int k = 0;
-        while(k < (BackgroundWorker.LIST10.size()/4) + 1)
+        while(k < (BackgroundWorker.LIST11.size()/4) + 1)
         {
             //строка с временем
             TableRow tableRow = new TableRow(context);
@@ -197,9 +199,9 @@ public class CreateCharts {
                 TextView textView1 = new TextView(context);
                 textView1.setTextColor(Color.BLACK);
                 textView1.setGravity(Gravity.CENTER);
-                if ((j + COLS*k) < BackgroundWorker.LIST10.size())
+                if ((j + COLS*k) < BackgroundWorker.LIST11.size())
                 {
-                    textView1.setText(BackgroundWorker.LIST10.get(j + COLS*k));
+                    textView1.setText(BackgroundWorker.LIST11.get(j + COLS*k));
                 }
                 tableRow.addView(textView1, new TableRow.LayoutParams(
                         TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.5f));
@@ -258,7 +260,7 @@ public class CreateCharts {
         yAxisRight.setTextColor(Color.WHITE);
 
         XAxis xAxis = chart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST10));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST11));
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(4, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);

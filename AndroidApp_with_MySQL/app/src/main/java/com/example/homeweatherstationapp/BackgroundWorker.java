@@ -24,23 +24,29 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BackgroundWorker extends AsyncTask<String,Void,String> {
-    public static List<String> LIST1 = new ArrayList<>();
-    public static List<String> LIST2 = new ArrayList<>();
-    public static List<String> LIST3 = new ArrayList<>();
-    public static List<String> LIST4 = new ArrayList<>();
-    public static List<String> LIST5 = new ArrayList<>();
-    public static List<String> LIST6 = new ArrayList<>();
-    public static List<String> LIST7 = new ArrayList<>();
-    public static List<String> LIST8 = new ArrayList<>();
-    public static List<String> LIST9 = new ArrayList<>();
-    public static List<String> LIST10 = new ArrayList<>();
+    public static List<String> LIST1 = new ArrayList<>();//заполнение StreetTemp
+    public static List<String> LIST2 = new ArrayList<>();//заполнение StreetHum
+    public static List<String> LIST3 = new ArrayList<>();//заполнение Rain
+    public static List<String> LIST4 = new ArrayList<>();//заполнение BatteryCharge
+    public static List<String> LIST5 = new ArrayList<>();//заполнение WindDirect
+    public static List<String> LIST6 = new ArrayList<>();//заполнение WindSpeed
+    public static List<String> LIST7 = new ArrayList<>();//заполнение HomeTemp
+    public static List<String> LIST8 = new ArrayList<>();//заполнение HomeHum
+    public static List<String> LIST9 = new ArrayList<>();//заполнение Pressuare
+    public static List<String> LIST10 = new ArrayList<>();//заполнение Time для домаш параметров
+    public static List<String> LIST11 = new ArrayList<>();//заполнение Time для уличн параметров
+
+    public static int ChartDaysMode = 1;
 
     public static boolean StopFlag;
     public static String result = "";
+    public static boolean EndFlag = false;
 
     Context context;
     //AlertDialog alertDialog;
@@ -49,17 +55,32 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     }
     @Override
     protected String doInBackground(String... params) {
-        String login_url = params[0];
-        String type = params[1];
+        String type = params[4];
+        String login_url = "";
         int id = 1;
         String line = "";
         StopFlag = false;
 
+        switch (ChartDaysMode) {
+            case 1:
+                login_url = params[0];
+                break;
+            case 3:
+                login_url = params[1];
+                break;
+            case 5:
+                login_url = params[2];
+                break;
+            case 7:
+                login_url = params[3];
+                break;
+            default:
+                break;
+        }
+
         try {
             URL url = new URL(login_url);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            //httpURLConnection.setReadTimeout(15000);
-            //httpURLConnection.setConnectTimeout(15000);
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
@@ -112,6 +133,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
         LIST8.clear();
         LIST9.clear();
         LIST10.clear();
+        LIST11.clear();
         Toast.makeText(context.getApplicationContext(),"Пожалуйста подождите, идет синхронизация с базой данных...",Toast.LENGTH_LONG).show();
     }
 
@@ -120,6 +142,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
         FillDisplayParam();
         Toast.makeText(context.getApplicationContext(),"Загрузка информации с БД завершена!",Toast.LENGTH_LONG).show();
+        EndFlag = true;
     }
     @Override
     protected void onProgressUpdate(Void... values) {
@@ -127,9 +150,12 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     }
     public void FillAllParamsNew(String result)
     {
+        int flag = 0;
         int i = 0;
         int k = 0;
-        int id = 1;
+        int id = 1;//для домашних параметров
+        int id1 = 1;//для уличных параметров, т.к. их кол-во может быть разным
+        String Result;
         //for(int id = 1; id <= 2000; id++)
         while (i < result.length())
         {
@@ -138,7 +164,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 i++;
             }
-            LIST7.add(id-1, result.substring(k,i));
+            Result = result.substring(k,i);
+            if (!Result.equals("NULL")) {LIST7.add(id-1, Result);}
             i++;
             k = i;
             //заполнение StreetTemp
@@ -146,7 +173,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 i++;
             }
-            LIST1.add(id-1, result.substring(k,i));
+            Result = result.substring(k,i);
+            if (!Result.equals("NULL")) {LIST1.add(id1-1, Result);}
             i++;
             k = i;
             //заполнение HomeHum
@@ -154,7 +182,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 i++;
             }
-            LIST8.add(id-1, result.substring(k,i));
+            Result = result.substring(k,i);
+            if (!Result.equals("NULL")) {LIST8.add(id-1, Result);}
             i++;
             k = i;
             //заполнение StreetHum
@@ -162,7 +191,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 i++;
             }
-            LIST2.add(id-1, result.substring(k,i));
+            Result = result.substring(k,i);
+            if (!Result.equals("NULL")) {LIST2.add(id1-1, Result);}
             i++;
             k = i;
             //заполнение Pressuare
@@ -170,7 +200,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 i++;
             }
-            LIST9.add(id-1, result.substring(k,i));
+            Result = result.substring(k,i);
+            if (!Result.equals("NULL")) {LIST9.add(id-1, Result);}
             i++;
             k = i;
             //заполнение WindSpeed
@@ -178,7 +209,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 i++;
             }
-            LIST6.add(id-1, result.substring(k,i));
+            Result = result.substring(k,i);
+            if (!Result.equals("NULL")) {LIST6.add(id1-1, Result);}
             i++;
             k = i;
             //заполнение WindDirect
@@ -186,7 +218,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 i++;
             }
-            LIST5.add(id-1, result.substring(k,i));
+            Result = result.substring(k,i);
+            if (!Result.equals("NULL")) {LIST5.add(id1-1, Result);}
             i++;
             k = i;
             //заполнение Rain
@@ -194,7 +227,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 i++;
             }
-            LIST3.add(id-1, result.substring(k,i));
+            Result = result.substring(k,i);
+            if (!Result.equals("NULL")) {LIST3.add(id1-1, Result);}
             i++;
             k = i;
             //заполнение BatteryCharge
@@ -202,7 +236,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 i++;
             }
-            LIST4.add(id-1, result.substring(k,i));
+            Result = result.substring(k,i);
+            if (!Result.equals("NULL")) {LIST4.add(id1-1, Result); id1++; flag = 1;}
             i++;
             k = i;
             //заполнение Time
@@ -210,7 +245,15 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 i++;
             }
-            LIST10.add(id-1, result.substring(k,i));
+            Result = result.substring(k,i);
+            if (!Result.equals("NULL")) {
+                LIST10.add(id-1, Result);
+                if (flag == 1)
+                {
+                    LIST11.add(id1-2, Result);
+                    flag = 0;
+                }
+            }
             i=i+6;
             k = i;
 
@@ -227,13 +270,19 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     {
         try {
             HomeFragment.HOME_TEMP.setText(LIST7.get(LIST7.size() - 1));
-            HomeFragment.STREET_TEMP.setText(LIST1.get(LIST1.size() - 1));
+            if (!LIST1.get(LIST1.size() - 1).equals("NULL")) HomeFragment.STREET_TEMP.setText(LIST1.get(LIST1.size() - 1));
+            else HomeFragment.STREET_TEMP.setText("");
             HomeFragment.HOME_HUM.setText(LIST8.get(LIST8.size() - 1));
-            HomeFragment.STREET_HUM.setText(LIST2.get(LIST2.size() - 1));
-            HomeFragment.RAIN.setText(LIST3.get(LIST3.size() - 1));
-            HomeFragment.VBat.setText(LIST4.get(LIST4.size() - 1));
-            HomeFragment.WIND_SPEED.setText(LIST6.get(LIST6.size() - 1));
-            HomeFragment.WIND_DIRECTION.setText(LIST5.get(LIST5.size() - 1));
+            if (!LIST2.get(LIST2.size() - 1).equals("NULL")) HomeFragment.STREET_HUM.setText(LIST2.get(LIST2.size() - 1));
+            else HomeFragment.STREET_HUM.setText("");
+            if (!LIST3.get(LIST3.size() - 1).equals("NULL")) HomeFragment.RAIN.setText(LIST3.get(LIST3.size() - 1));
+            else HomeFragment.RAIN.setText("");
+            if (!LIST4.get(LIST4.size() - 1).equals("NULL")) HomeFragment.VBat.setText(LIST4.get(LIST4.size() - 1));
+            else HomeFragment.VBat.setText("");
+            if (!LIST6.get(LIST6.size() - 1).equals("NULL")) HomeFragment.WIND_SPEED.setText(LIST6.get(LIST6.size() - 1));
+            else HomeFragment.WIND_SPEED.setText("");
+            if (!LIST5.get(LIST5.size() - 1).equals("NULL")) HomeFragment.WIND_DIRECTION.setText(LIST5.get(LIST5.size() - 1));
+            else HomeFragment.WIND_DIRECTION.setText("");
             HomeFragment.PRESSURE.setText(LIST9.get(LIST9.size() - 1));
             HomeFragment.TIME.setText(HomeFragment.time_for_display);
             //вывод индикатора направления ветра

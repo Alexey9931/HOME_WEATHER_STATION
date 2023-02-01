@@ -65,7 +65,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.update_home:
                 BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-                backgroundWorker.execute("http://alexgorlov99.ru/validateData1.php","login");
+                backgroundWorker.execute(   "http://alexgorlov99.ru/validateData-1day.php",
+                                            "http://alexgorlov99.ru/validateData-3days.php",
+                                            "http://alexgorlov99.ru/validateData-5days.php",
+                                            "http://alexgorlov99.ru/validateData-7days.php","login");
                 return true;
         }
 
