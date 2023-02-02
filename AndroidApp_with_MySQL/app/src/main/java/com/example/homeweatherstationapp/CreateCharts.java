@@ -55,12 +55,16 @@ public class CreateCharts {
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextColor(Color.WHITE);
 
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setTextSize(12f);
+
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST11));
         xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(4, false);
+        xAxis.setLabelCount(3, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
+        xAxis.setTextSize(12f);
         // Не забудем отправить команду на перерисовку кадра, иначе график не отобразится
         chart.invalidate();
     }
@@ -93,12 +97,16 @@ public class CreateCharts {
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextColor(Color.WHITE);
 
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setTextSize(12f);
+
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST11));
         xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(4, false);
+        xAxis.setLabelCount(3, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
+        xAxis.setTextSize(12f);
         // Не забудем отправить команду на перерисовку кадра, иначе график не отобразится
         chart.invalidate();
     }
@@ -132,12 +140,16 @@ public class CreateCharts {
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextColor(Color.WHITE);
 
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setTextSize(12f);
+
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST11));
         xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(4, false);
+        xAxis.setLabelCount(3, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
+        xAxis.setTextSize(12f);
         // Не забудем отправить команду на перерисовку кадра, иначе график не отобразится
         chart.invalidate();
     }
@@ -170,12 +182,16 @@ public class CreateCharts {
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextColor(Color.WHITE);
 
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setTextSize(12f);
+
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST11));
         xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(4, false);
+        xAxis.setLabelCount(3, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
+        xAxis.setTextSize(12f);
         // Не забудем отправить команду на перерисовку кадра, иначе график не отобразится
         chart.invalidate();
     }
@@ -259,12 +275,16 @@ public class CreateCharts {
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextColor(Color.WHITE);
 
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setTextSize(12f);
+
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST11));
         xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(4, false);
+        xAxis.setLabelCount(3, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
+        xAxis.setTextSize(12f);
         // Не забудем отправить команду на перерисовку кадра, иначе график не отобразится
         chart.invalidate();
     }
@@ -297,12 +317,16 @@ public class CreateCharts {
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextColor(Color.WHITE);
 
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setTextSize(12f);
+
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST10));
         xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(4, false);
+        xAxis.setLabelCount(3, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
+        xAxis.setTextSize(12f);
         // Не забудем отправить команду на перерисовку кадра, иначе график не отобразится
         chart.invalidate();
     }
@@ -335,12 +359,16 @@ public class CreateCharts {
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextColor(Color.WHITE);
 
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setTextSize(12f);
+
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST10));
         xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(4, false);
+        xAxis.setLabelCount(3, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
+        xAxis.setTextSize(12f);
         // Не забудем отправить команду на перерисовку кадра, иначе график не отобразится
         chart.invalidate();
     }
@@ -373,12 +401,16 @@ public class CreateCharts {
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextColor(Color.WHITE);
 
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setTextSize(12f);
+
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(BackgroundWorker.LIST10));
         xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(4, false);
+        xAxis.setLabelCount(3, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
+        xAxis.setTextSize(12f);
         // Не забудем отправить команду на перерисовку кадра, иначе график не отобразится
         chart.invalidate();
     }

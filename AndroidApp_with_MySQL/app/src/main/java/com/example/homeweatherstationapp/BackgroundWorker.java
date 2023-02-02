@@ -1,6 +1,7 @@
 package com.example.homeweatherstationapp;
 
 
+import static java.lang.String.valueOf;
 import static java.sql.Types.NULL;
 
 import android.annotation.SuppressLint;
@@ -26,6 +27,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +52,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
     Context context;
     //AlertDialog alertDialog;
+    DecimalFormat df = new DecimalFormat("0.0");
     public BackgroundWorker(Context ctx){
         context = ctx;
     }
@@ -183,7 +186,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 i++;
             }
             Result = result.substring(k,i);
-            if (!Result.equals("NULL")) {LIST8.add(id-1, Result);}
+            if (!Result.equals("NULL")) {LIST8.add(id-1, valueOf(df.format(Float.parseFloat(Result))).toString());}
             i++;
             k = i;
             //заполнение StreetHum
@@ -192,7 +195,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 i++;
             }
             Result = result.substring(k,i);
-            if (!Result.equals("NULL")) {LIST2.add(id1-1, Result);}
+            if (!Result.equals("NULL")) {LIST2.add(id1-1, valueOf(df.format(Float.parseFloat(Result))).toString());}
             i++;
             k = i;
             //заполнение Pressuare
@@ -228,7 +231,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 i++;
             }
             Result = result.substring(k,i);
-            if (!Result.equals("NULL")) {LIST3.add(id1-1, Result);}
+            if(100 - 100 * Float.parseFloat(Result) < 0f) Result = "1.0";
+            if (!Result.equals("NULL")) {LIST3.add(id1-1, valueOf(df.format(100 - 100 * Float.parseFloat(Result))).toString());}
             i++;
             k = i;
             //заполнение BatteryCharge
@@ -259,11 +263,154 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
             id++;
         }
-        if (i != 0) HomeFragment.time_for_display = LIST10.get(LIST10.size() - 1).replace(',', '\n');
-        //Форматирование времени
-        /*for (int j = 0; j < LIST10.size(); j++) {
-            LIST10.set(j, LIST10.get(j).substring(0, 8));
-        }*/
+        //Форматирование строки времени для отображение на главном окне
+        String[] parts = LIST10.get(LIST10.size() - 1).split("/",3);
+        switch(parts[1])
+        {
+            case "1":
+                parts[1] = "Янв";
+                break;
+            case "2":
+                parts[1] = "Фев";
+                break;
+            case "3":
+                parts[1] = "Мар";
+                break;
+            case "4":
+                parts[1] = "Апр";
+                break;
+            case "5":
+                parts[1] = "Май";
+                break;
+            case "6":
+                parts[1] = "Июн";
+                break;
+            case "7":
+                parts[1] = "Июл";
+                break;
+            case "8":
+                parts[1] = "Авг";
+                break;
+            case "9":
+                parts[1] = "Сен";
+                break;
+            case "10":
+                parts[1] = "Окт";
+                break;
+            case "11":
+                parts[1] = "Ноя";
+                break;
+            case "12":
+                parts[1] = "Дек";
+                break;
+        }
+        //LIST10.set(LIST10.size() - 1, parts[0]+"/"+parts[1]+"/"+"20"+parts[2]);
+        if (i != 0) HomeFragment.time_for_display = (parts[0]+"/"+parts[1]+"/"+"20"+parts[2]).replace(',', '\n');
+        //Форматирование времени для отображения на графиках
+        for(int n = 0; n < LIST10.size(); n++)
+        {
+            String[] all_part = LIST10.get(n).replace(',', ' ').split(" ",2);
+            String time = all_part[0];
+            String date = all_part[1];
+            String[] date_part = date.split("/", 3);
+            switch(date_part[1])
+            {
+                case "1":
+                    date_part[1] = "Янв";
+                    break;
+                case "2":
+                    date_part[1] = "Фев";
+                    break;
+                case "3":
+                    date_part[1] = "Мар";
+                    break;
+                case "4":
+                    date_part[1] = "Апр";
+                    break;
+                case "5":
+                    date_part[1] = "Май";
+                    break;
+                case "6":
+                    date_part[1] = "Июн";
+                    break;
+                case "7":
+                    date_part[1] = "Июл";
+                    break;
+                case "8":
+                    date_part[1] = "Авг";
+                    break;
+                case "9":
+                    date_part[1] = "Сен";
+                    break;
+                case "10":
+                    date_part[1] = "Окт";
+                    break;
+                case "11":
+                    date_part[1] = "Ноя";
+                    break;
+                case "12":
+                    date_part[1] = "Дек";
+                    break;
+            }
+            String[] time_part = time.split(":", 3);
+            String hours = time_part[0];
+            if (Integer.parseInt(hours) < 10) hours = "0"+hours;
+            String minutes = time_part[1];
+            if (Integer.parseInt(minutes) < 10) minutes = "0"+minutes;
+            LIST10.set(n,hours+":"+minutes+" ("+date_part[0]+" "+date_part[1]+")");
+        }
+        for(int m = 0; m < LIST11.size(); m++)
+        {
+            String[] all_part = LIST11.get(m).replace(',', ' ').split(" ",2);
+            String time = all_part[0];
+            String date = all_part[1];
+            String[] date_part = date.split("/", 3);
+            switch(date_part[1])
+            {
+                case "1":
+                    date_part[1] = "Янв";
+                    break;
+                case "2":
+                    date_part[1] = "Фев";
+                    break;
+                case "3":
+                    date_part[1] = "Мар";
+                    break;
+                case "4":
+                    date_part[1] = "Апр";
+                    break;
+                case "5":
+                    date_part[1] = "Май";
+                    break;
+                case "6":
+                    date_part[1] = "Июн";
+                    break;
+                case "7":
+                    date_part[1] = "Июл";
+                    break;
+                case "8":
+                    date_part[1] = "Авг";
+                    break;
+                case "9":
+                    date_part[1] = "Сен";
+                    break;
+                case "10":
+                    date_part[1] = "Окт";
+                    break;
+                case "11":
+                    date_part[1] = "Ноя";
+                    break;
+                case "12":
+                    date_part[1] = "Дек";
+                    break;
+            }
+            String[] time_part = time.split(":", 3);
+            String hours = time_part[0];
+            if (Integer.parseInt(hours) < 10) hours = "0"+hours;
+            String minutes = time_part[1];
+            if (Integer.parseInt(minutes) < 10) minutes = "0"+minutes;
+            LIST11.set(m,hours+":"+minutes+" ("+date_part[0]+" "+date_part[1]+")");
+        }
 
     }
     public void FillDisplayParam()

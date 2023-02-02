@@ -165,7 +165,7 @@
         android:id="@+id/TIME"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="200dp"
+        android:layout_marginLeft="190dp"
         android:layout_marginTop="435dp"
         android:fontFamily="serif"
         android:textAlignment="viewStart"
