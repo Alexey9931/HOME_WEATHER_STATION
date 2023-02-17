@@ -18,7 +18,7 @@ char Vbat[5] = {0};
 char Rain[6] = {0};
 char Press_home[6] = {0};
 
-char temp_street_to_DB[5] = {0};
+char temp_street_to_DB[6] = {0};
 char hum_street_to_DB[5] = {0};
 char WIND_speed_to_DB[5] = {0};
 char wind_direction_to_DB[6] = {0};

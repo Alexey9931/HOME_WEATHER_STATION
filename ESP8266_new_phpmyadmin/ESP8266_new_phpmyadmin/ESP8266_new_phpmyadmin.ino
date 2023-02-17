@@ -59,14 +59,14 @@ void loop()
 {
     //ESP.restart();
     FLAG = 1;
-    //Пока для теста закомментируем,т.к. данные с МК пока не передаем
+
     if( Serial.available() > 0 ) 
     {   
       sprintf(data,"%s",Serial.readString().c_str());
       Serial.println(data);
       FLAG = read_measurements();
       counter++;
-
+      delay(0);
       //Check WiFi connection status
       if(WiFi.status()== WL_CONNECTED)
       {
@@ -107,7 +107,7 @@ void loop()
       {
         //Serial.println("WiFi Disconnected");
       }
-      
+      delay(0);
       clean_all_array(receive_time);
       clean_all_array(temp_street);
       clean_all_array(temp_home);
@@ -120,7 +120,8 @@ void loop()
       clean_all_array(wind_direct);
       clean_all_array(data);
       clean_all_array(count);
-      delay(1000);
+      delay(0);
+      //delay(1000);
     }
     else
     {
@@ -181,102 +182,163 @@ void clean_all_array(char * array)
 
 int read_measurements()
 {
+      uint32_t timer;         // переменная таймера
+      timer = millis();
       //считываем ул.темпер.
       while(data[i] != ' ')
       {
         temp_street[k] = data[i];
         k++;
         i++;
+        if ((millis()-timer)>=3000)
+        {
+          return 0;
+        }
+        delay(0);
       }
       Serial.println(temp_street);
       k = 0;
       i++;
+      timer = millis();
       //считываем дом.темпер.
       while(data[i] != ' ')
       {
         temp_home[k] = data[i];
         k++;
         i++;
+        if ((millis()-timer)>=3000)
+        {
+          return 0;
+        }
+        delay(0);
       }
       Serial.println(temp_home);
       k = 0;
       i++;
+      timer = millis();
       //считываем ул.влажность
       while(data[i] != ' ')
       {
         hum_street[k] = data[i];
         k++;
         i++;
+        if ((millis()-timer)>=3000)
+        {
+          return 0;
+        }
+        delay(0);
       }
       Serial.println(hum_street);
       k = 0;
       i++;
+      timer = millis();
       //считываем дом.влажность
       while(data[i] != ' ')
       {
         hum_home[k] = data[i];
         k++;
         i++;
+        if ((millis()-timer)>=3000)
+        {
+          return 0;
+        }
+        delay(0);
       }
       Serial.println(hum_home);
       k = 0;
       i++;
+      timer = millis();
       //считываем давление
       while(data[i] != ' ')
       {
         pressure[k] = data[i];
         k++;
         i++;
+        if ((millis()-timer)>=3000)
+        {
+          return 0;
+        }
+        delay(0);
       }
       Serial.println(pressure);
       k = 0;
       i++;
+      timer = millis();
       //считываем осадки
       while(data[i] != ' ')
       {
         rain[k] = data[i];
         k++;
         i++;
+        if ((millis()-timer)>=3000)
+        {
+          return 0;
+        }
+        delay(0);
       }
       Serial.println(rain);
       k = 0;
       i++;
+      timer = millis();
       //считываем заряд АКБ
       while(data[i] != ' ')
       {
         VBAT[k] = data[i];
         k++;
         i++;
+        if ((millis()-timer)>=3000)
+        {
+          return 0;
+        }
+        delay(0);
       }
       Serial.println(VBAT);
       k = 0;
       i++;
+      timer = millis();
       //считываем скор.ветра
       while(data[i] != ' ')
       {
         wind_speed[k] = data[i];
         k++;
         i++;
+        if ((millis()-timer)>=3000)
+        {
+          return 0;
+        }
+        delay(0);
       }
       Serial.println(wind_speed);
       k = 0;
       i++;
+      timer = millis();
       //считываем напр.ветра
       while(data[i] != ' ')
       {
         wind_direct[k] = data[i];
         k++;
         i++;
+        if ((millis()-timer)>=3000)
+        {
+          return 0;
+        }
+        delay(0);
       }
       Serial.println(wind_direct);
       k = 0;
       i++;
+      timer = millis();
       //считываем дату
       while(data[i] != ' ')
       {
         receive_time[k] = data[i];
         k++;
         i++;
+        if ((millis()-timer)>=3000)
+        {
+          return 0;
+        }
+        delay(0);
       }
       Serial.println(receive_time);   
       k = 0;

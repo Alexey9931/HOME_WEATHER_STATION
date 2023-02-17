@@ -27,7 +27,7 @@
             android:text="График изменения комнатной температуры с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:text="График изменения уличной температуры с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:text="График изменения уличной влажности с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -63,7 +63,7 @@
             android:text="График изменения комнатной влажности с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -75,7 +75,7 @@
             android:text="График изменения атмосферного давления с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -87,7 +87,7 @@
             android:text="График изменения скорости ветра с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -99,7 +99,7 @@
             android:text="График изменения количества осадков с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -111,7 +111,7 @@
             android:text="График изменения заряда аккумулятора с течением времени"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -123,7 +123,7 @@
             android:text="Таблица с результатами измерения направления ветра"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -135,7 +135,7 @@
             android:text="Данные не выбраны!\n Проверьте настройки графиков!\n(Вкладка Chart's settings) "
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
 
         <com.github.mikephil.charting.charts.LineChart
@@ -150,6 +150,7 @@
             android:id="@+id/street_hum_chart"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginTop="0dp"
             tools:ignore="MissingConstraints" />
 
@@ -194,7 +195,6 @@
             tools:ignore="MissingConstraints" />
 
         <com.github.mikephil.charting.charts.LineChart
-
             android:id="@+id/pressure_chart"
             android:layout_width="match_parent"
             android:layout_height="300dp"

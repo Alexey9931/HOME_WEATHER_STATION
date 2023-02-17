@@ -112,26 +112,26 @@ public class BackgroundWorkerForDetails extends AsyncTask<View,Void,String> {
             textView_end_time = (TextView) params[22];
             textView_number_mesuamer = (TextView) params[23];
 
-            avg_str_temp = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateAverage(BackgroundWorker.LIST1)))) + " °C";
-            avg_home_temp = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateAverage(BackgroundWorker.LIST7)))) + " °C";
-            avg_str_hum = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateAverage(BackgroundWorker.LIST2)))) + " %";
-            avg_home_hum = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateAverage(BackgroundWorker.LIST8)))) + " %";
-            avg_rainfall = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateAverage(BackgroundWorker.LIST3)))) + " %";
-            avg_wind_speed = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateAverage(BackgroundWorker.LIST6)))) + " m/s";
-            max_str_temp = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMax(BackgroundWorker.LIST1)))) + " °C";
-            max_home_temp = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMax(BackgroundWorker.LIST7)))) + " °C";
-            max_str_hum = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMax(BackgroundWorker.LIST2)))) + " %";
-            max_home_hum = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMax(BackgroundWorker.LIST8)))) + " %";
-            max_rainfall = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMax(BackgroundWorker.LIST3)))) + " %";
-            max_wind_speed = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMax(BackgroundWorker.LIST6)))) + " m/s";
-            max_bat_charge = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMax(BackgroundWorker.LIST4)))) + " V";
-            min_str_temp = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMin(BackgroundWorker.LIST1)))) + " °C";
-            min_home_temp = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMin(BackgroundWorker.LIST7)))) + " °C";
-            min_str_hum = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMin(BackgroundWorker.LIST2)))) + " %";
-            min_home_hum = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMin(BackgroundWorker.LIST8)))) + " %";
-            min_rainfall = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMin(BackgroundWorker.LIST3)))) + " %";
-            min_wind_speed = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMin(BackgroundWorker.LIST6)))) + " m/s";
-            min_bat_charge = Float.toString(Float.parseFloat(decimalFormat.format(calculateDetails.CalculateMin(BackgroundWorker.LIST4)))) + " V";
+            avg_str_temp = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST1)) + " °C";
+            avg_home_temp = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST7)) + " °C";
+            avg_str_hum = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST2)) + " %";
+            avg_home_hum = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST8)) + " %";
+            avg_rainfall = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST3)) + " %";
+            avg_wind_speed = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST6)) + " м/с";
+            max_str_temp = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST1)) + " °C";
+            max_home_temp = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST7)) + " °C";
+            max_str_hum = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST2)) + " %";
+            max_home_hum = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST8)) + " %";
+            max_rainfall = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST3)) + " %";
+            max_wind_speed = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST6)) + " м/с";
+            max_bat_charge = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST4)) + " В";
+            min_str_temp = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST1)) + " °C";
+            min_home_temp = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST7)) + " °C";
+            min_str_hum = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST2)) + " %";
+            min_home_hum = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST8)) + " %";
+            min_rainfall = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST3)) + " %";
+            min_wind_speed = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST6)) + " м/с";
+            min_bat_charge = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST4)) + " В";
             st_time = BackgroundWorker.LIST10.get(0);
             en_time = BackgroundWorker.LIST10.get(BackgroundWorker.LIST10.size()-1);
             number = Integer.toString(BackgroundWorker.LIST10.size());
@@ -185,6 +185,7 @@ public class BackgroundWorkerForDetails extends AsyncTask<View,Void,String> {
 
             PieDataSet pieDataSet = new PieDataSet(yVals, "");
             pieDataSet.setColors(colors);
+            pieDataSet.setValueTextSize(14f);
             pieData = new PieData(pieDataSet);
 
 

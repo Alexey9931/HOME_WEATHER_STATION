@@ -19,7 +19,7 @@
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="@color/purple_700"
-        android:textSize="60sp"
+        android:textSize="60dp"
         android:textStyle="bold" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="serif"
         android:textColor="@color/purple_700"
-        android:textSize="60sp"
+        android:textSize="60dp"
         android:textStyle="bold" />
 
     <TextView
@@ -42,7 +42,7 @@
         android:fontFamily="casual"
         android:text="°C"
         android:textColor="@color/purple_700"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <TextView
@@ -54,7 +54,7 @@
         android:fontFamily="casual"
         android:text="°C"
         android:textColor="@color/purple_700"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <TextView
@@ -65,7 +65,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="serif"
         android:textColor="@color/purple_700"
-        android:textSize="60sp"
+        android:textSize="60dp"
         android:textStyle="bold" />
 
     <TextView
@@ -76,7 +76,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="serif"
         android:textColor="@color/purple_700"
-        android:textSize="60sp"
+        android:textSize="60dp"
         android:textStyle="bold" />
 
     <TextView
@@ -88,7 +88,7 @@
         android:fontFamily="casual"
         android:text="%"
         android:textColor="@color/purple_700"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <TextView
@@ -100,7 +100,7 @@
         android:fontFamily="casual"
         android:text="%"
         android:textColor="@color/purple_700"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <TextView
@@ -112,7 +112,7 @@
         android:fontFamily="casual"
         android:text="%"
         android:textColor="@color/purple_700"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <TextView
@@ -123,7 +123,7 @@
         android:layout_marginTop="165dp"
         android:fontFamily="serif"
         android:textColor="@color/purple_700"
-        android:textSize="60sp"
+        android:textSize="60dp"
         android:textStyle="bold" />
 
 
@@ -135,7 +135,7 @@
         android:layout_marginTop="165dp"
         android:fontFamily="serif"
         android:textColor="@color/purple_700"
-        android:textSize="60sp"
+        android:textSize="60dp"
         android:textStyle="bold" />
 
 
@@ -147,7 +147,7 @@
         android:layout_marginTop="250dp"
         android:fontFamily="serif"
         android:textColor="@color/purple_700"
-        android:textSize="60sp"
+        android:textSize="60dp"
         android:textStyle="bold" />
 
     <TextView
@@ -158,7 +158,7 @@
         android:layout_marginTop="430dp"
         android:fontFamily="serif"
         android:textColor="@color/purple_700"
-        android:textSize="60sp"
+        android:textSize="60dp"
         android:textStyle="bold" />
 
     <TextView
@@ -170,7 +170,7 @@
         android:fontFamily="serif"
         android:textAlignment="viewStart"
         android:textColor="@color/purple_700"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <TextView
@@ -181,7 +181,7 @@
         android:layout_marginTop="320dp"
         android:fontFamily="serif"
         android:textColor="@color/purple_700"
-        android:textSize="60sp"
+        android:textSize="60dp"
         android:textStyle="bold" />
 
 
@@ -204,7 +204,7 @@
         android:text="НА УЛИЦЕ"
         android:textAlignment="viewStart"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <TextView
@@ -217,7 +217,7 @@
         android:singleLine="true"
         android:text="ТЕМП."
         android:textColor="@color/white"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textStyle="bold" />
 
     <TextView
@@ -230,7 +230,7 @@
         android:singleLine="true"
         android:text="ТЕМП."
         android:textColor="@color/white"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textStyle="bold" />
 
     <TextView
@@ -243,7 +243,7 @@
         android:singleLine="true"
         android:text="ВЛАЖ."
         android:textColor="@color/white"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textStyle="bold" />
 
     <TextView
@@ -256,7 +256,7 @@
         android:singleLine="true"
         android:text="ВЛАЖ."
         android:textColor="@color/white"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textStyle="bold" />
 
     <TextView
@@ -269,7 +269,7 @@
         android:singleLine="true"
         android:text="В ПОМЕЩЕНИИ"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <View
@@ -316,7 +316,7 @@
         android:singleLine="true"
         android:text="ОСАДКИ"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <TextView
@@ -329,7 +329,7 @@
         android:singleLine="true"
         android:text="ВЕТЕР"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <TextView
@@ -342,7 +342,7 @@
         android:singleLine="true"
         android:text="ДАВЛЕНИЕ"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <TextView
@@ -368,7 +368,7 @@
         android:singleLine="true"
         android:text="ВРЕМЯ ОБНОВЛЕНИЯ"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <View
@@ -487,7 +487,7 @@
         android:singleLine="true"
         android:text="НАПРЯЖ. ПИТАНИЯ"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <TextView
@@ -499,7 +499,7 @@
         android:fontFamily="casual"
         android:text="B"
         android:textColor="@color/purple_700"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <TextView
@@ -511,7 +511,7 @@
         android:fontFamily="casual"
         android:text="M/C"
         android:textColor="@color/purple_700"
-        android:textSize="20sp"
+        android:textSize="20dp"
         android:textStyle="bold" />
 
     <TextView
@@ -523,7 +523,7 @@
         android:fontFamily="serif"
         android:text="MM.PT.CT."
         android:textColor="@color/purple_700"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:textStyle="bold" />
 
     <ImageView
@@ -544,7 +544,7 @@
         android:singleLine="true"
         android:text="СКОРОСТЬ"
         android:textColor="@color/white"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textStyle="bold" />
 
     <TextView
@@ -557,7 +557,7 @@
         android:singleLine="true"
         android:text="НАПРАВЛЕНИЕ"
         android:textColor="@color/white"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textStyle="bold" />
 
     <ImageView

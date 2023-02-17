@@ -52,7 +52,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
     Context context;
     //AlertDialog alertDialog;
-    DecimalFormat df = new DecimalFormat("0.0");
+    DecimalFormat df = new DecimalFormat("#.#");
     public BackgroundWorker(Context ctx){
         context = ctx;
     }
@@ -186,7 +186,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 i++;
             }
             Result = result.substring(k,i);
-            if (!Result.equals("NULL")) {LIST8.add(id-1, valueOf(df.format(Float.parseFloat(Result))).toString());}
+            if (!Result.equals("NULL")) {LIST8.add(id-1, String.valueOf(Float.parseFloat(Result)));}
             i++;
             k = i;
             //заполнение StreetHum
@@ -195,7 +195,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 i++;
             }
             Result = result.substring(k,i);
-            if (!Result.equals("NULL")) {LIST2.add(id1-1, valueOf(df.format(Float.parseFloat(Result))).toString());}
+            if (!Result.equals("NULL")) {LIST2.add(id1-1, String.valueOf(Float.parseFloat(Result)));}
             i++;
             k = i;
             //заполнение Pressuare
@@ -232,7 +232,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             }
             Result = result.substring(k,i);
             if(100 - 100 * Float.parseFloat(Result) < 0f) Result = "1.0";
-            if (!Result.equals("NULL")) {LIST3.add(id1-1, valueOf(df.format(100 - 100 * Float.parseFloat(Result))).toString());}
+            if (!Result.equals("NULL")) {LIST3.add(id1-1, String.valueOf(100 - 100 * Float.parseFloat(Result)));}
             i++;
             k = i;
             //заполнение BatteryCharge

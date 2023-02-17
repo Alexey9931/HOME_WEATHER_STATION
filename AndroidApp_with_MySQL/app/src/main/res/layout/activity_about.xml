@@ -75,7 +75,7 @@
         android:text="Copyright © 2022 Alexey Gorlov"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <TextView
@@ -88,7 +88,7 @@
         android:text="Home Weather Station App v.1.0 2022"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="20dp"
         android:textStyle="bold" />
 
     <TextView
@@ -101,7 +101,7 @@
         android:text=" Android приложение для проекта домаш-\nней метеостанции «HomeWeatherStation»."
         android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <TextView
@@ -114,7 +114,7 @@
         android:text=" Приложение предназначено для сбора,\nобработки и визуализации метеорологичес-\nких показателей для удобного восприятия \nпользователем в режиме реального времени."
         android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <TextView
@@ -127,7 +127,7 @@
         android:text="Ссылка на проект на GitHub: "
         android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <TextView
@@ -139,7 +139,7 @@
         android:fontFamily="serif"
         android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold"
         tools:text="" />
 

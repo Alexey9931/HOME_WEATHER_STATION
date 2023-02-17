@@ -21,7 +21,7 @@
             android:text="Выберите параметры для отображения на графиках"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:text="Выберите временной диапазон на графиках"
             android:textAlignment="center"
             android:textColor="@color/purple_700"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
 
@@ -60,7 +60,7 @@
         android:textAlignment="textStart"
         android:textColor="@color/purple_700"
         android:textIsSelectable="false"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/textView5"
@@ -70,7 +70,7 @@
         android:layout_marginTop="370dp"
         android:text="T [°C] воздуха на улице"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/textView56"
@@ -80,7 +80,7 @@
         android:layout_marginTop="245dp"
         android:text="Отобразить все параметры"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/textView55"
@@ -90,7 +90,7 @@
         android:layout_marginTop="310dp"
         android:text="T [°C] воздуха дома"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <CheckBox
         android:id="@+id/checkBox_TEMP_HOME"
@@ -101,7 +101,7 @@
         android:buttonTint="@color/purple_700"
         android:checked="false"
         android:textColor="@color/purple_700"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <CheckBox
         android:id="@+id/checkBox_TEMP_STREET"
@@ -112,7 +112,7 @@
         android:buttonTint="@color/purple_700"
         android:checked="false"
         android:textColor="@color/purple_700"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -122,7 +122,7 @@
         android:layout_marginTop="430dp"
         android:text="RH [%] воздуха на улице"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/textView66"
@@ -132,7 +132,7 @@
         android:layout_marginTop="490dp"
         android:text="RH [%] воздуха дома"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/textView77"
@@ -142,7 +142,7 @@
         android:layout_marginTop="550dp"
         android:text="Атм.давление[мм.рт.ст]"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <CheckBox
         android:id="@+id/checkBox_HUM_STREET"
@@ -152,7 +152,7 @@
         android:layout_marginTop="420dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <CheckBox
         android:id="@+id/checkBox_HUM_HOME"
@@ -162,7 +162,7 @@
         android:layout_marginTop="480dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <CheckBox
         android:id="@+id/checkBox_PRESSURE"
@@ -172,7 +172,7 @@
         android:layout_marginTop="540dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/textView7"
@@ -182,7 +182,7 @@
         android:layout_marginTop="610dp"
         android:text="Скорость ветра [м/с]"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <CheckBox
         android:id="@+id/checkBox_WIND_SPEED"
@@ -192,7 +192,7 @@
         android:layout_marginTop="600dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/textView8"
@@ -202,7 +202,7 @@
         android:layout_marginTop="670dp"
         android:text="Направление ветра"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <CheckBox
         android:id="@+id/checkBox_WIND_DIRECT"
@@ -212,7 +212,7 @@
         android:layout_marginTop="660dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/textView9"
@@ -222,7 +222,7 @@
         android:layout_marginTop="730dp"
         android:text="Кол-во осадков [%]"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <CheckBox
         android:id="@+id/checkBox_RAIN"
@@ -232,7 +232,7 @@
         android:layout_marginTop="720dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/textView10"
@@ -242,7 +242,7 @@
         android:layout_marginTop="790dp"
         android:text="Заряд АКБ [В]"
         android:textColor="@color/purple_700"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <CheckBox
         android:id="@+id/checkBox_VBAT"
@@ -252,7 +252,7 @@
         android:layout_marginTop="780dp"
         android:buttonTint="@color/purple_700"
         android:textColor="@color/purple_700"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
         <RadioGroup
             android:id="@+id/display_mode"
@@ -272,7 +272,7 @@
                 android:textColorHighlight="@color/purple_700"
                 android:textColorHint="@color/purple_700"
                 android:textColorLink="@color/purple_700"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
             <RadioButton
                 android:id="@+id/radioButton_3day"
@@ -286,7 +286,7 @@
                 android:textColorHighlight="@color/purple_700"
                 android:textColorHint="@color/purple_700"
                 android:textColorLink="@color/purple_700"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
             <RadioButton
                 android:id="@+id/radioButton_5day"
@@ -300,7 +300,7 @@
                 android:textColorHighlight="@color/purple_700"
                 android:textColorHint="@color/purple_700"
                 android:textColorLink="@color/purple_700"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
             <RadioButton
                 android:id="@+id/radioButton_7day"
@@ -314,7 +314,7 @@
                 android:textColorHighlight="@color/purple_700"
                 android:textColorHint="@color/purple_700"
                 android:textColorLink="@color/purple_700"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
         </RadioGroup>
 
 

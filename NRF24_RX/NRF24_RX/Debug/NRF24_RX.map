@@ -1259,7 +1259,7 @@ END GROUP
                 0x00800374                _edata = .
                 0x00800374                PROVIDE (__data_end, .)
 
-.bss            0x00800374      0x114
+.bss            0x00800374      0x115
                 0x00800374                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
@@ -1304,71 +1304,71 @@ END GROUP
                 0x00800401        0x5 WeatherStation.o
                 0x00800401                hum_street_to_DB
  .bss.temp_street_to_DB
-                0x00800406        0x5 WeatherStation.o
+                0x00800406        0x6 WeatherStation.o
                 0x00800406                temp_street_to_DB
  .bss.Press_home
-                0x0080040b        0x6 WeatherStation.o
-                0x0080040b                Press_home
- .bss.Rain      0x00800411        0x6 WeatherStation.o
-                0x00800411                Rain
- .bss.Vbat      0x00800417        0x5 WeatherStation.o
-                0x00800417                Vbat
+                0x0080040c        0x6 WeatherStation.o
+                0x0080040c                Press_home
+ .bss.Rain      0x00800412        0x6 WeatherStation.o
+                0x00800412                Rain
+ .bss.Vbat      0x00800418        0x5 WeatherStation.o
+                0x00800418                Vbat
  .bss.WIND_speed
-                0x0080041c        0x5 WeatherStation.o
-                0x0080041c                WIND_speed
- .bss.hum_home  0x00800421        0x5 WeatherStation.o
-                0x00800421                hum_home
+                0x0080041d        0x5 WeatherStation.o
+                0x0080041d                WIND_speed
+ .bss.hum_home  0x00800422        0x5 WeatherStation.o
+                0x00800422                hum_home
  .bss.temp_home
-                0x00800426        0x6 WeatherStation.o
-                0x00800426                temp_home
+                0x00800427        0x6 WeatherStation.o
+                0x00800427                temp_home
  .bss.hum_street
-                0x0080042c        0x5 WeatherStation.o
-                0x0080042c                hum_street
+                0x0080042d        0x5 WeatherStation.o
+                0x0080042d                hum_street
  .bss.temp_street
-                0x00800431        0x6 WeatherStation.o
-                0x00800431                temp_street
+                0x00800432        0x6 WeatherStation.o
+                0x00800432                temp_street
  *(COMMON)
- COMMON         0x00800437       0x16 BMP180.o
-                0x00800437                b2
-                0x00800439                mb
-                0x0080043b                ac1
-                0x0080043d                b1
-                0x0080043f                ac6
-                0x00800441                ac5
-                0x00800443                ac2
-                0x00800445                md
-                0x00800447                ac4
-                0x00800449                mc
-                0x0080044b                ac3
- COMMON         0x0080044d        0xc main.o
-                0x0080044d                add_cnt
-                0x0080044e                cnt
-                0x0080044f                month
-                0x00800450                hour
-                0x00800451                clock_change_mode
-                0x00800452                min
-                0x00800453                year
-                0x00800454                sec
-                0x00800455                day
-                0x00800456                alarmhour
-                0x00800457                date
-                0x00800458                alarmmin
- COMMON         0x00800459        0xd NRF24.o
-                0x00800459                receive_counter
-                0x0080045a                adc_value1
-                0x00800460                adc_value2
- COMMON         0x00800466       0x22 WeatherStation.o
-                0x00800466                wind_direction
-                0x0080046c                T_Param
-                0x00800488                PROVIDE (__bss_end, .)
+ COMMON         0x00800438       0x16 BMP180.o
+                0x00800438                b2
+                0x0080043a                mb
+                0x0080043c                ac1
+                0x0080043e                b1
+                0x00800440                ac6
+                0x00800442                ac5
+                0x00800444                ac2
+                0x00800446                md
+                0x00800448                ac4
+                0x0080044a                mc
+                0x0080044c                ac3
+ COMMON         0x0080044e        0xc main.o
+                0x0080044e                add_cnt
+                0x0080044f                cnt
+                0x00800450                month
+                0x00800451                hour
+                0x00800452                clock_change_mode
+                0x00800453                min
+                0x00800454                year
+                0x00800455                sec
+                0x00800456                day
+                0x00800457                alarmhour
+                0x00800458                date
+                0x00800459                alarmmin
+ COMMON         0x0080045a        0xd NRF24.o
+                0x0080045a                receive_counter
+                0x0080045b                adc_value1
+                0x00800461                adc_value2
+ COMMON         0x00800467       0x22 WeatherStation.o
+                0x00800467                wind_direction
+                0x0080046d                T_Param
+                0x00800489                PROVIDE (__bss_end, .)
                 0x0000626e                __data_load_start = LOADADDR (.data)
                 0x000064e2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800488        0x0
+.noinit         0x00800489        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800488                _end = .
+                0x00800489                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0

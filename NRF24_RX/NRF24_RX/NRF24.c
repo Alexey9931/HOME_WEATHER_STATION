@@ -19,7 +19,7 @@ extern char wind_direction[6];
 extern char Vbat[5];
 extern char Rain[6];
 extern char Press_home[6];
-extern char temp_street_to_DB[5];
+extern char temp_street_to_DB[6];
 extern char hum_street_to_DB[5];
 extern char WIND_speed_to_DB[5];
 extern char wind_direction_to_DB[6];
