@@ -96,6 +96,14 @@ public class CalculateDetails {
     }
     public static void Find_Wind_Direct_Percent(List<String> LIST)
     {
+        NW_Count = 0;
+        N_Count = 0;
+        S_Count = 0;
+        E_Count = 0;
+        W_Count = 0;
+        NE_Count = 0;
+        SW_Count = 0;
+        SE_Count = 0;
         for(int i = 0; i < LIST.size(); i++)
         {
             switch (LIST.get(i))

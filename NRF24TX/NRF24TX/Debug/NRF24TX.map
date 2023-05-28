@@ -6,6 +6,8 @@ d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/av
                               main.o (__do_copy_data)
 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_clear_bss.o)
                               adc.o (__do_clear_bss)
+d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
+                              main.o (__umulhisi3)
 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(memset.o)
                               main.o (memset)
 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(sprintf.o)
@@ -45,6 +47,30 @@ Discarded input sections
  .text          0x00000000        0x0 DHT22.o
  .data          0x00000000        0x0 DHT22.o
  .bss           0x00000000        0x0 DHT22.o
+ .text.dht22_init
+                0x00000000       0x22 DHT22.o
+ .text.dht22_GetData
+                0x00000000       0xc0 DHT22.o
+ .debug_info    0x00000000      0x2ef DHT22.o
+ .debug_abbrev  0x00000000      0x111 DHT22.o
+ .debug_loc     0x00000000      0x262 DHT22.o
+ .debug_aranges
+                0x00000000       0x28 DHT22.o
+ .debug_ranges  0x00000000       0x18 DHT22.o
+ .debug_line    0x00000000      0x1f4 DHT22.o
+ .debug_str     0x00000000      0x1e2 DHT22.o
+ .comment       0x00000000       0x31 DHT22.o
+ .debug_frame   0x00000000       0x34 DHT22.o
+ .text          0x00000000        0x0 DS18B20.o
+ .data          0x00000000        0x0 DS18B20.o
+ .bss           0x00000000        0x0 DS18B20.o
+ .text.converttemp
+                0x00000000        0x2 DS18B20.o
+ .text          0x00000000        0x0 HTU21D.o
+ .data          0x00000000        0x0 HTU21D.o
+ .bss           0x00000000        0x0 HTU21D.o
+ .text.HTU21D_get_temperature
+                0x00000000       0x50 HTU21D.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -59,6 +85,13 @@ Discarded input sections
  .text.nRF_command
                 0x00000000       0x12 NRF24.o
  .bss.RX_BUF    0x00000000        0x5 NRF24.o
+ .text          0x00000000        0x0 TWI.o
+ .data          0x00000000        0x0 TWI.o
+ .bss           0x00000000        0x0 TWI.o
+ .text.I2C_Init
+                0x00000000        0x6 TWI.o
+ .text.I2C_SendByteByADDR
+                0x00000000       0x1a TWI.o
  .text          0x00000000        0x0 usart.o
  .data          0x00000000        0x0 usart.o
  .bss           0x00000000        0x0 usart.o
@@ -126,6 +159,20 @@ Discarded input sections
                 0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
                 0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_clear_bss.o)
+ .text          0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
+ .data          0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
+ .bss           0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
+ .text.libgcc.div
+                0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
+ .text.libgcc   0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
  .text          0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(memset.o)
  .data          0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(memset.o)
  .bss           0x00000000        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(memset.o)
@@ -193,8 +240,11 @@ Linker script and memory map
 LOAD D:/AtmelStudio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8a/avr4/crtatmega8a.o
 LOAD adc.o
 LOAD DHT22.o
+LOAD DS18B20.o
+LOAD HTU21D.o
 LOAD main.o
 LOAD NRF24.o
+LOAD TWI.o
 LOAD usart.o
 START GROUP
 LOAD d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a
@@ -305,7 +355,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xf74
+.text           0x00000000     0x10c8
  *(.vectors)
  .vectors       0x00000000       0x26 D:/AtmelStudio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8a/avr4/crtatmega8a.o
                 0x00000000                __vector_default
@@ -388,106 +438,139 @@ END GROUP
  .text.ADC_convert
                 0x0000006c       0x62 adc.o
                 0x0000006c                ADC_convert
- .text.dht22_init
-                0x000000ce       0x22 DHT22.o
-                0x000000ce                dht22_init
- .text.dht22_GetData
-                0x000000f0       0xc0 DHT22.o
-                0x000000f0                dht22_GetData
+ .text.dt_testdevice
+                0x000000ce       0x3e DS18B20.o
+                0x000000ce                dt_testdevice
+ .text.dt_readbit
+                0x0000010c       0x32 DS18B20.o
+                0x0000010c                dt_readbit
+ .text.dt_readbyte
+                0x0000013e       0x2a DS18B20.o
+                0x0000013e                dt_readbyte
+ .text.dt_sendbit
+                0x00000168       0x2e DS18B20.o
+                0x00000168                dt_sendbit
+ .text.dt_sendbyte
+                0x00000196       0x3e DS18B20.o
+                0x00000196                dt_sendbyte
+ .text.dt_check
+                0x000001d4       0x44 DS18B20.o
+                0x000001d4                dt_check
+ .text.HTU21D_get_humidity
+                0x00000218       0x50 HTU21D.o
+                0x00000218                HTU21D_get_humidity
  .text.timer2_ini
-                0x000001b0       0x18 main.o
-                0x000001b0                timer2_ini
+                0x00000268       0x18 main.o
+                0x00000268                timer2_ini
  .text.__vector_3
-                0x000001c8       0x44 main.o
-                0x000001c8                __vector_3
+                0x00000280       0x44 main.o
+                0x00000280                __vector_3
  .text.__vector_2
-                0x0000020c       0x2e main.o
-                0x0000020c                __vector_2
+                0x000002c4       0x2e main.o
+                0x000002c4                __vector_2
  .text.timer_ini
-                0x0000023a       0x1c main.o
-                0x0000023a                timer_ini
+                0x000002f2       0x1c main.o
+                0x000002f2                timer_ini
  .text.__vector_6
-                0x00000256       0x34 main.o
-                0x00000256                __vector_6
+                0x0000030e       0x34 main.o
+                0x0000030e                __vector_6
  .text.SPI_init
-                0x0000028a       0x24 main.o
-                0x0000028a                SPI_init
+                0x00000342       0x24 main.o
+                0x00000342                SPI_init
  .text.port_init
-                0x000002ae       0x4a main.o
-                0x000002ae                port_init
+                0x00000366       0x4a main.o
+                0x00000366                port_init
  .text.spi_send_recv
-                0x000002f8        0xa main.o
-                0x000002f8                spi_send_recv
+                0x000003b0        0xa main.o
+                0x000003b0                spi_send_recv
  .text.WIND_DIRECT
-                0x00000302       0xa6 main.o
-                0x00000302                WIND_DIRECT
- .text.main     0x000003a8      0x370 main.o
-                0x000003a8                main
+                0x000003ba       0xa6 main.o
+                0x000003ba                WIND_DIRECT
+ .text.main     0x00000460      0x3b8 main.o
+                0x00000460                main
  .text.NRF24_Transmit
-                0x00000718       0x60 NRF24.o
-                0x00000718                NRF24_Transmit
+                0x00000818       0x60 NRF24.o
+                0x00000818                NRF24_Transmit
  .text.NRF24_FlushRX
-                0x00000778       0x1c NRF24.o
-                0x00000778                NRF24_FlushRX
+                0x00000878       0x1c NRF24.o
+                0x00000878                NRF24_FlushRX
  .text.NRF24_FlushTX
-                0x00000794       0x1c NRF24.o
-                0x00000794                NRF24_FlushTX
+                0x00000894       0x1c NRF24.o
+                0x00000894                NRF24_FlushTX
  .text.NRF24_ToggleFeatures
-                0x000007b0       0x22 NRF24.o
-                0x000007b0                NRF24_ToggleFeatures
+                0x000008b0       0x22 NRF24.o
+                0x000008b0                NRF24_ToggleFeatures
  .text.NRF24_Write_Buf
-                0x000007d2       0x56 NRF24.o
-                0x000007d2                NRF24_Write_Buf
+                0x000008d2       0x56 NRF24.o
+                0x000008d2                NRF24_Write_Buf
  .text.NRF24L01_TX_Mode
-                0x00000828       0x16 NRF24.o
-                0x00000828                NRF24L01_TX_Mode
+                0x00000928       0x16 NRF24.o
+                0x00000928                NRF24L01_TX_Mode
  .text.nRF_write_register
-                0x0000083e       0x20 NRF24.o
-                0x0000083e                nRF_write_register
+                0x0000093e       0x20 NRF24.o
+                0x0000093e                nRF_write_register
  .text.nRF_read_register
-                0x0000085e       0x24 NRF24.o
-                0x0000085e                nRF_read_register
+                0x0000095e       0x24 NRF24.o
+                0x0000095e                nRF_read_register
  .text.NRF24L01_RX_Mode
-                0x00000882       0x24 NRF24.o
-                0x00000882                NRF24L01_RX_Mode
+                0x00000982       0x24 NRF24.o
+                0x00000982                NRF24L01_RX_Mode
  .text.NRF24_ini
-                0x000008a6       0x7a NRF24.o
-                0x000008a6                NRF24_ini
+                0x000009a6       0x7a NRF24.o
+                0x000009a6                NRF24_ini
  .text.NRF24L01_Send
-                0x00000920       0x92 NRF24.o
-                0x00000920                NRF24L01_Send
+                0x00000a20       0x92 NRF24.o
+                0x00000a20                NRF24L01_Send
+ .text.I2C_StartCondition
+                0x00000ab2        0xc TWI.o
+                0x00000ab2                I2C_StartCondition
+ .text.I2C_StopCondition
+                0x00000abe        0x6 TWI.o
+                0x00000abe                I2C_StopCondition
+ .text.I2C_SendByte
+                0x00000ac4        0xe TWI.o
+                0x00000ac4                I2C_SendByte
+ .text.I2C_ReadByte
+                0x00000ad2        0xe TWI.o
+                0x00000ad2                I2C_ReadByte
+ .text.I2C_ReadLastByte
+                0x00000ae0        0xe TWI.o
+                0x00000ae0                I2C_ReadLastByte
+ .text.libgcc.mul
+                0x00000aee       0x18 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_umulhisi3.o)
+                0x00000aee                __umulhisi3
  .text.avr-libc
-                0x000009b2        0xe d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(memset.o)
-                0x000009b2                memset
+                0x00000b06        0xe d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(memset.o)
+                0x00000b06                memset
  .text.avr-libc
-                0x000009c0       0x3e d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(sprintf.o)
-                0x000009c0                sprintf
+                0x00000b14       0x3e d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(sprintf.o)
+                0x00000b14                sprintf
  .text.avr-libc
-                0x000009fe      0x3a4 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(vfprintf_std.o)
-                0x000009fe                vfprintf
+                0x00000b52      0x3a4 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(vfprintf_std.o)
+                0x00000b52                vfprintf
  .text.avr-libc
-                0x00000da2       0x16 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(strnlen_P.o)
-                0x00000da2                strnlen_P
+                0x00000ef6       0x16 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(strnlen_P.o)
+                0x00000ef6                strnlen_P
  .text.avr-libc
-                0x00000db8       0x16 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(strnlen.o)
-                0x00000db8                strnlen
+                0x00000f0c       0x16 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(strnlen.o)
+                0x00000f0c                strnlen
  .text.avr-libc
-                0x00000dce       0x78 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(fputc.o)
-                0x00000dce                fputc
+                0x00000f22       0x78 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(fputc.o)
+                0x00000f22                fputc
  .text.avr-libc
-                0x00000e46       0xbc d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(ultoa_invert.o)
-                0x00000e46                __ultoa_invert
+                0x00000f9a       0xbc d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(ultoa_invert.o)
+                0x00000f9a                __ultoa_invert
  .text.libgcc.prologue
-                0x00000f02       0x38 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_prologue.o)
-                0x00000f02                __prologue_saves__
+                0x00001056       0x38 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_prologue.o)
+                0x00001056                __prologue_saves__
  .text.libgcc.prologue
-                0x00000f3a       0x36 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_epilogue.o)
-                0x00000f3a                __epilogue_restores__
-                0x00000f70                . = ALIGN (0x2)
+                0x0000108e       0x36 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_epilogue.o)
+                0x0000108e                __epilogue_restores__
+                0x000010c4                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000f70        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x00000f70                _exit
-                0x00000f70                exit
+ .fini9         0x000010c4        0x0 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x000010c4                _exit
+                0x000010c4                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -506,11 +589,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000f70        0x4 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x000010c4        0x4 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000f74                _etext = .
+                0x000010c8                _etext = .
 
-.data           0x00800060        0x6 load address 0x00000f74
+.data           0x00800060        0x6 load address 0x000010c8
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -567,8 +650,8 @@ END GROUP
                 0x008000a7                dt
                 0x008000a8                INTER_COUNT
                 0x008000aa                PROVIDE (__bss_end, .)
-                0x00000f74                __data_load_start = LOADADDR (.data)
-                0x00000f7a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000010c8                __data_load_start = LOADADDR (.data)
+                0x000010ce                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x008000aa        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -618,9 +701,11 @@ END GROUP
  *(.comment)
  .comment       0x00000000       0x30 adc.o
                                  0x31 (size before relaxing)
- .comment       0x00000030       0x31 DHT22.o
+ .comment       0x00000030       0x31 DS18B20.o
+ .comment       0x00000030       0x31 HTU21D.o
  .comment       0x00000030       0x31 main.o
  .comment       0x00000030       0x31 NRF24.o
+ .comment       0x00000030       0x31 TWI.o
  .comment       0x00000030       0x31 d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(sprintf.o)
  .comment       0x00000030       0x2c d:/atmelstudio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(vfprintf_std.o)
                                  0x2d (size before relaxing)
@@ -646,68 +731,86 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x138
+.debug_aranges  0x00000000      0x1d8
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x28 adc.o
  .debug_aranges
-                0x00000028       0x28 DHT22.o
+                0x00000028       0x50 DS18B20.o
  .debug_aranges
-                0x00000050       0x68 main.o
+                0x00000078       0x28 HTU21D.o
  .debug_aranges
-                0x000000b8       0x80 NRF24.o
+                0x000000a0       0x68 main.o
+ .debug_aranges
+                0x00000108       0x80 NRF24.o
+ .debug_aranges
+                0x00000188       0x50 TWI.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1a73
+.debug_info     0x00000000     0x1ea6
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x48c D:/AtmelStudio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8a/avr4/crtatmega8a.o
  .debug_info    0x0000048c       0xfb adc.o
- .debug_info    0x00000587      0x2ef DHT22.o
- .debug_info    0x00000876      0x777 main.o
- .debug_info    0x00000fed      0xa86 NRF24.o
+ .debug_info    0x00000587      0x516 DS18B20.o
+ .debug_info    0x00000a9d      0x30e HTU21D.o
+ .debug_info    0x00000dab      0x4f2 main.o
+ .debug_info    0x0000129d      0xa86 NRF24.o
+ .debug_info    0x00001d23      0x183 TWI.o
 
-.debug_abbrev   0x00000000      0x9b7
+.debug_abbrev   0x00000000      0xc28
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x44e D:/AtmelStudio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8a/avr4/crtatmega8a.o
  .debug_abbrev  0x0000044e       0x73 adc.o
- .debug_abbrev  0x000004c1      0x111 DHT22.o
- .debug_abbrev  0x000005d2      0x209 main.o
- .debug_abbrev  0x000007db      0x1dc NRF24.o
+ .debug_abbrev  0x000004c1      0x1ce DS18B20.o
+ .debug_abbrev  0x0000068f      0x11c HTU21D.o
+ .debug_abbrev  0x000007ab      0x1c0 main.o
+ .debug_abbrev  0x0000096b      0x1dc NRF24.o
+ .debug_abbrev  0x00000b47       0xe1 TWI.o
 
-.debug_line     0x00000000      0xd76
+.debug_line     0x00000000     0x118e
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x10a D:/AtmelStudio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8a/avr4/crtatmega8a.o
  .debug_line    0x0000010a       0xdb adc.o
- .debug_line    0x000001e5      0x1f4 DHT22.o
- .debug_line    0x000003d9      0x521 main.o
- .debug_line    0x000008fa      0x47c NRF24.o
+ .debug_line    0x000001e5      0x2e7 DS18B20.o
+ .debug_line    0x000004cc      0x19a HTU21D.o
+ .debug_line    0x00000666      0x533 main.o
+ .debug_line    0x00000b99      0x47c NRF24.o
+ .debug_line    0x00001015      0x179 TWI.o
 
-.debug_frame    0x00000000      0x2d0
+.debug_frame    0x00000000      0x458
  *(.debug_frame)
  .debug_frame   0x00000000       0x34 adc.o
- .debug_frame   0x00000034       0x34 DHT22.o
- .debug_frame   0x00000068      0x108 main.o
- .debug_frame   0x00000170      0x160 NRF24.o
+ .debug_frame   0x00000034       0xa4 DS18B20.o
+ .debug_frame   0x000000d8       0x5c HTU21D.o
+ .debug_frame   0x00000134      0x134 main.o
+ .debug_frame   0x00000268      0x160 NRF24.o
+ .debug_frame   0x000003c8       0x90 TWI.o
 
-.debug_str      0x00000000      0x5a9
+.debug_str      0x00000000      0x6b9
  *(.debug_str)
  .debug_str     0x00000000      0x17a D:/AtmelStudio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8a/avr4/crtatmega8a.o
  .debug_str     0x0000017a      0x17a adc.o
                                 0x1b3 (size before relaxing)
- .debug_str     0x000002f4       0x85 DHT22.o
-                                0x1e2 (size before relaxing)
- .debug_str     0x00000379      0x130 main.o
-                                0x32a (size before relaxing)
- .debug_str     0x000004a9      0x100 NRF24.o
+ .debug_str     0x000002f4       0xc3 DS18B20.o
+                                0x220 (size before relaxing)
+ .debug_str     0x000003b7       0x90 HTU21D.o
+                                0x239 (size before relaxing)
+ .debug_str     0x00000447      0x133 main.o
+                                0x2fa (size before relaxing)
+ .debug_str     0x0000057a      0x118 NRF24.o
                                 0x2ee (size before relaxing)
+ .debug_str     0x00000692       0x27 TWI.o
+                                0x1d9 (size before relaxing)
 
-.debug_loc      0x00000000      0xe74
+.debug_loc      0x00000000     0x10ae
  *(.debug_loc)
- .debug_loc     0x00000000      0x262 DHT22.o
- .debug_loc     0x00000262      0x413 main.o
- .debug_loc     0x00000675      0x7ff NRF24.o
+ .debug_loc     0x00000000      0x416 DS18B20.o
+ .debug_loc     0x00000416      0x1d2 HTU21D.o
+ .debug_loc     0x000005e8      0x213 main.o
+ .debug_loc     0x000007fb      0x7ff NRF24.o
+ .debug_loc     0x00000ffa       0xb4 TWI.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -727,12 +830,14 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xf8
+.debug_ranges   0x00000000      0x178
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x18 adc.o
- .debug_ranges  0x00000018       0x18 DHT22.o
- .debug_ranges  0x00000030       0x58 main.o
- .debug_ranges  0x00000088       0x70 NRF24.o
+ .debug_ranges  0x00000018       0x40 DS18B20.o
+ .debug_ranges  0x00000058       0x18 HTU21D.o
+ .debug_ranges  0x00000070       0x58 main.o
+ .debug_ranges  0x000000c8       0x70 NRF24.o
+ .debug_ranges  0x00000138       0x40 TWI.o
 
 .debug_macro
  *(.debug_macro)

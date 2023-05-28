@@ -85,23 +85,36 @@ void NRF24L01_Receive(void)
 			case 1:	receive_counter++;
 					memset(temp_street, 0, sizeof(char) * strlen(temp_street));//очистка массива
 					memset(temp_street_to_DB, 0, sizeof(char) * strlen(temp_street_to_DB));//очистка массива
-					byte1 = RX_BUF[1];//младший бит температуры
+					/*byte1 = RX_BUF[1];//младший бит температуры
 					byte2 = RX_BUF[2];//старший бит температуры
 					temp = ((byte2<<8)|byte1);
 					if ((temp & 0x8000) == 0x8000) temp = ~(temp & 0x7FFF);
 					sprintf(temp_street,"%d.%d",temp/10 ,abs(temp)%10);
-					sprintf(temp_street_to_DB,"%d.%d",temp/10 ,abs(temp)%10);
+					sprintf(temp_street_to_DB,"%d.%d",temp/10 ,abs(temp)%10);*/
+					if (RX_BUF[1] != 0x00)
+					{
+						//отриц темп
+						sprintf(temp_street,"-%d.%d",RX_BUF[2],RX_BUF[3]);
+						sprintf(temp_street_to_DB,"-%d.%d",RX_BUF[2],RX_BUF[3]);
+					}
+					else
+					{
+						sprintf(temp_street,"%d.%d",RX_BUF[2],RX_BUF[3]);
+						sprintf(temp_street_to_DB,"%d.%d",RX_BUF[2],RX_BUF[3]);
+					}
 					break;
 			//--------------------------------------
 			//получение влажности
 			case 5:	receive_counter++;
 					memset(hum_street, 0, sizeof(char) * strlen(hum_street));//очистка массива
 					memset(hum_street_to_DB, 0, sizeof(char) * strlen(hum_street_to_DB));//очистка массива
-					byte1 = RX_BUF[1];//младший бит температуры
+					/*byte1 = RX_BUF[1];//младший бит температуры
 					byte2 = RX_BUF[2];//старший бит температуры
 					hum = ((byte2<<8)|byte1) / 10;
 					sprintf(hum_street,"%d",hum);
-					sprintf(hum_street_to_DB,"%d",hum);
+					sprintf(hum_street_to_DB,"%d",hum);*/
+					sprintf(hum_street,"%d",RX_BUF[1]);
+					sprintf(hum_street_to_DB,"%d",RX_BUF[1]);
 					break;
 			//--------------------------------------
 			//получение скорости ветра
@@ -158,8 +171,8 @@ void NRF24L01_Receive(void)
 					{
 						adc_value2[n] = RX_BUF[n+1];
 					}
-					sprintf(Rain,"%d.%d", RAIN_AMOUNT(adc_value2)/100, RAIN_AMOUNT(adc_value2)%100);
-					sprintf(Rain_to_DB,"%d.%d", RAIN_AMOUNT(adc_value2)/100, RAIN_AMOUNT(adc_value2)%100);
+					sprintf(Rain,"%d", RAIN_AMOUNT(adc_value2));
+					sprintf(Rain_to_DB,"%d", RAIN_AMOUNT(adc_value2));
 					break;
 		}
 		//--------------------------------------

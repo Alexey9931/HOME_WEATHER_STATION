@@ -41,11 +41,20 @@ int i = 0;
 uint32_t timer = 0;
 int FLAG = 1;
 
+
+IPAddress local_IP(192, 168, 1, 10);
+IPAddress gateway(192, 168, 1, 1);
+
+IPAddress subnet(255, 255, 255, 0);
+IPAddress primaryDNS(8, 8, 8, 8); // optional
+IPAddress secondaryDNS(8, 8, 4, 4); // optional
+
 void setup()
 {
   Serial.begin(115200, SERIAL_8N2);
   delay(1000);
   WiFi.begin(ssid, password);
+  WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS);
   Serial.println("Connecting");
   while(WiFi.status() != WL_CONNECTED) { 
     delay(500);
@@ -67,6 +76,18 @@ void loop()
       FLAG = read_measurements();
       counter++;
       delay(0);
+      if (WiFi.status() != WL_CONNECTED)
+      {
+        WiFi.disconnect();
+        delay(1000);
+        WiFi.begin(ssid, password);
+        WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS);
+        while(WiFi.status() != WL_CONNECTED) 
+        {
+          delay(500);
+          Serial.print(".");  
+        }
+      }
       //Check WiFi connection status
       if(WiFi.status()== WL_CONNECTED)
       {

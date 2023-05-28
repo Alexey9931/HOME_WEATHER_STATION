@@ -195,14 +195,14 @@ public class BackgroundWorkerForCharts extends AsyncTask<View,Void,String> {
             layoutParams77.topMargin = 6985;
             vbat_name.setLayoutParams(layoutParams77);
 
-            RelativeLayout.LayoutParams layoutParams8 = new RelativeLayout.LayoutParams(900,RelativeLayout.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams layoutParams8 = new RelativeLayout.LayoutParams(1040,RelativeLayout.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams layoutParams9 = new RelativeLayout.LayoutParams(900,RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams8.leftMargin = 100;
+            layoutParams8.leftMargin = 25;
             layoutParams8.topMargin = 8130;
             layoutParams9.leftMargin = 100;
             layoutParams9.topMargin = 8010;
             wind_direct_table.setLayoutParams(layoutParams8);
-            create_chart.Fill_Wind_Direct_Table(wind_direct_table,context);
+            create_chart.Fill_Wind_Direct_Table_New(wind_direct_table,context);
             table_name.setLayoutParams(layoutParams9);
 
         }
@@ -347,9 +347,9 @@ public class BackgroundWorkerForCharts extends AsyncTask<View,Void,String> {
             }
             if (ChartSettingFragment.WIND_DIRECT_MODE == true)
             {
-                RelativeLayout.LayoutParams layoutParams8 = new RelativeLayout.LayoutParams(900,RelativeLayout.LayoutParams.WRAP_CONTENT);
+                RelativeLayout.LayoutParams layoutParams8 = new RelativeLayout.LayoutParams(1040,RelativeLayout.LayoutParams.WRAP_CONTENT);
                 RelativeLayout.LayoutParams layoutParams9 = new RelativeLayout.LayoutParams(900,RelativeLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams8.leftMargin = 100;
+                layoutParams8.leftMargin = 25;
                 layoutParams8.topMargin = 100 + 1000*count+30;
                 layoutParams9.leftMargin = 100;
                 layoutParams9.topMargin = -15 + 1000*count;
@@ -359,7 +359,7 @@ public class BackgroundWorkerForCharts extends AsyncTask<View,Void,String> {
                 CreateCharts create_chart = new CreateCharts();
                 wind_direct_table.setVisibility(View.VISIBLE);
                 table_name.setVisibility(View.VISIBLE);
-                create_chart.Fill_Wind_Direct_Table(wind_direct_table,context);
+                create_chart.Fill_Wind_Direct_Table_New(wind_direct_table,context);
                 count++;
             }
         }

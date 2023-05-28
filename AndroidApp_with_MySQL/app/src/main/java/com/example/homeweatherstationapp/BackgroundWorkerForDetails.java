@@ -112,82 +112,79 @@ public class BackgroundWorkerForDetails extends AsyncTask<View,Void,String> {
             textView_end_time = (TextView) params[22];
             textView_number_mesuamer = (TextView) params[23];
 
-            avg_str_temp = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST1)) + " °C";
-            avg_home_temp = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST7)) + " °C";
-            avg_str_hum = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST2)) + " %";
-            avg_home_hum = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST8)) + " %";
-            avg_rainfall = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST3)) + " %";
-            avg_wind_speed = String.format("%.1f",calculateDetails.CalculateAverage(BackgroundWorker.LIST6)) + " м/с";
-            max_str_temp = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST1)) + " °C";
-            max_home_temp = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST7)) + " °C";
-            max_str_hum = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST2)) + " %";
-            max_home_hum = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST8)) + " %";
-            max_rainfall = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST3)) + " %";
-            max_wind_speed = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST6)) + " м/с";
-            max_bat_charge = String.format("%.1f",calculateDetails.CalculateMax(BackgroundWorker.LIST4)) + " В";
-            min_str_temp = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST1)) + " °C";
-            min_home_temp = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST7)) + " °C";
-            min_str_hum = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST2)) + " %";
-            min_home_hum = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST8)) + " %";
-            min_rainfall = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST3)) + " %";
-            min_wind_speed = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST6)) + " м/с";
-            min_bat_charge = String.format("%.1f",calculateDetails.CalculateMin(BackgroundWorker.LIST4)) + " В";
-            st_time = BackgroundWorker.LIST10.get(0);
-            en_time = BackgroundWorker.LIST10.get(BackgroundWorker.LIST10.size()-1);
-            number = Integer.toString(BackgroundWorker.LIST10.size());
+            try {
+                avg_str_temp = String.format("%.1f", calculateDetails.CalculateAverage(BackgroundWorker.LIST1)) + " °C";
+                avg_home_temp = String.format("%.1f", calculateDetails.CalculateAverage(BackgroundWorker.LIST7)) + " °C";
+                avg_str_hum = String.format("%.1f", calculateDetails.CalculateAverage(BackgroundWorker.LIST2)) + " %";
+                avg_home_hum = String.format("%.1f", calculateDetails.CalculateAverage(BackgroundWorker.LIST8)) + " %";
+                avg_rainfall = String.format("%.1f", calculateDetails.CalculateAverage(BackgroundWorker.LIST3)) + " %";
+                avg_wind_speed = String.format("%.1f", calculateDetails.CalculateAverage(BackgroundWorker.LIST6)) + " м/с";
+                max_str_temp = String.format("%.1f", calculateDetails.CalculateMax(BackgroundWorker.LIST1)) + " °C";
+                max_home_temp = String.format("%.1f", calculateDetails.CalculateMax(BackgroundWorker.LIST7)) + " °C";
+                max_str_hum = String.format("%.1f", calculateDetails.CalculateMax(BackgroundWorker.LIST2)) + " %";
+                max_home_hum = String.format("%.1f", calculateDetails.CalculateMax(BackgroundWorker.LIST8)) + " %";
+                max_rainfall = String.format("%.1f", calculateDetails.CalculateMax(BackgroundWorker.LIST3)) + " %";
+                max_wind_speed = String.format("%.1f", calculateDetails.CalculateMax(BackgroundWorker.LIST6)) + " м/с";
+                max_bat_charge = String.format("%.1f", calculateDetails.CalculateMax(BackgroundWorker.LIST4)) + " В";
+                min_str_temp = String.format("%.1f", calculateDetails.CalculateMin(BackgroundWorker.LIST1)) + " °C";
+                min_home_temp = String.format("%.1f", calculateDetails.CalculateMin(BackgroundWorker.LIST7)) + " °C";
+                min_str_hum = String.format("%.1f", calculateDetails.CalculateMin(BackgroundWorker.LIST2)) + " %";
+                min_home_hum = String.format("%.1f", calculateDetails.CalculateMin(BackgroundWorker.LIST8)) + " %";
+                min_rainfall = String.format("%.1f", calculateDetails.CalculateMin(BackgroundWorker.LIST3)) + " %";
+                min_wind_speed = String.format("%.1f", calculateDetails.CalculateMin(BackgroundWorker.LIST6)) + " м/с";
+                min_bat_charge = String.format("%.1f", calculateDetails.CalculateMin(BackgroundWorker.LIST4)) + " В";
+                st_time = BackgroundWorker.LIST10.get(0);
+                en_time = BackgroundWorker.LIST10.get(BackgroundWorker.LIST10.size() - 1);
+                number = Integer.toString(BackgroundWorker.LIST10.size());
 
-            CalculateDetails.Find_Wind_Direct_Percent(BackgroundWorker.LIST5);
-            WindDirectDiagram.setUsePercentValues(true);
-            WindDirectDiagram.getDescription().setEnabled(false);
+                CalculateDetails.Find_Wind_Direct_Percent(BackgroundWorker.LIST5);
+                WindDirectDiagram.setUsePercentValues(true);
+                WindDirectDiagram.getDescription().setEnabled(false);
 
-            List<PieEntry> yVals = new ArrayList<>();
-            List<Integer> colors = new ArrayList<>();
-            if (CalculateDetails.NW_Count != 0)
-            {
-                yVals.add(new PieEntry((float)CalculateDetails.NW_Count, "N-W"));
-                colors.add(Color.parseColor("#FF2A18"));
-            }
-            if (CalculateDetails.N_Count != 0)
-            {
-                yVals.add(new PieEntry((float)CalculateDetails.N_Count, "N"));
-                colors.add(Color.parseColor("#FF9118"));
-            }
-            if (CalculateDetails.S_Count != 0)
-            {
-                yVals.add(new PieEntry((float)CalculateDetails.S_Count, "S"));
-                colors.add(Color.parseColor("#FFE918"));
-            }
-            if (CalculateDetails.E_Count != 0)
-            {
-                yVals.add(new PieEntry((float)CalculateDetails.E_Count, "E"));
-                colors.add(Color.parseColor("#ADFF18"));
-            }
-            if (CalculateDetails.W_Count != 0)
-            {
-                yVals.add(new PieEntry((float)CalculateDetails.W_Count, "W"));
-                colors.add(Color.parseColor("#1AFF18"));
-            }
-            if (CalculateDetails.NE_Count != 0)
-            {
-                yVals.add(new PieEntry((float)CalculateDetails.NE_Count, "N-E"));
-                colors.add(Color.parseColor("#18EBFF"));
-            }
-            if (CalculateDetails.SW_Count != 0)
-            {
-                yVals.add(new PieEntry((float)CalculateDetails.SW_Count, "S-W"));
-                colors.add(Color.parseColor("#1829FF"));
-            }
-            if (CalculateDetails.SE_Count != 0)
-            {
-                yVals.add(new PieEntry((float)CalculateDetails.SE_Count, "S-E"));
-                colors.add(Color.parseColor("#FF18ED"));
-            }
+                List<PieEntry> yVals = new ArrayList<>();
+                List<Integer> colors = new ArrayList<>();
+                if (CalculateDetails.NW_Count != 0) {
+                    yVals.add(new PieEntry((float) CalculateDetails.NW_Count, "N-W"));
+                    colors.add(Color.parseColor("#FF2A18"));
+                }
+                if (CalculateDetails.N_Count != 0) {
+                    yVals.add(new PieEntry((float) CalculateDetails.N_Count, "N"));
+                    colors.add(Color.parseColor("#FF9118"));
+                }
+                if (CalculateDetails.S_Count != 0) {
+                    yVals.add(new PieEntry((float) CalculateDetails.S_Count, "S"));
+                    colors.add(Color.parseColor("#FFE918"));
+                }
+                if (CalculateDetails.E_Count != 0) {
+                    yVals.add(new PieEntry((float) CalculateDetails.E_Count, "E"));
+                    colors.add(Color.parseColor("#ADFF18"));
+                }
+                if (CalculateDetails.W_Count != 0) {
+                    yVals.add(new PieEntry((float) CalculateDetails.W_Count, "W"));
+                    colors.add(Color.parseColor("#1AFF18"));
+                }
+                if (CalculateDetails.NE_Count != 0) {
+                    yVals.add(new PieEntry((float) CalculateDetails.NE_Count, "N-E"));
+                    colors.add(Color.parseColor("#18EBFF"));
+                }
+                if (CalculateDetails.SW_Count != 0) {
+                    yVals.add(new PieEntry((float) CalculateDetails.SW_Count, "S-W"));
+                    colors.add(Color.parseColor("#1829FF"));
+                }
+                if (CalculateDetails.SE_Count != 0) {
+                    yVals.add(new PieEntry((float) CalculateDetails.SE_Count, "S-E"));
+                    colors.add(Color.parseColor("#FF18ED"));
+                }
 
-            PieDataSet pieDataSet = new PieDataSet(yVals, "");
-            pieDataSet.setColors(colors);
-            pieDataSet.setValueTextSize(14f);
-            pieData = new PieData(pieDataSet);
+                PieDataSet pieDataSet = new PieDataSet(yVals, "");
+                pieDataSet.setColors(colors);
+                pieDataSet.setValueTextSize(14f);
+                pieData = new PieData(pieDataSet);
+            }
+            catch(Exception e)
+            {
 
+            }
 
             return null;
         }

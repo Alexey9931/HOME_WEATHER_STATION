@@ -6,7 +6,7 @@
  */ 
 #include "WeatherStation.h"
 
-#define RADIUS 0.09
+#define RADIUS 0.139
 
 char temp_street[6] = {0};
 char hum_street[5] = {0};
@@ -139,10 +139,10 @@ void Print_Home_Page()
 	LCD_12864_Draw_pixel(27, 60, Frame_buffer);
 	LCD_12864_Draw_pixel(26, 57, Frame_buffer);
 	LCD_12864_Draw_pixel(26, 61, Frame_buffer);
-	if (RAIN_AMOUNT(adc_value2) >= 90)  {LCD_12864_Decode_UTF8(30, 7, 0, "отсутств.", Frame_buffer);}
-	else if ((RAIN_AMOUNT(adc_value2) < 90) && (RAIN_AMOUNT(adc_value2) >= 50))  {LCD_12864_Decode_UTF8(30, 7, 0, "слабые", Frame_buffer);}
-    else if ((RAIN_AMOUNT(adc_value2) < 50) && (RAIN_AMOUNT(adc_value2) >= 25)) { LCD_12864_Decode_UTF8(30, 7, 0, "умеренные", Frame_buffer);}
-	else if ((RAIN_AMOUNT(adc_value2) < 25) && (RAIN_AMOUNT(adc_value2) > 0))  {LCD_12864_Decode_UTF8(30, 7, 0, "сильные", Frame_buffer);}
+	if (RAIN_AMOUNT(adc_value2) <= 10)  {LCD_12864_Decode_UTF8(30, 7, 0, "отсутств.", Frame_buffer);}
+	else if ((RAIN_AMOUNT(adc_value2) > 10) && (RAIN_AMOUNT(adc_value2) <= 50))  {LCD_12864_Decode_UTF8(30, 7, 0, "слабые", Frame_buffer);}
+    else if ((RAIN_AMOUNT(adc_value2) > 50) && (RAIN_AMOUNT(adc_value2) <= 75)) { LCD_12864_Decode_UTF8(30, 7, 0, "умеренные", Frame_buffer);}
+	else if ((RAIN_AMOUNT(adc_value2) > 75) && (RAIN_AMOUNT(adc_value2) <= 100))  {LCD_12864_Decode_UTF8(30, 7, 0, "сильные", Frame_buffer);}
 	else {LCD_12864_Decode_UTF8(30, 7, 0, "нет данных", Frame_buffer);}
 	//-----------Вывод показателей в доме-----------------------//
 	/*if (dht22_GetData(data))
@@ -184,7 +184,7 @@ void Print_Home_Page()
 	//-----------Вывод индикатора флюгера-----------------------//
 	DrawWeatherVane(Frame_buffer);
 	//-----------Вывод прогноза погоды-----------------------//
-	if ((wind_speed (HALL_counter) == 0) && (RAIN_AMOUNT(adc_value2) >= 90))
+	if ((wind_speed (HALL_counter) == 0) && (RAIN_AMOUNT(adc_value2) <= 10))
 	{
 		DrawSun(Frame_buffer);
 	}
@@ -192,11 +192,11 @@ void Print_Home_Page()
 	{
 		DrawClouds(Frame_buffer);
 	}
-	else if ((wind_speed (HALL_counter) > 0) && (RAIN_AMOUNT(adc_value2) >= 90))
+	else if ((wind_speed (HALL_counter) > 0) && (RAIN_AMOUNT(adc_value2) <= 10))
 	{
 		DrawSunWithClouds(Frame_buffer);
 	}
-	else if ((RAIN_AMOUNT(adc_value2) < 85) && (RAIN_AMOUNT(adc_value2) > 0))
+	else if ((RAIN_AMOUNT(adc_value2) > 15) && (RAIN_AMOUNT(adc_value2) <= 100))
 	{
 		DrawCloudsWithRain(Frame_buffer);
 	}
@@ -1019,10 +1019,14 @@ int RAIN_AMOUNT(char *adc_value)
 	}
 	else
 	{
-		R = 0;
+		return 0;
 	}
 	RAIN = R*0.144;
-	
+	if (RAIN > 100)
+	{
+		RAIN = 100;
+	}
+	RAIN = 100 - RAIN;
 	return RAIN;
 }
 //Вычисление уровня заряда АКБ

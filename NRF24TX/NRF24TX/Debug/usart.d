@@ -21,7 +21,7 @@ usart.d usart.o: .././usart.c .././usart.h .././main.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
- .././NRF24.h .././adc.h .././DHT22.h
+ .././NRF24.h .././adc.h .././TWI.h .././DS18B20.h .././HTU21D.h
 
 .././usart.h:
 
@@ -75,4 +75,8 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 
 .././adc.h:
 
-.././DHT22.h:
+.././TWI.h:
+
+.././DS18B20.h:
+
+.././HTU21D.h:

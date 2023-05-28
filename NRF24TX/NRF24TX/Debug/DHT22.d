@@ -21,7 +21,8 @@ DHT22.d DHT22.o: .././DHT22.c .././DHT22.h .././main.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
- .././NRF24.h .././usart.h .././adc.h
+ .././NRF24.h .././usart.h .././adc.h .././TWI.h .././DS18B20.h \
+ .././HTU21D.h
 
 .././DHT22.h:
 
@@ -76,3 +77,9 @@ d:\atmelstudio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 .././usart.h:
 
 .././adc.h:
+
+.././TWI.h:
+
+.././DS18B20.h:
+
+.././HTU21D.h:

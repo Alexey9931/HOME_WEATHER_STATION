@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment {
     public static TextView PRESSURE;
     public static TextView TIME;
     public static ImageView weath_forecast;
+    public static TableLayout Table;
+    public static ImageView time_error;
 
     public static String time_for_display = "";
 
@@ -59,7 +62,9 @@ public class HomeFragment extends Fragment {
         PRESSURE = root.findViewById(R.id.PRESSURE);
         TIME = root.findViewById(R.id.TIME);
         weath_forecast = root.findViewById(R.id.imageView_weath_forecast);
-
+        Table = root.findViewById(R.id.table);
+        time_error = root.findViewById(R.id.time_error);
+        time_error.setVisibility(View.INVISIBLE);
 
         BackgroundWorker backgroundWorker = new BackgroundWorker(getContext());
         backgroundWorker.execute(   "http://alexgorlov99.ru/validateData-1day.php",

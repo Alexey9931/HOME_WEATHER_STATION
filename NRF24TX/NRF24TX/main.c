@@ -72,12 +72,12 @@ port_init(void)
 	DDRD |= (1<<TRANZISTOR);
 	PORTD &= ~(1<<TRANZISTOR);
 	//герконы для флюгера
-	DDRB &= ~(1<<GERKON1);//gerkon - на вход
-	PORTB &= ~(1<<GERKON1);
+	DDRB &= ~((1<<GERKON1)|(1<<GERKON5)|(1<<GERKON6));//gerkon - на вход
+	PORTB &= ~((1<<GERKON1)|(1<<GERKON5)|(1<<GERKON6));
 	DDRD &= ~((1<<GERKON2)|(1<<GERKON3)|(1<<GERKON4));
 	PORTD &= ~((1<<GERKON2)|(1<<GERKON3)|(1<<GERKON4));
-	DDRC &= ~((1<<GERKON5)|(1<<GERKON6)|(1<<GERKON7)|(1<<GERKON8));
-	PORTC &= ~((1<<GERKON5)|(1<<GERKON6)|(1<<GERKON7)|(1<<GERKON8));
+	DDRC &= ~((1<<GERKON7)|(1<<GERKON8));
+	PORTC &= ~((1<<GERKON7)|(1<<GERKON8));
 	//светодиод 
 	DDRD |= (1<<LED);
 	PORTD &= ~(1<<LED);
@@ -107,11 +107,11 @@ char* WIND_DIRECT()
 	{
 		sprintf (wind_direction_str,"N-W");
 	}
-    if ((PINC&(1<<GERKON5)) == 0)
+    if ((PINB&(1<<GERKON5)) == 0)
 	{
 		sprintf (wind_direction_str,"N");
 	}
-    if ((PINC&(1<<GERKON6)) == 0)
+    if ((PINB&(1<<GERKON6)) == 0)
 	{
 		sprintf (wind_direction_str,"N-E");
 	}
@@ -143,7 +143,7 @@ int main(void)
 	//----------------------
 	_delay_ms(1000);
 	PORTD &= ~(1<<LED);
-	dht22_init();	
+	//dht22_init();	
 	WDTCR &= ~(1<<WDE);//откл WDT
 	ACSR |= (1<<ACD);//откл компаратор
     //INTER_COUNT == 0;
@@ -170,19 +170,45 @@ int main(void)
 			//-------------------------------------------
 			//отправка температуры
 			buf1[0] = 1;
-			if (dht22_GetData(data))
+			int tt = 0;
+			tt = dt_check();
+			uint8_t temp_sign = tt>>11;//вычисление знака температуры
+			uint8_t temp_integer;//целая часть темп
+			uint8_t temp_fraction;//дробная часть темп
+			if (temp_sign == 0x00)
+			{
+				temp_fraction = tt & 0xF;
+				temp_fraction = (temp_fraction<<1) + (temp_fraction<<3);// ”множаем на 10
+				temp_fraction = (temp_fraction>>4);//делим на 16 или умножаем на 0.0625
+				temp_integer = (tt&0x07FF)>>4;
+			}
+			else
+			{
+				temp_fraction = ((~tt) & 0xF);
+				temp_fraction = (temp_fraction<<1) + (temp_fraction<<3);// ”множаем на 10
+				temp_fraction = (temp_fraction>>4);//делим на 16 или умножаем на 0.0625
+				temp_integer = ((~(tt))&0x07FF)>>4;
+			}
+			buf1[1] = temp_sign;
+			buf1[2] = temp_integer;
+			buf1[3] = temp_fraction;
+			/*if (dht22_GetData(data))
 			{
 			  buf1[1] = data[1];//младший бит температуры
 			  buf1[2] = data[2];//старший бит температуры
-			}
+			}*/
 			dt = NRF24L01_Send(buf1);
 			memset(buf1, 0, sizeof(int) * strlen(buf1));//очистка массива
 			_delay_ms(1000);
 			//-------------------------------------------
 			//отправка влажности
 			 buf1[0] = 5;
-			 buf1[1] = data[3];//младший бит влажности
-			 buf1[2] = data[4];//старший бит влажности
+			 long int hum = 0;
+			 hum = HTU21D_get_humidity();
+			 hum = (hum*125)/65536 - 6;
+			 buf1[1] = (uint8_t) hum;
+			 //buf1[1] = data[3];//младший бит влажности
+			 //buf1[2] = data[4];//старший бит влажности
 			 dt = NRF24L01_Send(buf1);
 			 memset(buf1, 0, sizeof(int) * strlen(buf1));//очистка массива
 			 _delay_ms(1000);

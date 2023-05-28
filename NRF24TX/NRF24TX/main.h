@@ -13,8 +13,8 @@
 #define GERKON2  PORTD0
 #define GERKON3  PORTD1
 #define GERKON4  PORTD4
-#define GERKON5  PORTC4
-#define GERKON6  PORTC5
+#define GERKON5  PORTB6
+#define GERKON6  PORTB7
 #define GERKON7  PORTC2
 #define GERKON8  PORTC3
 
@@ -34,6 +34,9 @@
 #include "NRF24.h"
 #include "usart.h"
 #include "adc.h"
-#include "DHT22.h"
+//#include "DHT22.h"
+#include "TWI.h"
+#include "DS18B20.h"
+#include "HTU21D.h"
 
 #endif /* MAIN_H_ */

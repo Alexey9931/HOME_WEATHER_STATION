@@ -11,11 +11,16 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.renderer.XAxisRenderer;
 import com.github.mikephil.charting.utils.MPPointF;
@@ -24,6 +29,7 @@ import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CreateCharts {
     public void Fill_Street_Temp_Chart(LineChart chart)
@@ -240,6 +246,175 @@ public class CreateCharts {
                 }
                 tableRow1.addView(textView2, new TableRow.LayoutParams(
                         TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.5f));
+            }
+            wind_direct_table.addView(tableRow1, i);
+            k++;
+            i++;
+        }
+    }
+    public void Fill_Wind_Direct_Table_New(TableLayout wind_direct_table, Context context) {
+        int total_amount = 6;//кол-во интервалов
+        int num = 0;
+        int ind = 0;
+        List<String> PART1 = new ArrayList<>();
+        List<String> data = new ArrayList<>();
+        while(num < (BackgroundWorker.LIST11.size()/total_amount))
+        {
+            PART1.add(ind,BackgroundWorker.LIST5.get(num));
+            num++;
+            ind++;
+        }
+        data.add(0,BackgroundWorker.LIST11.get(0)+" - "+BackgroundWorker.LIST11.get(BackgroundWorker.LIST11.size()/total_amount));
+        ind = 0;
+        List<String> PART2 = new ArrayList<>();
+        while(num < (2*BackgroundWorker.LIST11.size()/total_amount))
+        {
+            PART2.add(ind,BackgroundWorker.LIST5.get(num));
+            num++;
+            ind++;
+        }
+        data.add(1,BackgroundWorker.LIST11.get(1+BackgroundWorker.LIST11.size()/total_amount)+" - "+BackgroundWorker.LIST11.get(1+2*BackgroundWorker.LIST11.size()/total_amount));
+        ind = 0;
+        List<String> PART3 = new ArrayList<>();
+        while(num < (3*BackgroundWorker.LIST11.size()/total_amount))
+        {
+            PART3.add(ind,BackgroundWorker.LIST5.get(num));
+            num++;
+            ind++;
+        }
+        data.add(2,BackgroundWorker.LIST11.get(1+2*BackgroundWorker.LIST11.size()/total_amount)+" - "+BackgroundWorker.LIST11.get(1+3*BackgroundWorker.LIST11.size()/total_amount));
+        ind = 0;
+        List<String> PART4 = new ArrayList<>();
+        while(num < (4*BackgroundWorker.LIST11.size()/total_amount))
+        {
+            PART4.add(ind,BackgroundWorker.LIST5.get(num));
+            num++;
+            ind++;
+        }
+        data.add(3,BackgroundWorker.LIST11.get(1+3*BackgroundWorker.LIST11.size()/total_amount)+" - "+BackgroundWorker.LIST11.get(1+4*BackgroundWorker.LIST11.size()/total_amount));
+        ind = 0;
+        List<String> PART5 = new ArrayList<>();
+        while(num < (5*BackgroundWorker.LIST11.size()/total_amount))
+        {
+            PART5.add(ind,BackgroundWorker.LIST5.get(num));
+            num++;
+            ind++;
+        }
+        data.add(4,BackgroundWorker.LIST11.get(1+4*BackgroundWorker.LIST11.size()/total_amount)+" - "+BackgroundWorker.LIST11.get(1+5*BackgroundWorker.LIST11.size()/total_amount));
+        ind = 0;
+        List<String> PART6 = new ArrayList<>();
+        while(num < BackgroundWorker.LIST11.size())
+        {
+            PART6.add(ind,BackgroundWorker.LIST5.get(num));
+            num++;
+            ind++;
+        }
+        data.add(5,BackgroundWorker.LIST11.get(1+5*BackgroundWorker.LIST11.size()/total_amount)+" - "+BackgroundWorker.LIST11.get(BackgroundWorker.LIST11.size()-1));
+        //int ROWS = 3;
+        int COLS = 2;
+        //for (int i = 0; i < (Firebase.LIST10.size()/4) + 1; i++)
+        int i = 0;
+        int k = 0;
+        while(k < 3)
+        {
+            //строка с временем
+            TableRow tableRow = new TableRow(context);
+            tableRow.setBackgroundColor(Color.parseColor("#FF3700B3"));
+            tableRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            for (int j = 0; j < COLS; j++)
+            {
+                TextView textView1 = new TextView(context);
+                textView1.setTextSize(13);
+                textView1.setTextColor(Color.WHITE);
+                textView1.setGravity(Gravity.CENTER);
+                textView1.setText(data.get(j + COLS*k));
+                tableRow.addView(textView1, new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0.5f));
+            }
+            wind_direct_table.addView(tableRow, i);
+            i++;
+            //строка с данными
+            TableRow tableRow1 = new TableRow(context);
+            tableRow1.setBackgroundColor(Color.parseColor("#FF804FF1"));
+            tableRow1.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            for (int j = 0; j < COLS; j++) {
+                CalculateDetails calculateDetails = new CalculateDetails();
+                switch (j + COLS*k)
+                {
+                    case 0:calculateDetails.Find_Wind_Direct_Percent(PART1);
+                        break;
+                    case 1:calculateDetails.Find_Wind_Direct_Percent(PART2);
+                        break;
+                    case 2:calculateDetails.Find_Wind_Direct_Percent(PART3);
+                        break;
+                    case 3:calculateDetails.Find_Wind_Direct_Percent(PART4);
+                        break;
+                    case 4:calculateDetails.Find_Wind_Direct_Percent(PART5);
+                        break;
+                    case 5:calculateDetails.Find_Wind_Direct_Percent(PART6);
+                        break;
+                }
+                /*TextView textView2 = new TextView(context);
+                textView2.setTextColor(Color.BLACK);
+                textView2.setGravity(Gravity.CENTER);*/
+                List<PieEntry> yVals = new ArrayList<>();
+                List<Integer> colors = new ArrayList<>();
+
+                PieChart WindDirectDiagram = new PieChart(context);
+                WindDirectDiagram.setUsePercentValues(true);
+                WindDirectDiagram.getDescription().setEnabled(false);
+                WindDirectDiagram.getLegend().setTextColor(Color.WHITE);
+                WindDirectDiagram.getLegend().setYOffset(15f);
+                WindDirectDiagram.getLegend().setTextSize(10);
+                WindDirectDiagram.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+                WindDirectDiagram.getLegend().setWordWrapEnabled(true);
+
+                if (calculateDetails.NW_Count != 0)
+                {
+                    yVals.add(new PieEntry((float)calculateDetails.NW_Count, "N-W"));
+                    colors.add(Color.parseColor("#FF2A18"));
+                }
+                if (calculateDetails.N_Count != 0)
+                {
+                    yVals.add(new PieEntry((float)calculateDetails.N_Count, "N"));
+                    colors.add(Color.parseColor("#FF9118"));
+                }
+                if (calculateDetails.S_Count != 0)
+                {
+                    yVals.add(new PieEntry((float)calculateDetails.S_Count, "S"));
+                    colors.add(Color.parseColor("#FFE918"));
+                }
+                if (calculateDetails.E_Count != 0)
+                {
+                    yVals.add(new PieEntry((float)calculateDetails.E_Count, "E"));
+                    colors.add(Color.parseColor("#ADFF18"));
+                }
+                if (calculateDetails.W_Count != 0)
+                {
+                    yVals.add(new PieEntry((float)calculateDetails.W_Count, "W"));
+                    colors.add(Color.parseColor("#1AFF18"));
+                }
+                if (calculateDetails.NE_Count != 0)
+                {
+                    yVals.add(new PieEntry((float)calculateDetails.NE_Count, "N-E"));
+                    colors.add(Color.parseColor("#18EBFF"));
+                }
+                if (calculateDetails.SW_Count != 0)
+                {
+                    yVals.add(new PieEntry((float)calculateDetails.SW_Count, "S-W"));
+                    colors.add(Color.parseColor("#1829FF"));
+                }
+                if (calculateDetails.SE_Count != 0)
+                {
+                    yVals.add(new PieEntry((float)calculateDetails.SE_Count, "S-E"));
+                    colors.add(Color.parseColor("#FF18ED"));
+                }
+
+                PieDataSet pieDataSet = new PieDataSet(yVals, "");
+                pieDataSet.setColors(colors);
+                pieDataSet.setValueTextSize(14f);
+                PieData pieData = new PieData(pieDataSet);
+                WindDirectDiagram.setData(pieData);
+                tableRow1.addView(WindDirectDiagram, new TableRow.LayoutParams(500, 700, 0.5f));
             }
             wind_direct_table.addView(tableRow1, i);
             k++;

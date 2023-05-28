@@ -133,6 +133,18 @@
     <Compile Include="DHT22.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="DS18B20.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DS18B20.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HTU21D.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HTU21D.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -143,6 +155,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="NRF24.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TWI.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TWI.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="usart.c">
