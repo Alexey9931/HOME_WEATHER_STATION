@@ -2,6 +2,7 @@ import time, datetime
 import telepot
 import mysql.connector
 from telepot.loop import MessageLoop
+from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton
 import report
 import LogsWriter
 
@@ -22,6 +23,8 @@ class Telegramm:
     wind_speed = ""
     wind_direct = ""
     rain = ""
+    vbat = ""
+    time = ""
     telegram_bot = None
 
     def start_Tg_BOT(self,editor_journal):
@@ -29,9 +32,18 @@ class Telegramm:
         try:
             Telegramm.telegram_bot = telepot.Bot(BOT_ID)
             MessageLoop(Telegramm.telegram_bot, Telegramm.action).run_as_thread()
-            Telegramm.telegram_bot.sendMessage(CHAT_ID,str("📢Доброго времени суток!\n"
-                                                    "⚡️Удаленный сервер для работы с HomeWeatherStation успешно запущен!⚡️\n"
-                                                    "💡Для получения дополнительной информации и помощи введите команду \"Help\"."))
+            # Telegramm.telegram_bot.sendMessage(CHAT_ID,str("📢Доброго времени суток!\n"
+            #                                         "⚡️Удаленный сервер для работы с HomeWeatherStation успешно запущен!⚡️\n"
+            #                                         "💡Для получения дополнительной информации и помощи введите команду \"Help\"."))
+
+            # markup = ReplyKeyboardMarkup(resize_keyboard=True)
+            # btn1 = types.KeyboardButton("Help")
+            # btn2 = types.KeyboardButton("MoreInfo")
+            # markup.add(btn1, btn2)
+            keyboard = ReplyKeyboardMarkup(keyboard=[['Help', 'MoreInfo'],["NowWeather", "Logs"]])
+            Telegramm.telegram_bot.sendMessage(CHAT_ID, str("📢Доброго времени суток!\n"
+                                                            "⚡️Удаленный сервер для работы с HomeWeatherStation успешно запущен!⚡️\n"
+                                                            "💡Для получения дополнительной информации и помощи введите команду \"Help\"."), reply_markup=keyboard)
 
             logs.write_log("OK!    "+datetime.datetime.now().strftime("%d-%b-%Y_%H:%M:%S")+' Телеграмм-бот успешно запущен ')
             editor_journal.configure(state='normal')
@@ -90,17 +102,19 @@ class Telegramm:
                         Telegramm.wind_speed = row[6]
                         Telegramm.wind_direct = row[7]
                         Telegramm.rain = row[8]
-                    Telegramm.telegram_bot.sendMessage(CHAT_ID,str("❗️Текущее состояние погоды на момент последнего измерения👇\n"
-                                                 "🔻На улице:\n"
-                                                 "      🌡ТЕМПЕРАТУРА         " + Telegramm.street_temp + " °C\n"
-                                                 "      💧ВЛАЖНОСТЬ           " + Telegramm.street_hum + " %\n"
-                                                 "      ☔️КОЛ-ВО ОСАДКОВ      " + Telegramm.rain + " %\n"
-                                                 "      🌬СКОРОСТЬ ВЕТРА      " + Telegramm.wind_speed + " м/с\n"
-                                                 "      🚩НАПРАВЛЕНИЕ ВЕТРА   " + Telegramm.wind_direct + "\n"
-                                                 "🔻В помещении:\n"
-                                                 "      🌡ТЕМПЕРАТУРА         " + Telegramm.home_temp + " °C\n"
-                                                 "      💧ВЛАЖНОСТЬ           " + Telegramm.home_hum + " %\n"
-                                                 "      🧭АТМ.ДАВЛЕНИЕ        " + Telegramm.pressure + " мм.рт.ст"))
+                        Telegramm.vbat = row[9]
+                        Telegramm.time = row[11]
+                    Telegramm.telegram_bot.sendMessage(CHAT_ID,str("❗️Текущее состояние погоды на момент последнего измерения (" + Telegramm.time +") 👇\n"))
+                    Telegramm.telegram_bot.sendMessage(CHAT_ID,str("\t🔻На улице:\n"
+                                                                    "🌡ТЕМПЕРАТУРА\t" + Telegramm.street_temp + " °C\n"
+                                                                    "💧ВЛАЖНОСТЬ\t" + Telegramm.street_hum + " %\n"
+                                                                    "☔️КОЛ-ВО ОСАДКОВ\t" + Telegramm.rain + " %\n"
+                                                                    "🌬СКОРОСТЬ ВЕТРА\t" + Telegramm.wind_speed + " м/с\n"
+                                                                    "🚩НАПРАВЛЕНИЕ ВЕТРА\t" + Telegramm.wind_direct + "\n"
+                                                                    "\t🔻В помещении:\n"
+                                                                    "ТЕМПЕРАТУРА\t" + Telegramm.home_temp + " °C\n"
+                                                                    "💧ВЛАЖНОСТЬ\t" + Telegramm.home_hum + " %\n"
+                                                                    "🧭АТМ.ДАВЛЕНИЕ\t" + Telegramm.pressure + " мм.рт.ст"))
                 except:
                     myconn.rollback()
                 finally:
